@@ -1,0 +1,203 @@
+<app-menu></app-menu>
+
+<div *ngIf="!toCheckout" class="cart-container">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th style="width:50%">Product</th>
+                <th style="width:15%">Quantity</th>
+                <th style="width:12%">Price</th>
+                <th style="width: 13%">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of items; let i = index">
+                <td data-th="Product">
+                    <div class="row prod-info" ngbPopover= "{{ item.description }}" [openDelay]="100" [closeDelay]="300" popoverTitle="Description" triggers="mouseenter:mouseleave">
+                        <div class="col-sm-2 hidden-xs img-container"><img src = "..\..\assets\dashboard\{{item.photo}}" alt="..." class="img-responsive cart-img"/></div>
+                        <div class="col-sm-10">
+                            <h4 class="nomargin">{{item.name}}</h4>
+                            <p>Shop: {{ item.shop }}</p>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Quantity">
+                    <span class="row">
+                        <i (click)="qtyMinus(i)" class="fas fa-minus"></i>
+                        <input [(ngModel)]="item.quantity" class="form-control qty-input">
+                        <i (click)="qtyPlus(i)" class="fas fa-plus"></i>
+                    </span>
+                </td>
+                <td data-th="Price">
+                    <div class="row">
+                        <strong>{{ item.price }}</strong>
+                    </div>
+                </td>
+                <td data-th="Subtotal">
+                    <div class="row">
+                        <strong>{{ (item.quantity*global.toCompareFormat(item.price)).toFixed(2) }} Lei</strong>
+                    </div>
+                </td>
+                <td>
+                    <button (click)="deleteFromCart(item.cartId)" class="btn border border-danger rounded delete-button"><i class="far fa-trash-alt"></i> Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="toCheckout&&!toAddress" class="cart-container">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <th style="width:50%">Item</th>
+            <th style="width:10%">Shop</th>
+            <th style="width:20%">Final Qty</th>
+            <th style="width:20%">Subtotal</th>
+        </thead>
+        <tbody >
+            <tr *ngFor="let item of items; let i = index">
+                <td class="checkout-table" data-th="Item">
+                    <div class="row prod-info">
+                        <div class="col-sm-2 hidden-xs img-container"><img src = "..\..\assets\dashboard\{{item.photo}}" alt="..." class="img-responsive cart-img"/></div>
+                        <div class="col-sm-10">
+                            <h4 class="nomargin">{{item.name}}</h4>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Subtotal">
+                    <div class="row">
+                        <strong class="text-warning">{{ item.shop }}</strong>
+                    </div>
+                </td>
+                <td data-th="Final Qty">
+                    <span class="row final-qty">
+                        <i class="fas fa-times"></i>
+                        <strong>{{ item.quantity }}</strong>
+                    </span>
+                </td>
+                <td data-th="Subtotal">
+                    <div class="row">
+                        <strong>{{ (item.quantity*global.toCompareFormat(item.price)).toFixed(2) }} Lei</strong>
+                    </div>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="toAddress" class="cart-container">
+    <div class="col">
+        <div class="row address-header">
+            <div class="col-md-6 text-center">
+                <h4><strong>Delivery Info</strong></h4>
+            </div>
+            <div class="col-md-6 text-center float-right">
+                <h4><strong>Billing Info</strong></h4>
+            </div>
+        </div>
+
+        <div class="row address-body">
+            <div class="col-md-6">
+                <div [ngStyle]="{'opacity':changeDelivery === false ? '0.5' : '1' }" class="row">
+                    <strong class="address-label">Delivery Person</strong>
+                    <input [disabled]='!changeDelivery' [(ngModel)]="deliveryPerson" class="form-control address-input">
+                </div>
+                <hr [ngStyle]="{'opacity':changeDelivery === false ? '0.5' : '1' }">
+                <div [ngStyle]="{'opacity':changeDelivery === false ? '0.5' : '1' }" class="row">
+                    <strong class="address-label">Delivery Address</strong>
+                    <textarea [disabled]='!changeDelivery' [(ngModel)]="deliveryAddress" class="form-control address-input" rows="3"></textarea>
+                </div>
+                <div class="row text-center address-change-btn">
+                    <button (click)='changeDeliveryInfo()' class="btn btn-md btn-full-width">Change</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div [ngStyle]="{'opacity':changeBilling === false ? '0.5' : '1' }" class="row">
+                    <strong class="address-label">Billing Person</strong>
+                    <input [disabled]='!changeBilling' [(ngModel)]="billingPerson" class="form-control address-input">
+                </div>
+                <hr [ngStyle]="{'opacity':changeBilling === false ? '0.5' : '1' }">
+                <div [ngStyle]="{'opacity':changeBilling === false ? '0.5' : '1' }" class="row">
+                    <strong class="address-label">Billing Address</strong>
+                    <textarea [disabled]='!changeBilling' [(ngModel)]="billingAddress" class="form-control address-input" rows="3"></textarea>
+                </div>
+                <div class="row text-center address-change-btn">
+                    <button (click)='changeBillingInfo()' class="btn btn-md btn-full-width">Change</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row float-right address-total">
+            <h4 class="text-danger"><strong>Final Price: {{ finalSum().toFixed(2) }} Lei</strong></h4>
+        </div>
+    </div>
+</div>
+
+<div class="cart-container">
+
+</div>
+
+<div class="total-container">
+    <div *ngIf="!toAddress" class="total-details">
+        <h3 class="text-muted">Product Total: {{ totalSum().toFixed(2) }} Lei</h3>
+        <h5 class="text-success">Discount Cupon({{ discount }}%): {{ (discount/100*totalSum()).toFixed(2) }} Lei</h5>
+        <h5 class="text-muted">Shipping: </h5>
+        <h3><strong class="text-danger">Final Total: {{ finalSum().toFixed(2) }} Lei</strong></h3>
+    </div>
+
+    <div *ngIf="!toAddress" class="discount-details">
+        <h5 *ngIf="!toCheckout">Enter promo code</h5>
+        <h5 *ngIf="toCheckout">Select payment method</h5>
+        <div *ngIf="toCheckout">            
+            <label class="checkbox float-left">
+                <input [checked]='cashPay' (change)="cashPay = !cashPay" type="checkbox"/>
+                <span class="warning"></span>
+            </label>
+
+            <div class="col-md-8 check-content float-left">
+                <strong>Cash on delivery</strong>
+            </div>
+        </div>
+
+        <br *ngIf="toCheckout"><br *ngIf="toCheckout">
+
+        <div *ngIf="toCheckout" class="check-content">
+            <label class="checkbox float-left">
+                <input [checked]='!cashPay' (change)="cashPay = !cashPay" type="checkbox"/>
+                <span class="warning"></span>
+            </label>
+
+            <div class="col-md-8 check-content float-left">
+                <strong>Card Payment</strong>
+                <img src="../../assets/payment.png">
+            </div>
+            
+        </div>
+        <input *ngIf="!toCheckout" [(ngModel)]='discountCode' class="form-control discount-code">
+        <button (click)='applyCode()' *ngIf="!toCheckout" class="btn btn-md btn-brand btn-full-width">
+            Apply Code
+        </button>
+    </div>
+
+    <div>
+        <button [ngStyle]="{'margin-top':toAddress === 1 ? '3%' : '0' }" *ngIf="toCheckout || toAddress" (click)="backToCart()" class="btn btn-lg btn-brand btn-full-width float-left">
+            Back
+        </button>
+        <button *ngIf="!toCheckout" (click)="goToCheckout()" class="btn btn-lg btn-brand btn-full-width float-right">
+            Go To Checkout
+        </button>
+        <button *ngIf="toCheckout && !toAddress" (click)="goToAddress()" class="btn btn-lg btn-brand btn-full-width float-right">
+            Address Info
+        </button>
+        <!-- <button [ngStyle]="{'margin-top':toAddress === 1 ? '3%' : '0' }" *ngIf="toAddress" (click)="goToPayment()" class="btn btn-lg btn-brand btn-full-width float-right">
+            Go to Payment
+        </button> -->
+        <button [ngStyle]="{'margin-top':toAddress === 1 ? '3%' : '0' }" *ngIf="toAddress" (click)="pay()" class="btn btn-lg btn-brand btn-full-width float-right">
+            Pay
+        </button>
+    </div>
+    
+</div>

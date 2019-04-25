@@ -1,0 +1,46 @@
+.wishlist-container{
+    margin-top: 5%;
+    box-shadow: 2px 0px 8px #888888;
+    background-color: white;
+    margin-left: 10%;
+    margin-top: 8%;
+    margin-right: 10%;
+}
+
+.wish-img{
+    width: 120%;
+    height: 80%;;
+}
+
+.price{
+    font-weight: bold;
+}
+
+.btn-danger{
+    margin-bottom: 5% !important;
+}
+
+agm-map {
+    height: 500px;
+    width: 100%;
+}
+
+.map-modal{
+    height: 500px;
+    width: 100%;
+    margin-bottom: 10%;
+}
+
+.btn-circle {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+thead{
+    background-color: rgba(211, 175, 55, 0.753);
+    box-shadow: 0 3px 3px 0 ;
+}

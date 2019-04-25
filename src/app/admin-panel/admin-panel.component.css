@@ -1,0 +1,55 @@
+.admin-scrap{
+    box-shadow: 2px 0px 8px #888888;
+    background-color: white;
+    margin-top: 2%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.admin-menu{
+    box-shadow: 2px 0px 8px #888888;
+    background-color: rgba(211, 175, 55, 0.753);
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-right: 10%;
+}
+
+.row{
+    height: 70px;
+}
+
+.col-md-3{
+    cursor: pointer;
+    text-align: center;
+    border-right: 1px solid grey;
+}
+
+.col-md-3:last-of-type{
+    border-right: 0px;
+}
+
+h6{
+    margin-top: 7%;
+}
+
+.col-md-3:hover{
+    background-color: #ffc107;
+}
+
+.insert{
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+.input-scrap{
+    width: 60%;
+}
+
+input {
+    margin-bottom: 1%;
+}
+
+button{
+    margin-bottom: 2%;
+}
+

@@ -1,0 +1,87 @@
+<div class='row background'>
+  <div class='col-md-6 auth-photo'>
+    <img src='..\..\assets\wall.png' class='wallpaper'>
+  </div>
+  <div class='col-md-6'>
+    <div class='auth-form'>
+      <div class='title'>
+        <img src='..\..\assets\es-logo.png' class='avatar'>
+      </div>
+
+      <div class='row auth-change-text'>
+        <div [ngClass]="signUpStyle" (click)="changeToSignUp()">
+          <h2>Sign Up</h2>
+        </div>
+        <div [ngClass]="loginStyle" (click)="changeToLogin()">
+          <h2>Login</h2>
+        </div>
+      </div>
+
+      <form *ngIf='!signedIn' method="POST" class="auth-group" (ngSubmit)="onSignUp()">
+        <div class='form-row' style="margin-bottom:10px;">
+          <div class='col'>
+              <label for="firstName">First Name</label>
+              <input type="text" [(ngModel)]="firstName" name="fn" id='firstName' class="form-control" placeholder="First Name..." required>
+          </div>
+          <div class='col'>
+              <label for="lastName">Last Name</label>
+              <input type="text" [(ngModel)]="lastName" name="ln" id='lastName' class="form-control" placeholder="Last Name..." required>
+          </div>
+        </div>
+
+        <div class='form-group'>
+            <label for="email">Email</label> 
+            <span [ngStyle]="{'display':hideWarningEmail === true ? 'none' : 'inline' }">&#10060; Please Enter a valid email</span>
+            <span [ngStyle]="{'display':hideWarningTakenEmail === true ? 'none' : 'inline' }">&#10060; Email already used!</span>
+            <input type="text" [(ngModel)]="email" name="email" class="form-control" id="email" placeholder="Email..." required>
+        </div>
+        <div class='form-group'>
+            <label for="address">Address</label>
+            <input type="text"[(ngModel)]="address" name="address" class="form-control" id="address" placeholder="Address(street, number, floor)..." required>
+        </div>
+
+        <div class='form-row' style="margin-bottom:10px;">
+            <div class='col'>
+                <label for="city">City</label>
+                <input type="text" [(ngModel)]="city" name="city" id='city' class="form-control" placeholder="City..." required>
+            </div>
+            <div class='col'>
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" [(ngModel)]="phoneNumber" name="pn" id='phoneNumber' class="form-control" placeholder="Phone Number..." required>
+            </div>
+        </div>
+
+        <div class='form-row' style="margin-bottom:10px;">
+            <div class='col'>
+                <label for="password">Password</label>
+                <input type="password" [(ngModel)]="password" name="pass" id='password' class="form-control" placeholder="Password..." required>
+            </div>
+            <div class='col'>
+                <label for="repeatPassword">Repeat Password</label> 
+                <span [ngStyle]="{'display':hideWarningPass === true ? 'none' : 'inline' }">&#10060; Wrong Password</span>
+                <input type="password" [(ngModel)]="repeatPassword" name="repass" id='repeatPassword' class="form-control" placeholder="Repeat Password..." required>
+            </div>
+        </div>
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </div>
+      </form>
+
+      <form *ngIf='signedIn' class="login-group" (ngSubmit) = "onLogin()">
+        <div class="form-group">
+            <label for="logEmail">Email</label>
+            <input type="text" [(ngModel)]="logEmail" name="le" class="form-control" id="logEmail" placeholder="Email..." required>
+        </div>
+
+        <div class="form-group">
+            <label for="logPassword">Password</label>
+            <input type="password" [(ngModel)]="logPassword" name="lp" class="form-control" id="logPassword" placeholder="Password..." required>
+        </div>
+
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

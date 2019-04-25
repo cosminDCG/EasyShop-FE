@@ -1,0 +1,239 @@
+<app-menu></app-menu>
+<hr>
+<div class="profile-container">
+
+    <div class="row">
+      <div class="col-sm-3 left-profile">
+          <div class="text-center profile-picture-container">
+              <img src="..\..\assets\{{user.photo}}" class="img-form" alt="avatar">
+              <div class="custom-file">
+                    <input [(ngModel)]='selectedFile' (change) = 'pathChange($event)' type="file" class="custom-file-input">
+                    <label *ngIf="global.currentUser.id == user.id" class="custom-file-label" for="inputGroupFile01">{{ uploadLabel }}</label>
+              </div>
+          </div>
+          <ul class="list-group activity-group">
+              <li class="list-group-item text-muted text-center">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong>Orders</strong></span> {{ nrOfOrders }}</li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong>Reviews</strong></span> {{ nrOfReviews }}</li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong>Comments</strong></span> {{ nrOfComments }}</li>
+            </ul>
+          <br>
+      </div>
+
+      <div class="col-sm-7 right-profile float-right">
+          <div *ngIf="global.currentUser.id === user.id" class="col-md-2 float-left">
+            <div class="row-md-3 text-center user-opt">
+                <h6 *ngIf='(global.currentUser.id === user.id) && !editMode' (click)='enableEditMode()'><strong>Edit Profile</strong></h6>
+                <h6 *ngIf='editMode' (click)='saveChanges()'><strong>Save Changes</strong></h6>
+            </div>
+            <div class="row-md-3 text-center user-opt">
+                <h6><strong>Change Password</strong></h6>
+            </div>
+            <div class="row-md-3 text-center delete-account" data-toggle="modal" data-target="#deleteModal">
+                <h6><strong>Delete Account</strong></h6>
+            </div>
+          </div> 
+          <div class="col-md-4 float-left user-info">
+            <div class="row">
+                <label for="first_name"><h6>First name</h6></label>
+                <h4 *ngIf='!editMode' name="first_name" id="first_name">{{user.firstName}} </h4>
+                <input *ngIf='editMode' [(ngModel)] = 'user.firstName' type="text" class="form-control">
+            </div>
+    
+            <div class="row">
+                <label for="email"><h6>Email</h6></label>
+                <h4 *ngIf='!editMode' name="email" id="email">{{user.email}} </h4>
+                <input *ngIf='editMode' [(ngModel)] = 'user.email' type="text" class="form-control">
+            </div>
+
+            <div class="row">
+                <label for="address"><h6>Address</h6></label>
+                <h4 *ngIf='!editMode' name="address" id="address">{{user.address}} </h4>
+                <input *ngIf='editMode' [(ngModel)] = 'user.address' type="text" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-4 float-right user-info">
+            <div class="row">
+                <label for="last_name"><h6>Last name</h6></label>
+                <h4 *ngIf='!editMode' name="last_name" id="last_name">{{user.lastName}} </h4>
+                <input *ngIf='editMode' [(ngModel)] = 'user.lastName' type="text" class="form-control">
+            </div>
+
+            <div class="row">
+                <label for="phoneNumber"><h6>Phone Number</h6></label>
+                <h4 *ngIf='!editMode' name="phoneNumber" id="phoneNumber">{{user.phoneNumber}} </h4>
+                <input *ngIf='editMode' [(ngModel)] = 'user.phoneNumber' type="text" class="form-control">
+            </div>
+    
+            <div class="row">
+                <label for="city"><h6>City</h6></label>
+                <h4 *ngIf='!editMode' name="city" id="city">{{user.city}} </h4>
+                <input *ngIf='editMode' [(ngModel)] = 'user.city' type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-md-6 easy-edit">
+              
+          </div>
+      </div>
+
+    </div>
+</div>
+
+<div *ngIf="global.currentUser.id === user.id" class="option-container">
+    <div class="nav flex-column nav-pills float-left" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fas fa-history"></i> Orders History</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="fas fa-percent"></i> Your Promo Codes</a>
+      </div>
+      <div class="tab-content float-right" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <div class="col promo-rows">
+                <div class="row promo-header">
+                    <div class="col-md-2 text-center">
+                        <h5><strong>No.</strong></h5>
+                    </div>
+                    <div class="col-md-5 text-center">
+                        <h5><strong>Order</strong></h5>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h5><strong>Value</strong></h5>
+                    </div>
+                    <div class="col-md-2  text-center">
+                        <h5><strong>Date</strong></h5>
+                    </div>
+                </div>
+                <div class="body-container order-cursor">
+                    <div *ngFor="let order of orders; let i = index" (click)="showOrderDetails(order)" class="row promo-body" data-toggle="modal" data-target="#orderModal">
+                        <div class="col-md-2 text-center">
+                            <strong>{{i+1}}.</strong>
+                        </div>
+                        <div class="col-md-5 text-center">
+                            <h6><strong>#{{orderNumber(order.id)}}</strong></h6>
+                            <strong class="text-muted">Delivered to: {{ order.deliveryPerson }}</strong><br>
+                            <strong class="text-muted">Address: {{ order.deliveryAddress }}</strong>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <strong>{{ order.price }} lei</strong>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <strong>{{ order.data }}</strong>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <div class="col promo-rows">
+                <div class="row promo-header">
+                    <div class="col-md-2 text-center">
+                        <h5><strong>No.</strong></h5>
+                    </div>
+                    <div class="col-md-5 text-center"> 
+                        <h5><strong>Promo Code</strong></h5>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h5><strong>Discount Value(%)</strong></h5>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h5><strong>Status</strong></h5>
+                    </div>
+                </div>
+                <div class="body-container">
+                    <div *ngFor="let promo of promos; let i = index" class="row promo-body" [ngStyle]="{'opacity':promo.state === 'used' ? '0.5' : '1' }">
+                        <div class="col-md-2 text-center">
+                            <strong>{{i+1}}.</strong>
+                        </div>
+                        <div class="col-md-5 text-center">
+                            <strong>{{ promo.promoCode }}</strong>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <strong>{{ promo.promoPercent }}</strong>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <strong [class.text-success]="promo.state === 'unused'" [class.text-danger]="promo.state === 'used'">{{ promo.state }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+</div>
+
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="mapModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="mapModalTitle"><strong>Order: #{{ currentOrder }}</strong></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body map-modal">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <th style="width:50%">Item</th>
+                    <th style="width:10%">Qty</th>
+                    <th style="width:20%">Price</th>
+                    <th style="width:20%">Subtotal</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of currentOrderItems; let i = index">
+                        <td data-th="Item">
+                            <div class="row-md-6">
+                                <h5><strong>{{ formatItemName(item.name) }}</strong></h5>
+                            </div>
+                            <div class="row-md-6">
+                                <strong class="text-muted">Shop: {{ item.shop }} | Category: {{ item.category }}</strong>
+                            </div>
+                        </td>
+                        <td data-th="Qty">
+                            <span class="row final-qty">
+                                <i class="fas fa-times"></i>
+                                <strong>{{ item.quantity }}</strong>
+                            </span>
+                        </td>
+                        <td data-th="Price">
+                            <div class="row text-center">
+                                <strong>{{ item.price }}</strong>
+                            </div>
+                        </td>
+                        <td data-th="Subtotal">
+                            <div class="row">
+                                <strong>{{ global.toCompareFormat(item.price)*item.quantity }} Lei</strong>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <h4 class="text-danger payed-price"><strong>Payed: {{ currentOrderPrice }} Lei</strong></h4>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="mapModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header delete-modal text-center">
+          <h4 class="modal-title" id="mapModalTitle"><strong>Delete your account</strong></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <span class="delete-message text-center">
+                <i class="fas fa-exclamation-triangle"></i><br>
+                <strong> Are you sure you want to delete your account?</strong>
+            </span>
+            
+        </div>
+        <div class="modal-footer delete-modal">
+            <button type="button" class="btn btn-primary mr-auto" data-dismiss="modal">NO</button>
+            <button (click)=deleteUser(user.id) type="button" class="btn btn-secondary">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,58 @@
+<app-menu></app-menu>
+
+<div class="wishlist-container">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th style="width:67%">Product</th>
+                <th style="width:10%">Current Price</th>
+                <th style="width:10%">Expected Price</th>
+                <th style="width: 13%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items; let i = index">
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-2 hidden-xs img-container"><img src = "..\..\assets\dashboard\{{item.photo}}" alt="..." class="img-responsive wish-img"/></div>
+                        <div class="col-sm-10">
+                            <h4 class="nomargin">{{item.name}}</h4>
+                            <p>Shop: {{ item.shop }}</p>
+                        </div>
+                    </div>
+                </td>
+                <td [ngStyle]="{'color': global.toCompareFormat(item.price) <= global.toCompareFormat(item.expectedPrice)?'green':'red'}" class="price" data-th="Current Price">{{item.price}}</td>
+                <td data-th="Current Price"><strong class="text-warning">{{item.expectedPrice}} Lei</strong></td>
+                <td class="actions" data-th="">
+                    <button class="btn btn-danger" (click) = "deleteWishItem(item.wishId)"><i class="far fa-trash-alt"> Remove</i></button><br>
+                    <button *ngIf="global.toCompareFormat(item.price) <= global.toCompareFormat(item.expectedPrice)" class="btn btn-info" data-toggle="modal" (click)="getShopCoordonates(item.shop)" data-target="#mapModal"><i class="fas fa-map-marker-alt"></i> Map View</button>								
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mapModalTitle">Your position and position of the shop</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body map-modal">
+            <a *ngIf="!showClosest" class="btn btn-warning btn-circle text-uppercase" (click) = "selectClosestShop()">Show closest shop</a>
+            <a *ngIf="showClosest" class="btn btn-warning btn-circle text-uppercase" (click) = "selectAllShops()">Show all shops</a>
+            <agm-map id="map" [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapReady)="mapReady($event)">
+                <agm-marker [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [label] = "label" [iconUrl] = 'icon'></agm-marker>
+                <agm-marker *ngFor="let shop of shops; let i = index" [latitude]="shop.lat" [longitude]="shop.lng" [label] = "shop.label" [iconUrl]='shopIcon'></agm-marker>
+            </agm-map>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

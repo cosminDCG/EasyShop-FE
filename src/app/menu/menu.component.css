@@ -1,0 +1,71 @@
+.easy-logo{
+  width: 110px;
+}
+
+.nav-dist-left{
+  margin-left: 20px;
+}
+
+.nav-dist-left{
+  margin-right: 20px;
+}
+
+.nav-border{
+  border-right: 1px solid grey;
+}
+
+.easy-search {
+  width: 500px;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.easy-search-button{
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.align-search {
+  margin-left: 100px;
+}
+
+.nav-shadow {
+  box-shadow: 0 2px 2px 0 ;
+}
+
+.log-out:hover{
+  color: red !important;
+  cursor: pointer;
+}
+
+#lblCartCount {
+  font-size: 12px;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -4px;
+}
+.badge {
+padding-left: 9px;
+padding-right: 9px;
+-webkit-border-radius: 9px;
+-moz-border-radius: 9px;
+border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+background-color: #c67605;
+}
+
+#wishCount {
+  font-size: 12px;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -4px;
+}
+
+.drop-menu{
+  cursor: pointer;
+}

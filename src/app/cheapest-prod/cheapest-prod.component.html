@@ -1,0 +1,30 @@
+<app-menu></app-menu>
+<div class="cheap-body">
+    <div class="col">
+        <div class="row-md-3 cheap-title text-center">
+            <h3><strong>Enter your list and get cheapest choices</strong></h3>
+        </div>
+        <div class="row">
+            <input [(ngModel)]= "searchItem" (keyup.enter)="addItem()" class="form-control">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row-md-2 text-center head">
+                   <h4><strong>Your List</strong></h4>  
+                </div>
+            </div>  
+            <div class="col-md-6">
+                <div class="row-md-2 text-center head">
+                    <h4><strong>Result</strong></h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row-md-1" *ngFor="let item of targetItems; let i = index">
+                    <strong>{{ item }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+.dash-antet{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.dash-pagination{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 35%;
+}
+
+.dash-pagination-bottom{
+    margin-bottom: 2%;
+    margin-left: 25%; 
+}
+
+.dash-body{
+    background-color: white;
+    top: 8%;
+    margin-bottom: 5%;
+    margin-left: 12%;
+    width: 75%;
+    box-shadow: 2px 0px 8px #888888;
+}
+
+.admin-button{
+    margin-top: 3%;
+    margin-right: 3%;
+}
+
+.item-card{
+    margin-top: 4%;
+    margin-bottom: 4%;
+    cursor: pointer;
+}
+
+.cart-container-left{
+    height: 100%;
+    text-align: center;
+    border-right: 1px solid grey;
+}
+
+.cart-container-right{
+    text-align: center;
+    height: 100%;
+}
+
+.cart-icon:hover{
+    color: green;
+}
+
+.cart-icon{
+    font-size: 200%;
+    color:grey;
+}
+
+.wish-icon{
+    font-size: 200%;
+    color:grey;
+}
+
+.wish-icon:hover{
+    color: yellow;
+}
+
+.buy-text{
+    font-size: 120%;
+}
+
+.wish-input{
+    margin-right: 10%;
+}
+
+.dropdown{
+    margin-left: 2%;
+}
+
+.dash-img{
+    height: 50%;
+}
+
+.card-body {
+    position: relative;
+}
+
+.card-body h5{
+    position: absolute;
+    bottom: 0;
+}
+
+.review-star{
+    font-size: 150%;
+    margin-left: 4%;
+}
+
+.border-warning{
+    margin-right: 2%;
+}
+
+.filter-cont{
+    margin-top: 3%;
+    margin-left: 3%;
+    width: 100%;
+    height: 10%;
+}
+
+.range-container{
+    width: 35%;
+    margin-left: 3%;
+}
+
+.card{
+    height: 650px;
+}
+
+.category-card{
+    height: 300px;
+    border: 1px solid grey;
+}
+
+.category-img{
+    height: 80%;
+}
+
+.cat-title{
+    margin-top: 2%;
+    margin-left: 30%;
+}
+
+.cat-body{
+    border-top: 1px solid grey;
+}
+
+.card img{
+    margin-top: 2%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    width: auto;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(211, 175, 55, 0.753);
+    margin-left: 5%;
+    margin-right: 4.5%;
+  }
+
+  .category-card:hover .overlay{
+    opacity: 0.5;
+  }
+
+  .category-card:hover .text{
+    opacity: 1;
+  }
+
+  .text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }

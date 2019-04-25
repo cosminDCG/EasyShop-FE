@@ -1,0 +1,195 @@
+<app-menu></app-menu>
+
+<div class="container product-page">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="..\..\assets\dashboard\{{currentProduct.photo}}" class="image-responsive img-product"/>
+    </div>
+    <div class="col-md-6 info-prod">
+
+      <div class="row">
+        <div class="col-md-12">
+         <h4>{{currentProduct.name}}</h4>
+       </div>
+      </div>
+
+       <div class="row">
+        <div class="col-md-12">
+          <h5><span class="badge badge-warning">{{currentProduct.category}}</span></h5>
+          <h5><span class="badge badge-primary">Sold by {{currentProduct.shop}}</span></h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <h5 *ngFor="let i of [1,2,3,4,5]" (click)="giveRating(i)" [ngStyle]="{'color':i <= currentProduct.review ? 'yellow' : 'black' }"><fa class="icon-foo" name="star"></fa></h5>
+          <span class="badge badge-success">{{ currentProduct.reviewers }} revs</span>
+        </div>
+        <div class="col-md-3">
+          <span>Write a Review</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 bottom-rule">
+          <h2 class="product-price">{{currentProduct.price}}</h2>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row add-to-cart">
+        <div class="col-md-4 product-qty">
+          <span class="btn btn-default btn-lg btn-qty" (click)="minusQty()">
+            <fa name="minus"></fa>
+          </span>
+          <input [(ngModel)]="quantity" class="form-control qty-input" />
+          <span class="btn btn-default btn-lg btn-qty" (click)="plusQty()">
+            <fa name="plus"></fa>
+          </span>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-lg btn-brand btn-full-width" (click)="addToCart(currentProduct.id)">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <span class="monospaced">In Stock</span>
+        </div>
+        <div class="col-md-4 col-md-offset-1 text-center">
+          <a class="monospaced" href="#">Add to Shopping List</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 bottom-rule top-10"></div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-12 top-10">
+          <p>To order by telephone, <a href="tel:07xx.xxx.xxx">please call 07xx.xxx.xxx</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Description</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Features</a>
+              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Reviews</a>
+              <a class="nav-item nav-link" id="nav-add-review-tab" data-toggle="tab" href="#nav-add-review" role="tab" aria-controls="nav-add-review" aria-selected="false">Add Review</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active tab-prod" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">{{currentProduct.description}}</div>
+            <div class="tab-pane fade tab-prod feature-tab" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let feature of currentProductProperties; let i = index">
+                    <td>{{feature.name}}</td>
+                    <td>{{feature.description}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade tab-prod" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+              <div class="container" *ngFor="let review of currentProductReviews; let i = index">
+                <div class="row">
+                  <div class="media comment-box">
+                    <div class="media-left">
+                        <img (click)="goToUserProfile(review.userId)" class="rounded-circle user-photo" src="..\..\assets\{{review.photo}}">
+                    </div>
+
+                    <div class="media-body">
+                        <div class="media-heading">
+                            <span> 
+                              <strong (click)="goToUserProfile(review.userId)">{{ review.firstName}} {{ review.lastName }} </strong> 
+                              <h6 *ngFor="let i of [1,2,3,4,5]" [ngStyle]="{'color':i <= review.review ? 'rgba(244, 208, 63, 1)' : 'black' }"><fa class="icon-foo" name="star"></fa></h6>
+                              <small class="text-muted">- {{ review.data }}</small>
+                              <fa *ngIf="review.userId == global.currentUser.id" class="float-right rev-icon" (click)="deleteReview(review.id)" name="trash"></fa>
+                              <fa *ngIf="review.userId == global.currentUser.id" class="float-right rev-icon" name="comments"></fa>
+                            </span>
+                        </div>
+                        <div class="content">
+                          <p>{{ review.comment }}</p>
+                          <a class="btn btn-info btn-circle text-uppercase" (click)="reviewReplyToggle(review.id)" id="reply"><fa name="share"></fa> Reply</a>
+                          <a class="btn btn-warning btn-circle text-uppercase" (click)="showReplies(review.id)" data-toggle="collapse"><fa name="comment"></fa> Show  {{review.replies.length}} replies</a>
+                          <div *ngIf="toggleReviewReplies.includes(review.id)">
+                          <div  *ngFor="let reply of review.replies; let j = index" class="row">
+                              <div class="media comment-box">
+                                <div class="media-left">
+                                  <img (click)="goToUserProfile(reply.userId)" class="rounded-circle user-photo reply-photo" src="..\..\assets\{{reply.photo}}">
+                                </div>
+                                <div class="media-body reply-body">
+                                  <div class="media-heading">
+                                    <span>
+                                      <strong (click)="goToUserProfile(reply.userId)">{{ reply.firstName }} {{ reply.lastName }}</strong>
+                                      <small class="text-muted">- {{ reply.data }}</small>
+                                      <fa *ngIf="reply.userId == global.currentUser.id" class="float-right rev-icon" (click)="deleteReply(reply.id, i, j)" name="trash"></fa>
+                                      <fa *ngIf="reply.userId == global.currentUser.id" class="float-right rev-icon" name="comments"></fa>
+                                    </span>
+                                  </div>
+                                  <div class="content">
+                                    <span>
+                                        <p>{{reply.comment}}</p>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="toggleReply.includes(review.id)" class="row">
+                            <div class="media comment-box">
+                              <div class="media-left">
+                                <img class="rounded-circle user-photo reply-photo" src="..\..\assets\{{currentUser.photo}}">
+                              </div>
+                              <div class="media-body reply-body">
+                                <div class="media-heading">
+                                  <span>
+                                    <strong>{{ currentUser.firstName }} {{ review. lastName }}</strong>
+                                  </span>
+                                </div>
+                                <div class="content">
+                                  <span>
+                                      <input [(ngModel)]="replyText"class="form-control">
+                                      <button (click)="addReply(i,review.id)" class="btn btn-sm btn-brand btn-full-width">POST</button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade tab-prod" id="nav-add-review" role="tabpanel" aria-labelledby="nav-add-review-tab">
+              <div class="row comment-tab">
+                <div class="col-md-2">
+                  <img src="..\..\assets\{{currentUser.photo}}" class="rounded-circle user-photo">
+                </div>
+                <div class="col-md-10 float-right">
+                    Give a rating:<br>
+                    <h5 *ngFor="let i of [1,2,3,4,5]" (click)="allowReview ? giveRating(i) : $event.stopPropagation()" [ngStyle]="{'color':i <= rating ? 'yellow' : 'black' }"><fa class="icon-foo" name="star"></fa></h5>
+                    <hr>
+                    <textarea [disabled]="!allowReview" [(ngModel)]="comment" class="form-control" rows="3"></textarea>
+                    <button [disabled]="!allowReview" class="btn btn-lg btn-brand btn-full-width post-review" (click)="addReview()">Post</button>
+                </div>
+              </div>
+           </div>
+          </div>
+    </div>
+  </div>
+</div>

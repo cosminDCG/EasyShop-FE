@@ -1,0 +1,29 @@
+<app-menu></app-menu>
+
+<div class="col-md-10 admin-menu">
+  <div class="row">
+    <div class="col-md-3 float-left">
+      <h6><strong>Start Scraping</strong></h6> 
+    </div>
+    <div class="col-md-3 float-left">
+      <h6><strong>Users Management</strong> </h6>
+    </div>
+    <div class="col-md-3 float-left">
+      <h6><strong>Shop Statistics</strong></h6>
+    </div>
+    <div class="col-md-3 float-left">
+      <h6><strong>All Orders</strong></h6>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-10 admin-scrap">
+  <div class="row-md-2">
+      <h3>Insert a link for scraping</h3>
+  </div>
+  
+  <div class="row-md-6 insert">
+    <input [(ngModel)] = 'link' type="text" class="form-control input-scrap">
+    <button class="btn btn-warning" (click)="startScrap($event)">Scrap</button>
+  </div>
+</div>

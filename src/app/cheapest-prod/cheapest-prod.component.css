@@ -1,0 +1,29 @@
+.cheap-body{
+    background-color: white;
+    margin-top: 8%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: 2px 0px 8px #888888;
+}
+
+.col{
+    padding: 0%;
+}
+
+input{
+    width: 50%;
+    margin-left: 2%;
+    margin-top: 5%;
+}
+
+.cheap-title{
+    background-color: rgba(211, 175, 55, 0.753);
+    padding: 0%;
+    width: 100%;
+}
+
+.head{
+    margin-top: 5%;
+    height: 100%;
+}

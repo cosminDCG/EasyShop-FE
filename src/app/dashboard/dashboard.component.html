@@ -1,0 +1,89 @@
+<app-menu></app-menu>
+<div class="row dash-antet">
+
+    <button *ngIf = "showAdminButton" class="btn btn-info ml-auto admin-button" (click) = 'goToAdminPanel()'>Admin Panel</button>
+</div>
+
+<div class="row dash-pagination">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+
+<div *ngIf="!seeProd" class="row dash-body">
+    <div *ngFor="let category of categories; let i = index" class="col-md-3 float-right item-card rounded-circle">
+        <div (click) = "selectCategory(category)" class="category-card" style="width: 18rem;">
+            <img src="..\..\assets\dashboard\{{catPhoto(category).photo}}"  class="card-img-top category-img">
+            <div class="card-body cat-body text-center">
+                <h5 class="card-title cat-title">{{category}}</h5>
+            </div>
+            <div class="overlay">
+                <div class="text">See items</div>
+              </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="seeProd" class="row dash-body">
+    <div class="btn-group filter-cont">
+        <div class="dropdown">
+        
+            <a class="dropdown-toggle nav-link border border-warning rounded" id="easyMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <fa name="bars"></fa>
+                {{categoryFilter}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="easyMenu">
+                <a (click) = "selectCategory('None')" class="dropdown-item">None</a>
+                <a *ngFor="let category of categories" (click) = "selectCategory(category)" class="dropdown-item">{{category}}</a>
+            </div>
+        </div>
+
+        <div class="dropdown float-right">
+            <a class="dropdown-toggle nav-link border border-warning rounded" id="easy-price" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <fa name="bars"></fa>
+                {{priceFilter}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="easy-price">
+                <a (click) = "selectPrice('None')" class="dropdown-item">None</a>
+                <a (click) = "selectPrice('High to Low')" class="dropdown-item">High to Low</a>
+                <a (click) = "selectPrice('Low to High')" class="dropdown-item">Low to High</a>
+            </div>
+        </div>
+
+        <div class="range-container">
+            <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options" (userChangeEnd)="onPriceChange($event)"></ng5-slider>
+        </div>
+    </div><br>
+
+    <div *ngFor="let item of items | paginate: { itemsPerPage: 12, currentPage: p }; let i = index" class="col-md-3 float-right item-card">
+        <div class="card" style="width: 18rem;">
+            <img (click)="seeItemDetails(item)" class="card-img-top dash-img" src="..\..\assets\dashboard\{{item.photo}}" alt="Card image cap">
+            <div (click)="seeItemDetails(item)" class="card-body">
+                <h5 class="card-title">{{item.name.substring(0,27) + "..."}}</h5>
+            </div>
+            <ul (click)="seeItemDetails(item)" class="list-group list-group-flush">
+                <li class="list-group-item">{{item.price}}</li>
+                <li class="list-group-item">
+                    <fa *ngFor="let i of [1,2,3,4,5]" [ngStyle]="{'color':i <= item.review ? 'yellow' : 'black' }" class="review-star" name="star"></fa>
+                    (<strong>avg :</strong> {{item.review.toFixed(2)}})
+                </li>
+                <li class="list-group-item">{{item.shop}}</li>
+            </ul>
+            <div >
+                <div class="col-md-6 cart-container-left float-left">
+                    <fa (click)="addToCart(item.id)" name="cart-arrow-down" class="text-center cart-icon"></fa>
+                </div>
+                <div class="col-md-6 cart-container-right float-right">
+                    <ng-template #popContent>
+                        <input [(ngModel)]='desiredPrice' class="form-control"> <br>
+                        <button [disabled]="desiredPrice.length === 0" class="btn btn-warning" (click)="addToWishlist(item); wishPopover.close()">Add to wishlist</button>
+                    </ng-template>
+                    <ng-template #popTitle><b class="wish-input">Enter desired price</b> </ng-template>
+                    <fa name="star" #wishPopover = "ngbPopover" container = "body" [ngbPopover]="popContent" [popoverTitle]="popTitle" [autoClose]="'outside'" placement="right" class="text-center wish-icon" [ngClass]="'pop' + i"></fa>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row dash-pagination-bottom">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>

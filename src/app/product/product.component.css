@@ -1,0 +1,157 @@
+.product-page{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: white;
+    box-shadow: 2px 0px 8px #888888;
+    border-left: 5px solid rgba(211, 175, 55, 0.753);
+}
+
+.img-product{
+    width: 100%;
+    height: 100%;
+    
+}
+
+.prod-badge{
+    margin-right: 5%;
+}
+
+h5{
+    display: inline;
+    margin-right: 2%;
+}
+
+h6{
+    display: inline;
+    margin-right: 1%;
+}
+
+.add-to-cart .btn-qty {
+    width: 52px;
+    height: 46px;
+}
+
+.add-to-cart .btn { 
+    border-radius: 0; 
+}
+
+.btn-sm{
+    margin-top: 2%;
+    border-radius: 0;
+}
+
+.btn-full-width{
+    background-color: rgba(211, 175, 55, 0.753);
+}
+
+.qty-input{
+    width: 30%;
+    display: inline;
+}
+
+.tab-prod{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 3%;
+}
+
+.feature-tab{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.info-prod .row{
+    margin-top: 5%;
+}
+
+.user-photo{
+    padding: 0;
+    line-height: 80px;
+    width: 80px;
+    height: 80px;
+}
+
+.comment-tab{
+    margin-top: 2%;
+}
+
+.post-review{
+    margin-top: 2%;
+    border-radius: 0; 
+}
+
+.comment-box{
+    margin-top: 2%;
+    width: 100%;
+}
+
+.comment-box img {
+    width: 70px;
+    height: 70px;
+}
+.comment-box .media-left {
+    padding-right: 10px;
+    width: 65px;
+}
+
+.media-body{
+    margin-left: 3%;
+}
+
+h6{
+    width: 25%;
+}
+.comment-box .media-body .content {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+.comment-box .media-body .media p {
+    margin-bottom: 0;
+}
+.comment-box .media-heading {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 7px 10px;
+    position: relative;
+    margin-bottom: -1px;
+}
+.comment-box .media-heading:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-width: 1px 0 0 1px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 10px;
+    left: -6px;
+}
+
+.rev-icon{
+    margin-right: 2%;
+    font-size: 120%;
+    cursor: pointer;
+}
+
+.rev-icon:first-of-type:hover{
+    color: red;
+}
+
+.btn-circle {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin-right: 2%;
+}
+.btn-circle span { padding-right: 6px; }
+
+.reply-photo{
+    margin-left: 30%;
+}
+
+.reply-body{
+    margin-right: 10%;
+}
