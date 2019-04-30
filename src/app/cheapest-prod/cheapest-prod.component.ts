@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ItemService } from '../services/item-service/item.service';
+import { GlobalService } from '../services/global-service/global.service';
 
 @Component({
   selector: 'app-cheapest-prod',
@@ -10,14 +12,26 @@ export class CheapestProdComponent implements OnInit {
   public searchItem: any;
   public targetItems: any = [];
 
-  constructor() { }
+  public choices: any;
+
+  constructor(private itemService: ItemService,
+              private global: GlobalService) { }
 
   ngOnInit() {
   }
 
   addItem(){
     this.targetItems.push(this.searchItem);
-    console.log(this.targetItems);
+    this.searchItem = '';
+  }
+
+  getCheapestChoices(){
+    this.itemService.getCheapestChoices(this.targetItems).subscribe((res:any)=>{
+      this.choices = res;
+      console.log(this.choices);
+    }, (err)=>{
+
+    });
   }
 
 }

@@ -11,4 +11,8 @@ export class ItemService {
   itemProperties(id){
     return this.http.get('http://localhost:8090/item/properties?id=' + id);
   }
+
+  getCheapestChoices(criterias){
+    return this.http.post('http://localhost:8090/item/cheapest', criterias);
+  }
 }

@@ -24,6 +24,13 @@
                 <div class="row-md-1" *ngFor="let item of targetItems; let i = index">
                     <strong>{{ item }}</strong>
                 </div>
+                <button (click) = "getCheapestChoices()" class="btn btn-success">Get Products</button>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row-md-1" *ngFor="let choice of choices; let i = index">
+                    <strong>{{ choice.name }}</strong>
+                </div>
             </div>
         </div>
     </div>
