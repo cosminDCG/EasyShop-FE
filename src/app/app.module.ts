@@ -9,6 +9,8 @@ import { PopoverModule } from "ngx-smart-popover";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { Ng5SliderModule } from 'ng5-slider';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -48,6 +50,7 @@ import { CheapestProdComponent } from './cheapest-prod/cheapest-prod.component';
     HttpClientModule,
     NgxPaginationModule,
     Ng5SliderModule,
+    BrowserAnimationsModule,
     AngularFontAwesomeModule,
     NgbModule,
     AgmCoreModule.forRoot({
@@ -55,6 +58,11 @@ import { CheapestProdComponent } from './cheapest-prod/cheapest-prod.component';
     }),
     LoadingBarModule,
     PopoverModule,
+    ToastrModule.forRoot({
+      timeOut: 1200,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
     FormsModule,
     RouterModule.forRoot([
       {

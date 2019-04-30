@@ -1,0 +1,17 @@
+.inbox-body{
+    background-color: white;
+    margin-top: 8%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: 2px 0px 8px #888888;
+}
+
+.messages-header{
+    background-color: rgba(211, 175, 55, 0.753);
+}
+
+h5{
+    margin-block-start: 0%;
+    margin-block-end: 0%;
+}

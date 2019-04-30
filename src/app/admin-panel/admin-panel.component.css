@@ -53,3 +53,34 @@ button{
     margin-bottom: 2%;
 }
 
+.users-container{
+    margin-top: 5%;
+    box-shadow: 2px 0px 8px #888888;
+    background-color: white;
+    margin-left: 10%;
+    margin-top: 2%;
+    margin-right: 7%;
+}
+
+thead{
+    background-color: #ffc107;
+    box-shadow: 0 3px 3px 0 ;
+}
+
+.dropdown{
+    width: 110px;
+}
+
+a{
+    cursor: pointer;
+}
+
+.ban-button{
+    color: red !important;
+}
+
+.promo-button{
+    color: green !important;
+}
+
+

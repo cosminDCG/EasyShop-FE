@@ -44,3 +44,17 @@ thead{
     background-color: rgba(211, 175, 55, 0.753);
     box-shadow: 0 3px 3px 0 ;
 }
+
+.btn-danger, .btn-info, .btn-buy{
+    border-radius: 0%;
+    min-width: 150px;
+}
+
+.btn-buy{
+    color: white;
+}
+
+.btn-full-width{
+    background-color: rgba(211, 175, 55, 0.753);
+    margin-top: 5% !important;
+}

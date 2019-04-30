@@ -7,6 +7,7 @@ import { DashboardService } from '../services/dashboard-service/dashboard.servic
 import { GlobalService } from '../services/global-service/global.service';
 import { WishlistService } from '../services/wishlist-service/wishlist.service';
 import { CartService } from '../services/cart-service/cart.service';
+import { ToastrService } from 'ngx-toastr';
 import * as $AB from 'jquery';
 
 @Component({
@@ -47,7 +48,8 @@ export class DashboardComponent implements OnInit {
               private router: Router, 
               private dashboardService:DashboardService,
               private wishlistService:WishlistService,
-              private cartService:CartService) { }
+              private cartService:CartService,
+              private toastrService :ToastrService) { }
 
   ngOnInit() {
     this.global.redirectUserProfile = null;
@@ -119,6 +121,7 @@ export class DashboardComponent implements OnInit {
     this.wishlistService.insertWishItem(wishItem).subscribe((res:any)=>{
       this.desiredPrice = "";
       this.global.wishItemsNo++;
+      this.toastrService.success("", "Added to Wishlist");
     }, (err)=>{
       console.log("error");
     })
@@ -163,6 +166,7 @@ export class DashboardComponent implements OnInit {
 
     this.cartService.addToCart(toCart).subscribe((res:any)=>{
       this.global.cartItemsNo++;
+      this.toastrService.success("", "Added toCart");
     }, (err)=>{
       console.log("Error");
     });

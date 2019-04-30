@@ -1,11 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 import { GlobalService } from '../services/global-service/global.service';
 import { ItemService } from '../services/item-service/item.service';
 import { ReviewService } from '../services/review-service/review.service';
 import { UserService } from '../services/user-service/user.service';
 import { CartService } from '../services/cart-service/cart.service';
+import { ToastrService } from 'ngx-toastr';
 import { ThrowStmt } from '@angular/compiler';
 
 
@@ -36,7 +37,8 @@ export class ProductComponent implements OnInit {
               private reviewService:ReviewService,
               private userService:UserService,
               private router: Router,
-              private cartService : CartService) { }
+              private cartService : CartService,
+              private toastrService: ToastrService) { }
 
   ngOnInit() {
     if(localStorage.getItem('crUser') && this.global.currentUser == null) {
@@ -179,6 +181,7 @@ export class ProductComponent implements OnInit {
     this.cartService.addToCart(toCart).subscribe((res:any)=>{
       this.global.cartItemsNo++;
       this.quantity = 1;
+      this.toastrService.success("", "Added to Cart");
     }, (err)=>{
       console.log("Error");
     });

@@ -15,4 +15,8 @@ export class UserService {
   deleteUserById(id){
     return this.http.post('http://localhost:8090/user/delete?id=' + id, null);
   }
+
+  getAllUsers(){
+    return this.http.get('http://localhost:8090/user/all');
+  }
 }

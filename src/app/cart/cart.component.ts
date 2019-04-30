@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 
 import { CartService } from '../services/cart-service/cart.service';
 import { GlobalService } from '../services/global-service/global.service';
+import { ToastrService } from 'ngx-toastr';
 import { ItemService } from '../services/item-service/item.service';
 
 @Component({
@@ -32,7 +33,8 @@ export class CartComponent implements OnInit {
 
   constructor(private global:GlobalService,
               private cartService:CartService,
-              private router:Router) { }
+              private router:Router,
+              private toastrService:ToastrService) { }
 
   ngOnInit() {
     
@@ -43,6 +45,7 @@ export class CartComponent implements OnInit {
 
     this.cartService.getCartItems(this.global.currentUser.id).subscribe((res:any)=>{
       this.items = res;
+      console.log(this.items);
     }, (err)=>{
 
     });
@@ -82,6 +85,7 @@ export class CartComponent implements OnInit {
     this.cartService.deleteFromCart(cartId).subscribe((res:any)=>{
       this.items = this.items.filter(item => item.cartId !== cartId);
       this.global.cartItemsNo--;
+      this.toastrService.error("","Removed from Cart");
     },(err)=>{
 
     });

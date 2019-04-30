@@ -2,22 +2,85 @@
 
 <div class="col-md-10 admin-menu">
   <div class="row">
-    <div class="col-md-3 float-left">
+    <div (click)="scrapTab()" class="col-md-3 float-left">
       <h6><strong>Start Scraping</strong></h6> 
     </div>
-    <div class="col-md-3 float-left">
+    <div (click)="usersTab()" class="col-md-3 float-left">
       <h6><strong>Users Management</strong> </h6>
     </div>
-    <div class="col-md-3 float-left">
+    <div (click)="chartTab()" class="col-md-3 float-left">
       <h6><strong>Shop Statistics</strong></h6>
     </div>
-    <div class="col-md-3 float-left">
+    <div (click)="ordersTab()" class="col-md-3 float-left">
       <h6><strong>All Orders</strong></h6>
     </div>
   </div>
 </div>
 
-<div class="col-md-10 admin-scrap">
+<div *ngIf="toUsers" class="users-container">
+  <table class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th class="text-center" style="width:5%">No</th>
+        <th class="text-center" style="width:20%">Name</th>
+        <th class="text-center" style="width:25%">Email</th>
+        <th class="text-center" style="width:10%">Role</th>
+        <th class="text-center" style="width:10%">Ban</th>
+        <th class="text-center" style="width:10%">Promo</th>
+        <th class="text-center" style="width:10%">Orders</th>
+        <th class="text-center" style="width:10%">Join Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let usr of users; let i = index">
+        <td class="text-center" data-th="No"><strong>{{ i+1 }}</strong></td>
+        <td class="text-center" data-th="Name"><strong>{{ usr.firstName }} {{ usr.lastName }}</strong></td>
+        <td class="text-center" data-th="Email"><strong>{{ usr.email }}</strong></td>
+        <td class="text-center" data-th="Role">
+          <div class="dropdown">
+              <a class="dropdown-toggle nav-link border border-warning rounded" id="easy-role" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <fa name="bars"></fa> {{ capitalize(usr.role) }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="easy-role">
+                  <a (click) = "selectRole('admin', i)" class="dropdown-item">Admin</a>
+                  <a (click) = "selectRole('user', i)" class="dropdown-item">User</a>
+              </div>
+          </div>
+        </td>
+        <td class="text-center" data-th="Ban">
+            <ng-template #banContent>
+              <strong>Days:</strong>
+              <input [(ngModel)]='banDays' class="form-control"> <br>
+              <strong>Reason:</strong>
+              <input [(ngModel)]='banReason' class="form-control"> <br>
+              <button [disabled]="banDays.length === 0 || banReason.length === 0" class="btn btn-danger" (click)="addBan(usr.id); banPopover.close()">Add Ban</button>
+            </ng-template>
+            <ng-template #banTitle><b class="wish-input">Enter ban details</b> </ng-template>
+            <a  #banPopover = "ngbPopover" container = "body" [ngbPopover]="banContent" [popoverTitle]="banTitle" [autoClose]="'outside'" placement="right"  class="ban-button nav-link border border-danger rounded" aria-expanded="false">
+                <i class="fas fa-ban"></i> Ban User
+            </a>
+        </td>
+        <td class="text-center" data-th="Promo">
+          <ng-template #promoContent>
+              <input [(ngModel)]='promoPercent' class="form-control"> <br>
+              <button [disabled]="promoPercent.length === 0" class="btn btn-success" (click)="addPromo(usr.id); promoPopover.close()">Add Promo</button>
+          </ng-template>
+          <ng-template #promoTitle><b class="wish-input">Enter promo percent</b> </ng-template>
+          <a #promoPopover = "ngbPopover" container = "body" [ngbPopover]="promoContent" [popoverTitle]="promoTitle" [autoClose]="'outside'" placement="right" class="promo-button nav-link border border-success rounded" aria-expanded="false">
+              <i class="fas fa-percent"></i> Promo
+          </a>
+        </td>
+        <td class="text-center" data-th="Orders">
+
+        </td>
+        <td class="text-center" data-th="Join Date"><strong>{{ usr.joinDate }}</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="toScrap" class="col-md-10 admin-scrap">
   <div class="row-md-2">
       <h3>Insert a link for scraping</h3>
   </div>

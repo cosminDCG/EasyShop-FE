@@ -42,8 +42,9 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
+    localStorage.removeItem("crUser");
+    this.global.currentUser = null;
     this.authService.logout().subscribe((res:any)=>{
-      localStorage.removeItem("crUser");
       this.router.navigate(['/authentication']);
     }, (err) =>{
       console.log('Error');
