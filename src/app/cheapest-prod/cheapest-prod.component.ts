@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ItemService } from '../services/item-service/item.service';
 import { GlobalService } from '../services/global-service/global.service';
 
@@ -18,6 +18,14 @@ export class CheapestProdComponent implements OnInit {
               private global: GlobalService) { }
 
   ngOnInit() {
+    if(localStorage.getItem('crUser') && this.global.currentUser == null) {
+      var aux = localStorage.getItem('crUser');
+      this.global.currentUser = JSON.parse(aux);
+    }
+  }
+
+  @HostListener('window:beforeunload') saveUser() {
+    localStorage.setItem('crUser', JSON.stringify(this.global.currentUser));
   }
 
   addItem(){

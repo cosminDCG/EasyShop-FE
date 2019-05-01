@@ -15,4 +15,8 @@ export class ItemService {
   getCheapestChoices(criterias){
     return this.http.post('http://localhost:8090/item/cheapest', criterias);
   }
+
+  getCheapestSinglePlace(criterias){
+    return this.http.post('http://localhost:8090/item/single', criterias)
+  }
 }

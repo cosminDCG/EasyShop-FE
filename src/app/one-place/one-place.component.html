@@ -1,1 +1,36 @@
 <app-menu></app-menu>
+
+<div class="single-container">
+    <div class="col">
+        <div class="text-center single-title">
+            <h3><strong>Enter your list and get cheapest shop</strong></h3>
+        </div>
+
+        <div class="input-container">
+            <input [(ngModel)]="searchItem" (keyup.enter)="addItem()" class="form-control">
+        </div>
+        <hr>
+        <div class="list-container">
+            <h4><strong>Your List:</strong></h4>
+            <table class="table table-hover table-condensed">
+                <tbody>
+                    <tr *ngFor="let item of targetItems; let i = index">
+                        <td>
+                            <div class="row-md" >
+                                <h5>
+                                    <strong class="search-item">{{ i+1 }}. {{ item }}</strong>
+                                    <strong (click)="removeItem(i)" class="float-right"><span class="text-muted">&times;</span></strong>
+                                </h5>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button (click)="seeResult()" [disabled]="targetItems.length === 0" class="btn btn-md btn-brand btn-full-width">See Result</button>
+        </div>
+
+        <div class="list-container">
+            
+        </div>
+    </div>
+</div>
