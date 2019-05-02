@@ -3,11 +3,16 @@
 <div class="single-container">
     <div class="col">
         <div class="text-center single-title">
-            <h3><strong>Enter your list and get cheapest shop</strong></h3>
+            <h3><strong>Enter your list and get the cheapest shop</strong></h3>
         </div>
 
         <div class="input-container">
-            <input [(ngModel)]="searchItem" (keyup.enter)="addItem()" class="form-control">
+            <span class="input-group-append">
+                <input [(ngModel)]="searchItem" (keyup.enter)="addItem()" class="form-control add-item">
+                <button (click)="addItem()" class="btn btn-secondary easy-search-button" type="button">
+                    <i class="fas fa-plus"></i> Add
+                </button>
+            </span>
         </div>
         <hr>
         <div class="list-container">
@@ -29,7 +34,39 @@
             <button (click)="seeResult()" [disabled]="targetItems.length === 0" class="btn btn-md btn-brand btn-full-width">See Result</button>
         </div>
 
-        <div class="list-container">
+        <div *ngIf="resultItems" class="list-container result-container">
+            <h4><strong>Recommended items and shop:</strong></h4>
+            <h5 class="text-secondary"><strong>The cheapest shop based on your list is: {{ resultItems[0].shop }}</strong></h5>
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <th class="text-center" style="width: 5%">No.</th>
+                    <th class="text-center" style="width: 50%">Name</th>
+                    <th class="text-center" style="width: 10%">Shop</th>
+                    <th class="text-center" style="width: 20%">Price</th>
+                    <th class="text-center add-all"> <button (click)="addAllToCart()" class="btn btn-md btn-brand btn-full-width float-right">Add all to cart</button></th>
+                </thead>
+                <tbody class="item-container">
+                    <tr *ngFor="let result of resultItems; let i = index">
+                        <td data-th="No."><strong>{{ i+1 }}.</strong></td>
+                        <td data-th="Name">
+                            <div class="row">
+                                <div class="col-sm-3 hidden-xs img-container"><img src = "..\..\assets\dashboard\{{result.photo}}" alt="..." class="img-responsive single-img"/></div>
+                                <div class="col-sm-9">
+                                    <h4 >{{ global.formatItemName(result.name) }}</h4>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center" data-th="Shop"><strong>{{ result.shop }}</strong></td>
+                        <td class="text-center" data-th="Price"><strong>{{ result.price }}</strong></td>
+                        <td>
+                            <div class="options">
+                                <button (click)="addToCart(result)" class="btn btn-md btn-brand btn-success"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                                <button (click)="removeResult(i)" class="btn btn-md btn-brand btn-danger"><i class="fas fa-trash-alt"></i> Remove</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             
         </div>
     </div>

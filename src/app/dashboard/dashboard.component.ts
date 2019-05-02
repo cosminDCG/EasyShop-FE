@@ -38,10 +38,10 @@ export class DashboardComponent implements OnInit {
   private seeProd = 0;
 
   value: number = 0;
-  highValue: number = 20000;
+  highValue: number = 15000;
   options: Options = {
     floor: 0,
-    ceil: 20000
+    ceil: 15000
   };
 
   constructor(private global:GlobalService, 
@@ -125,11 +125,6 @@ export class DashboardComponent implements OnInit {
     }, (err)=>{
       console.log("error");
     })
-  }
-
-  seeItemDetails(item){
-    this.global.currentProduct = item;
-    this.router.navigate(['/item', item.id]);
   }
 
   selectPrice(price){

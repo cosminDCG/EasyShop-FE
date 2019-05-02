@@ -1,6 +1,7 @@
 /// <reference types="@types/googlemaps" />
 
 import { Component, OnInit, HostListener, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { WishlistService } from '../services/wishlist-service/wishlist.service';
 import { GlobalService } from '../services/global-service/global.service';
 import { NumberValueAccessor } from '@angular/forms/src/directives';
@@ -45,6 +46,7 @@ export class WishlistComponent implements OnInit {
 
   constructor(private wishlistService:WishlistService,
               private global:GlobalService,
+              private router:Router,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone) { 
                 this.mapsAPILoader.load().then(() => {
@@ -142,5 +144,7 @@ export class WishlistComponent implements OnInit {
     this.showClosest = 0;
     this.shops = this.auxShops;
   }
+
+ 
 
 }

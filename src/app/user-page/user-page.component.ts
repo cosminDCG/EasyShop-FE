@@ -139,10 +139,6 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  formatItemName(name){
-    if(name.length > 65)
-      return name.substring(0,65) + "...";
-    else return name;
-  }
+  
 
 }

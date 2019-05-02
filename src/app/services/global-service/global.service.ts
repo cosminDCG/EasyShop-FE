@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class GlobalService {
   wishItemsNo: any;
   searchString = '';
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   toCompareFormat(price){
     
@@ -60,5 +61,16 @@ export class GlobalService {
     var d = R * c;
 
     return d;
+  }
+
+  formatItemName(name){
+    if(name.length > 65)
+      return name.substring(0,65) + "...";
+    else return name;
+  }
+
+  seeItemDetails(item){
+    this.currentProduct = item;
+    this.router.navigate(['/item', item.id]);
   }
 }

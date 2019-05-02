@@ -12,6 +12,10 @@ export class CartService {
     return this.http.post('http://localhost:8090/order/cart/insert?user_id=' + toCart.userId + '&item_id=' + toCart.itemId + '&quantity=' +toCart.quantity, null);
   }
 
+  addMultipleToCart(toCart, userId){
+    return this.http.post('http://localhost:8090/order/cart/insert/multiple?user_id=' + userId, toCart);
+  }
+
   getCartItems(userId){
     return this.http.get('http://localhost:8090/order/cart/items?user_id=' + userId);
   }

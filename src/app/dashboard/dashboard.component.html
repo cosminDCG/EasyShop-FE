@@ -56,11 +56,11 @@
 
     <div *ngFor="let item of items | paginate: { itemsPerPage: 12, currentPage: p }; let i = index" class="col-md-3 float-right item-card">
         <div class="card" style="width: 18rem;">
-            <img (click)="seeItemDetails(item)" class="card-img-top dash-img" src="..\..\assets\dashboard\{{item.photo}}" alt="Card image cap">
-            <div (click)="seeItemDetails(item)" class="card-body">
+            <img (click)="global.seeItemDetails(item)" class="card-img-top dash-img" src="..\..\assets\dashboard\{{item.photo}}" alt="Card image cap">
+            <div (click)="global.seeItemDetails(item)" class="card-body">
                 <h5 class="card-title">{{item.name.substring(0,27) + "..."}}</h5>
             </div>
-            <ul (click)="seeItemDetails(item)" class="list-group list-group-flush">
+            <ul (click)="global.seeItemDetails(item)" class="list-group list-group-flush">
                 <li class="list-group-item">{{item.price}}</li>
                 <li class="list-group-item">
                     <fa *ngFor="let i of [1,2,3,4,5]" [ngStyle]="{'color':i <= item.review ? 'yellow' : 'black' }" class="review-star" name="star"></fa>
