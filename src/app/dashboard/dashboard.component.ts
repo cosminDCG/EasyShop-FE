@@ -160,7 +160,10 @@ export class DashboardComponent implements OnInit {
     console.log(toCart);
 
     this.cartService.addToCart(toCart).subscribe((res:any)=>{
-      this.global.cartItemsNo++;
+      if(res == true){
+        this.global.cartItemsNo++;
+      }
+      
       this.toastrService.success("", "Added toCart");
     }, (err)=>{
       console.log("Error");

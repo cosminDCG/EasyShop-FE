@@ -179,7 +179,9 @@ export class ProductComponent implements OnInit {
     console.log(toCart);
 
     this.cartService.addToCart(toCart).subscribe((res:any)=>{
-      this.global.cartItemsNo++;
+      if(res == true){
+        this.global.cartItemsNo++;
+      }
       this.quantity = 1;
       this.toastrService.success("", "Added to Cart");
     }, (err)=>{
