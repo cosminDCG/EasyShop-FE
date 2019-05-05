@@ -60,8 +60,8 @@
                 </thead>
                 <tbody class="item-container">
                     <tr *ngFor="let result of resultItems; let i = index">
-                        <td data-th="No."><strong>{{ i+1 }}.</strong></td>
-                        <td data-th="Name">
+                        <td class="prod-info" (click)="global.seeItemDetails(result)" data-th="No."><strong>{{ i+1 }}.</strong></td>
+                        <td class="prod-info" (click)="global.seeItemDetails(result)" data-th="Name">
                             <div class="row">
                                 <div class="col-sm-3 hidden-xs img-container"><img src = "..\..\assets\dashboard\{{result.photo}}" alt="..." class="img-responsive single-img"/></div>
                                 <div class="col-sm-9">

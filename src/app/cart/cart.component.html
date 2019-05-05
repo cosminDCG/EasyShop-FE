@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of items; let i = index">
-                <td data-th="Product">
+                <td (click)="global.seeItemDetails(item)" data-th="Product">
                     <div class="row prod-info" ngbPopover= "{{ item.description }}" [openDelay]="100" [closeDelay]="300" popoverTitle="Description" triggers="mouseenter:mouseleave">
                         <div class="col-sm-2 hidden-xs img-container"><img src = "..\..\assets\dashboard\{{item.photo}}" alt="..." class="img-responsive cart-img"/></div>
                         <div class="col-sm-10">

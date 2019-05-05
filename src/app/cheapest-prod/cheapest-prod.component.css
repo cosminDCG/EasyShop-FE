@@ -144,3 +144,7 @@ agm-map {
     margin-right: 2%;
     margin-bottom: 2%;
 }
+
+.prod-info{
+    cursor: pointer;
+}
