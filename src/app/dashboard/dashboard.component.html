@@ -4,13 +4,17 @@
     <button *ngIf = "showAdminButton" class="btn btn-info ml-auto admin-button" (click) = 'goToAdminPanel()'>Admin Panel</button>
 </div>
 
-<div class="row dash-pagination">
+<div *ngIf="seeProd" class="row dash-pagination">
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<div *ngIf="!seeProd" class="row dash-pagination">
+    <pagination-controls (pageChange)="catP = $event"></pagination-controls>
 </div>
 
 
 <div *ngIf="!seeProd" class="row dash-body">
-    <div *ngFor="let category of categories; let i = index" class="col-md-3 float-right item-card rounded-circle">
+    <div *ngFor="let category of categories | paginate: { itemsPerPage: 12, currentPage: catP }; let i = index" class="col-md-3 float-right item-card rounded-circle">
         <div (click) = "selectCategory(category)" class="category-card" style="width: 18rem;">
             <img src="..\..\assets\dashboard\{{catPhoto(category)}}"  class="card-img-top category-img">
             <div class="card-body cat-body text-center">
@@ -62,9 +66,8 @@
             </div>
             <ul (click)="global.seeItemDetails(item)" class="list-group list-group-flush">
                 <li class="list-group-item text-center"><strong>{{item.price}}</strong></li>
-                <li class="list-group-item">
+                <li class="list-group-item text-center">
                     <fa *ngFor="let i of [1,2,3,4,5]" [ngStyle]="{'color':i <= item.review ? 'yellow' : 'black' }" class="review-star" name="star"></fa>
-                    (<strong>avg :</strong> {{item.review.toFixed(2)}})
                 </li>
                 <li class="list-group-item text-center"><strong>{{item.shop}}</strong></li>
             </ul>

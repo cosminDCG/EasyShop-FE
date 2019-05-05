@@ -12,7 +12,7 @@
         <li [ngClass]="{'active' : url === '/user/wishlist'}" class="nav-item nav-border">
             <a class="nav-link" [routerLink]="['/user/wishlist']">
                 <fa name="star"></fa>
-                <span class='badge badge-success' id='wishCount'> {{ global.wishItemsNo }} </span>
+                <span *ngIf="global.wishItemsNo" class='badge badge-success' id='wishCount'> {{ global.wishItemsNo }} </span>
                 <span> Wishlist</span> 
             </a>
         </li>
@@ -40,7 +40,7 @@
     </ul>
 
     <ul class="navbar-nav ml-auto nav-dist-left">
-        <li [ngClass]="{'active' : url.includes('/profile')}" class="nav-item nav-border">
+        <li (click)="refreshProfile()" [ngClass]="{'active' : url.includes('/profile')}" class="nav-item nav-border">
             <a class="nav-link" [routerLink]="['/profile', user.id]">
                 <fa name="user"></fa> Profile
             </a>
@@ -53,7 +53,7 @@
         <li [ngClass]="{'active' : url.includes('/cart')}" class="nav-item nav-border">
             <a class="nav-link" [routerLink]="['/user/cart']">
                 <fa name="shopping-cart"></fa> 
-                <span class='badge badge-warning' id='lblCartCount'> {{ global.cartItemsNo }} </span>
+                <span *ngIf="global.cartItemsNo" class='badge badge-warning' id='lblCartCount'> {{ global.cartItemsNo }} </span>
                 Your cart
             </a>
         </li>

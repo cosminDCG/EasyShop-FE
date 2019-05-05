@@ -18,6 +18,7 @@ export class CartComponent implements OnInit {
   public discount = 0;
   public discountCode: any;
   public appliedPromo: any;
+  public shippingFee = 0;
 
   public toCheckout = 0;
   public toAddress = 0;
@@ -37,6 +38,7 @@ export class CartComponent implements OnInit {
               private toastrService:ToastrService) { }
 
   ngOnInit() {
+    this.shippingFee = 0;
     
     if(localStorage.getItem('crUser') && this.global.currentUser == null) {
       var aux = localStorage.getItem('crUser');
@@ -69,7 +71,10 @@ export class CartComponent implements OnInit {
   }
 
   finalSum(){
-    return (this.totalSum() - this.discount/100 * this.totalSum());
+    if(this.totalSum() - this.discount/100 * this.totalSum() < 300 && this.totalSum() - this.discount/100 * this.totalSum() !=0 ){
+      this.shippingFee = 30;
+    }else this.shippingFee = 0;
+    return (this.totalSum() - this.discount/100 * this.totalSum() + this.shippingFee);
   }
 
   qtyPlus(index){

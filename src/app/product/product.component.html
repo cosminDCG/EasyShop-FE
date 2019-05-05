@@ -23,7 +23,8 @@
       <div class="row">
         <div class="col-md-4">
           <h5 *ngFor="let i of [1,2,3,4,5]" (click)="giveRating(i)" [ngStyle]="{'color':i <= currentProduct.review ? 'yellow' : 'black' }"><fa class="icon-foo" name="star"></fa></h5>
-          <span class="badge badge-success">{{ currentProduct.reviewers }} revs</span>
+          <strong>{{ currentProduct.review.toFixed(2) }} rating &nbsp;</strong>
+          <span class="badge badge-success">{{ currentProduct.reviewers }} reviewers</span>
         </div>
         <div class="col-md-3">
           <span>Write a Review</span>

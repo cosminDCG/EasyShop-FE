@@ -55,4 +55,7 @@ export class MenuComponent implements OnInit {
     this.global.searchString = this.searchCriteria;
   }
 
+  refreshProfile(){
+    window.location.reload();
+  }
 }

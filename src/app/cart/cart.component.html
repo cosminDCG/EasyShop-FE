@@ -148,7 +148,7 @@
     <div *ngIf="!toAddress" class="total-details">
         <h3 class="text-muted">Product Total: {{ totalSum().toFixed(2) }} Lei</h3>
         <h5 class="text-success">Discount Cupon({{ discount }}%): {{ (discount/100*totalSum()).toFixed(2) }} Lei</h5>
-        <h5 class="text-muted">Shipping: </h5>
+        <h5 class="text-muted">Shipping(Free over 300 lei): {{ shippingFee }} Lei</h5>
         <h3><strong class="text-danger">Final Total: {{ finalSum().toFixed(2) }} Lei</strong></h3>
     </div>
 

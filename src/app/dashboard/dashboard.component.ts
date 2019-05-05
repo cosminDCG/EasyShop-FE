@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   public itemAuxPrice: any;
   public user: any={};
   public p: Number = 1;
+  public catP: Number = 1;
 
   public categories:any;
   
