@@ -118,4 +118,30 @@ table{
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+.map-icon{
+    width: 3.5%;
+    cursor: pointer !important;
+    margin-left: 1%;
+}
+
+agm-map {
+    height: 500px;
+    width: 100%;
+}
+
+.map-modal{
+    height: 500px;
+    width: 100%;
+    margin-bottom: 10%;
+}
+
+.btn-circle {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
   

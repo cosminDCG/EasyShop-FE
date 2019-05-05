@@ -7,6 +7,7 @@ import { GlobalService } from '../services/global-service/global.service';
 import { NumberValueAccessor } from '@angular/forms/src/directives';
 import { MapsAPILoader } from '@agm/core';
 import { Observable } from 'rxjs';
+import { CartService } from '../services/cart-service/cart.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class WishlistComponent implements OnInit {
   constructor(private wishlistService:WishlistService,
               private global:GlobalService,
               private router:Router,
+              private cartService:CartService,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone) { 
                 this.mapsAPILoader.load().then(() => {
@@ -86,6 +88,24 @@ export class WishlistComponent implements OnInit {
     this.global.currentUser = this.user;
     localStorage.setItem('crUser', JSON.stringify(this.user));
   }
+
+  addToCart(item){
+    var toCart = {
+          userId : this.global.currentUser.id,
+          itemId : item.id,
+          quantity: 1
+        }
+    
+    this.cartService.addToCart(toCart).subscribe((res:any)=>{
+      if(res == true){
+        this.global.cartItemsNo ++;
+      }
+      
+    }, (err)=>{
+
+    });
+  }
+
 
   deleteWishItem(wishId){
     this.wishlistService.deleteWishItem(wishId).subscribe((res:any)=>{

@@ -114,7 +114,7 @@
                     <div class="media-body">
                         <div class="media-heading">
                             <span> 
-                              <strong (click)="goToUserProfile(review.userId)">{{ review.firstName}} {{ review.lastName }} </strong> 
+                              <strong class="reviewer-name" (click)="goToUserProfile(review.userId)">{{ review.firstName}} {{ review.lastName }} </strong> 
                               <h6 *ngFor="let i of [1,2,3,4,5]" [ngStyle]="{'color':i <= review.review ? 'rgba(244, 208, 63, 1)' : 'black' }"><fa class="icon-foo" name="star"></fa></h6>
                               <small class="text-muted">- {{ review.data }}</small>
                               <fa *ngIf="review.userId == global.currentUser.id" class="float-right rev-icon" (click)="deleteReview(review.id)" name="trash"></fa>
@@ -134,7 +134,7 @@
                                 <div class="media-body reply-body">
                                   <div class="media-heading">
                                     <span>
-                                      <strong (click)="goToUserProfile(reply.userId)">{{ reply.firstName }} {{ reply.lastName }}</strong>
+                                      <strong class="reviewer-name" (click)="goToUserProfile(reply.userId)">{{ reply.firstName }} {{ reply.lastName }}</strong>
                                       <small class="text-muted">- {{ reply.data }}</small>
                                       <fa *ngIf="reply.userId == global.currentUser.id" class="float-right rev-icon" (click)="deleteReply(reply.id, i, j)" name="trash"></fa>
                                       <fa *ngIf="reply.userId == global.currentUser.id" class="float-right rev-icon" name="comments"></fa>
@@ -157,7 +157,7 @@
                               <div class="media-body reply-body">
                                 <div class="media-heading">
                                   <span>
-                                    <strong>{{ currentUser.firstName }} {{ review. lastName }}</strong>
+                                    <strong class="reviewer-name">{{ currentUser.firstName }} {{ review. lastName }}</strong>
                                   </span>
                                 </div>
                                 <div class="content">

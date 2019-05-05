@@ -12,6 +12,10 @@
     
 }
 
+.reviewer-name{
+    cursor: pointer;
+}
+
 .prod-badge{
     margin-right: 5%;
 }
@@ -69,6 +73,7 @@ h6{
     line-height: 80px;
     width: 80px;
     height: 80px;
+    cursor: pointer;
 }
 
 .comment-tab{
@@ -150,6 +155,7 @@ h6{
 
 .reply-photo{
     margin-left: 30%;
+    cursor: pointer;
 }
 
 .reply-body{

@@ -86,6 +86,14 @@ thead{
     border-radius: 0; 
 }
 
+.empty-cart{
+    width: 100% !important;
+}
+
+.fa-exclamation-circle{
+    margin: 0%;
+}
+
 .btn-full-width{
     background-color: rgba(211, 175, 55, 0.753);
     margin-left: 2%;

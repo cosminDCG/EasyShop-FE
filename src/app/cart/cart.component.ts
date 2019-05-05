@@ -13,7 +13,7 @@ import { ItemService } from '../services/item-service/item.service';
 })
 export class CartComponent implements OnInit {
 
-  public items=[];
+  public items = [];
 
   public discount = 0;
   public discountCode: any;

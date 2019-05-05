@@ -12,7 +12,7 @@
 <div *ngIf="!seeProd" class="row dash-body">
     <div *ngFor="let category of categories; let i = index" class="col-md-3 float-right item-card rounded-circle">
         <div (click) = "selectCategory(category)" class="category-card" style="width: 18rem;">
-            <img src="..\..\assets\dashboard\{{catPhoto(category).photo}}"  class="card-img-top category-img">
+            <img src="..\..\assets\dashboard\{{catPhoto(category)}}"  class="card-img-top category-img">
             <div class="card-body cat-body text-center">
                 <h5 class="card-title cat-title">{{category}}</h5>
             </div>
@@ -61,12 +61,12 @@
                 <h5 class="card-title">{{item.name.substring(0,27) + "..."}}</h5>
             </div>
             <ul (click)="global.seeItemDetails(item)" class="list-group list-group-flush">
-                <li class="list-group-item">{{item.price}}</li>
+                <li class="list-group-item text-center"><strong>{{item.price}}</strong></li>
                 <li class="list-group-item">
                     <fa *ngFor="let i of [1,2,3,4,5]" [ngStyle]="{'color':i <= item.review ? 'yellow' : 'black' }" class="review-star" name="star"></fa>
                     (<strong>avg :</strong> {{item.review.toFixed(2)}})
                 </li>
-                <li class="list-group-item">{{item.shop}}</li>
+                <li class="list-group-item text-center"><strong>{{item.shop}}</strong></li>
             </ul>
             <div >
                 <div class="col-md-6 cart-container-left float-left">

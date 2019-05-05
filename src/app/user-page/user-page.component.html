@@ -12,7 +12,7 @@
               </div>
           </div>
           <ul class="list-group activity-group">
-              <li class="list-group-item text-muted text-center">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+              <li class="list-group-item text-muted text-center">Activity <i class="fas fa-chart-line"></i></li>
               <li class="list-group-item text-right"><span class="pull-left"><strong>Orders</strong></span> {{ nrOfOrders }}</li>
               <li class="list-group-item text-right"><span class="pull-left"><strong>Reviews</strong></span> {{ nrOfReviews }}</li>
               <li class="list-group-item text-right"><span class="pull-left"><strong>Comments</strong></span> {{ nrOfComments }}</li>
@@ -27,13 +27,15 @@
                 <h6 *ngIf='editMode' (click)='saveChanges()'><strong>Save Changes</strong></h6>
             </div>
             <div class="row-md-3 text-center user-opt">
-                <h6><strong>Change Password</strong></h6>
+                <h6 *ngIf='!changePassMode' (click)="enableChangePassMode()"><strong>Change Password</strong></h6>
+                <h6 *ngIf='changePassMode' (click)="savePassChange()"><strong>Save Changes</strong></h6>
             </div>
             <div class="row-md-3 text-center delete-account" data-toggle="modal" data-target="#deleteModal">
                 <h6><strong>Delete Account</strong></h6>
             </div>
           </div> 
-          <div class="col-md-4 float-left user-info">
+
+          <div *ngIf='!changePassMode' class="col-md-4 float-left user-info">
             <div class="row">
                 <label for="first_name"><h6>First name</h6></label>
                 <h4 *ngIf='!editMode' name="first_name" id="first_name">{{user.firstName}} </h4>
@@ -52,7 +54,7 @@
                 <input *ngIf='editMode' [(ngModel)] = 'user.address' type="text" class="form-control">
             </div>
           </div>
-          <div class="col-md-4 float-right user-info">
+          <div *ngIf='!changePassMode' class="col-md-4 float-right user-info">
             <div class="row">
                 <label for="last_name"><h6>Last name</h6></label>
                 <h4 *ngIf='!editMode' name="last_name" id="last_name">{{user.lastName}} </h4>
@@ -72,19 +74,35 @@
             </div>
           </div>
 
-          <div class="col-md-6 easy-edit">
-              
-          </div>
+          <div *ngIf='changePassMode' class="col-md-10 float-left">
+            <div class="row ch-pass">
+                <label for="currentPassword"><h6>Current Password</h6></label>
+                <input type="password" [(ngModel)] = 'currentPassword' class="form-control">
+            </div>
+            <div class="row ch-pass">
+                <label for="currentPassword"><h6>New Password</h6></label>
+                <input type="password" [(ngModel)] = 'newPassword' class="form-control">
+            </div>
+            <div class="row ch-pass">
+                <label for="currentPassword"><h6>Repeat New Password</h6></label>
+                <input type="password" [(ngModel)] = 'repeatNewPassword' class="form-control">
+            </div>
+            <div class="row ch-pass">
+                    <button (click)="leaveChangePass()" class="btn btn-md btn-brand btn-full-width">Go Back</button>
+                <h6 *ngIf="showNotMatching"><strong class="text-danger"><i class="fas fa-ban"></i> Passwords don't match!</strong></h6>
+                <h6 *ngIf="wrongOldPass"><strong class="text-danger"><i class="fas fa-ban"></i> Incorrect old password!</strong></h6>
+            </div>
+        </div> 
       </div>
 
-    </div>
+    
 </div>
 
 <div *ngIf="global.currentUser.id === user.id" class="option-container">
     <div class="nav flex-column nav-pills float-left" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fas fa-history"></i> Orders History</a>
         <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="fas fa-percent"></i> Your Promo Codes</a>
-      </div>
+    </div>
       <div class="tab-content float-right" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
             <div class="col promo-rows">
@@ -145,6 +163,7 @@
                         </div>
                         <div class="col-md-5 text-center">
                             <strong>{{ promo.promoCode }}</strong>
+                            <i data-toggle="tooltip" title="Copy to Clipboard!" (click)="copyToClipboard(promo.promoCode)" class="far fa-copy"></i>
                         </div>
                         <div class="col-md-3 text-center">
                             <strong>{{ promo.promoPercent }}</strong>

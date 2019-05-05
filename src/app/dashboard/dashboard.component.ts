@@ -196,8 +196,10 @@ export class DashboardComponent implements OnInit {
   }
 
   catPhoto(category){
+    if (this.items == null)
+      return;
     var aux = this.items.filter(item => item.category === category) 
-    return aux[0];
+    return aux[0].photo;
   }
 
 }

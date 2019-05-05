@@ -36,7 +36,20 @@
 
         <div *ngIf="resultItems" class="list-container result-container">
             <h4><strong>Recommended items and shop:</strong></h4>
-            <h5 class="text-secondary"><strong>The cheapest shop based on your list is: {{ resultItems[0].shop }}</strong></h5>
+            <span>
+                <h5 class="text-secondary">
+                    <strong>The cheapest shop based on your list is: {{ resultItems[0].shop }}</strong>
+                    <img data-toggle="modal" (click)="getShopCoordonates(resultItems[0].shop)"  data-target="#mapModal" src = "..\..\assets\map.png" alt="..." class="img-responsive single-img map-icon"/>
+                </h5>
+                <span style="display: block;">
+                    <h5 class="text-secondary">
+                        <strong>We couldn't find this items in the shop: </strong>
+                        <span class="text-danger" *ngFor="let item of notFound; let i = index"><strong>{{ item }}<span *ngIf="i!==(notFound.length - 1)">, </span> </strong> </span>
+                    </h5>
+                    
+                </span>
+                
+            </span>
             <table class="table table-hover table-condensed">
                 <thead>
                     <th class="text-center" style="width: 5%">No.</th>
@@ -68,6 +81,31 @@
                 </tbody>
             </table>
             
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="mapModalTitle">Your position and position of the shop</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body map-modal">
+            <a *ngIf="!showClosest" class="btn btn-warning btn-circle text-uppercase" (click) = "selectClosestShop()">Show closest shop</a>
+            <a *ngIf="showClosest" class="btn btn-warning btn-circle text-uppercase" (click) = "selectAllShops()">Show all shops</a>
+            <agm-map id="map" [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapReady)="mapReady($event)">
+                <agm-marker [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [label] = "label" [iconUrl] = 'icon'></agm-marker>
+                <agm-marker *ngFor="let shop of shops; let i = index" [latitude]="shop.lat" [longitude]="shop.lng" [label] = "shop.label" [iconUrl]='shopIcon'></agm-marker>
+            </agm-map>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
         </div>
     </div>
 </div>

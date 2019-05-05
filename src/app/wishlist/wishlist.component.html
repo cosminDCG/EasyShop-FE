@@ -26,7 +26,7 @@
                 <td class="actions" data-th="">
                     <button class="btn btn-danger" (click) = "deleteWishItem(item.wishId)"><i class="far fa-trash-alt"> Remove</i></button><br>
                     <button *ngIf="global.toCompareFormat(item.price) <= global.toCompareFormat(item.expectedPrice)" class="btn btn-info" data-toggle="modal" (click)="getShopCoordonates(item.shop)" data-target="#mapModal"><i class="fas fa-map-marker-alt"></i> Map View</button>		
-                    <button class="btn btn-buy btn-full-width" (click)="addToCart(currentProduct.id)"><i class="fas fa-plus"></i> Add to Cart</button>						
+                    <button class="btn btn-buy btn-full-width" (click)="addToCart(item)"><i class="fas fa-plus"></i> Add to Cart</button>						
                 </td>
             </tr>
         </tbody>
@@ -56,4 +56,4 @@
         </div>
       </div>
     </div>
-  </div>
+</div>

@@ -145,6 +145,14 @@ export class ProductComponent implements OnInit {
   }
 
   addReply(index, id){
+    if (this.replyText == '' || this.replyText == null){
+      return;
+    }
+
+    if(!this.replyText.replace(/\s/g, '').length){
+      this.replyText = '';
+      return;
+    }
     var review = {
       productId : this.global.currentProduct.id,
       userId: this.global.currentUser.id,

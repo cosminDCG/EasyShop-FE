@@ -193,3 +193,31 @@
 .payed-price{
     margin-right: 60% !important;
 }
+
+.fa-copy{
+    margin-left: 2%;
+    cursor: pointer;
+    font-size: 130%;
+}
+
+.ch-pass{
+    width: 50%;
+    margin-left: 5%;
+    
+}
+
+.ch-pass:first-of-type{
+    margin-top: 5%;
+}
+
+.ch-pass h6{
+    margin-top: 5%;
+}
+
+.btn-full-width{
+    background-color: rgba(211, 175, 55, 0.753);
+    margin-bottom: 3%;
+    margin-right: 2%;
+    margin-top: 3%;
+    border-radius: 0%;
+}

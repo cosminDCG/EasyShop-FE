@@ -31,6 +31,15 @@ export class UserPageComponent implements OnInit {
   public currentOrderPrice: any;
   public currentOrderItems: any;
 
+  public changePassMode = 0;
+
+  public currentPassword: any;
+  public newPassword: any;
+  public repeatNewPassword: any;
+
+  public showNotMatching = 0;
+  public wrongOldPass = 0;
+
   constructor(private profileService: ProfileService, 
               private global: GlobalService,
               private userService: UserService,
@@ -94,6 +103,7 @@ export class UserPageComponent implements OnInit {
 
   enableEditMode() {
     this.editMode = true;
+    this.changePassMode = 0;
   }
 
   saveChanges() {
@@ -139,6 +149,49 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  
+  copyToClipboard(promoCode){
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = promoCode;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
+  enableChangePassMode(){
+    this.editMode = false;
+    this.changePassMode = 1;
+    this.showNotMatching = 0;
+    this.wrongOldPass = 0;
+  }
+
+  savePassChange(){
+    if(this.newPassword != this.repeatNewPassword){
+      this.showNotMatching = 1;
+      return;
+    }
+    this.userService.changePassword(this.currentPassword, this.newPassword).subscribe((res:any)=>{
+      if(res === false){
+        this.wrongOldPass = 1;
+        return;
+      }else{
+        this.showNotMatching = 0;
+        this.changePassMode = 0;
+        this.currentPassword = '';
+        this.newPassword = '';
+        this.repeatNewPassword = '';
+      }
+    })
+    
+  }
+
+  leaveChangePass(){
+    this.changePassMode = 0;
+  }
 
 }

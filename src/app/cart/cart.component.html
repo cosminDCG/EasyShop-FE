@@ -11,7 +11,6 @@
                 <th></th>
             </tr>
         </thead>
-
         <tbody>
             <tr *ngFor="let item of items; let i = index">
                 <td data-th="Product">
@@ -46,6 +45,11 @@
             </tr>
         </tbody>
     </table>
+    <div class="empty-cart" *ngIf="!items.length">
+        <div class="text-center">
+            <h4 class="text-warning"><strong><i class="fas fa-exclamation-circle"></i> Your cart is empty!</strong></h4> 
+        </div>
+    </div>
 </div>
 
 <div *ngIf="toCheckout&&!toAddress" class="cart-container">
@@ -176,7 +180,7 @@
             </div>
             
         </div>
-        <input *ngIf="!toCheckout" [(ngModel)]='discountCode' class="form-control discount-code">
+        <input *ngIf="!toCheckout" [(ngModel)]='discountCode' (keyup.enter)="applyCode()" class="form-control discount-code">
         <button (click)='applyCode()' *ngIf="!toCheckout" class="btn btn-md btn-brand btn-full-width">
             Apply Code
         </button>
