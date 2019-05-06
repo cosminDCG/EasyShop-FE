@@ -28,6 +28,8 @@ import { InboxComponent } from './inbox/inbox.component';
 import { ProductComponent } from './product/product.component';
 import { OnePlaceComponent } from './one-place/one-place.component';
 import { CheapestProdComponent } from './cheapest-prod/cheapest-prod.component';
+import { RepPageComponent } from './rep-page/rep-page.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { CheapestProdComponent } from './cheapest-prod/cheapest-prod.component';
     InboxComponent,
     ProductComponent,
     OnePlaceComponent,
-    CheapestProdComponent
+    CheapestProdComponent,
+    RepPageComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,7 @@ import { CheapestProdComponent } from './cheapest-prod/cheapest-prod.component';
         component: MenuComponent
       },
       {
-        path: 'dashboard',
+        path: 'dashboard/:category',
         component: DashboardComponent
       },
       {
@@ -108,6 +112,14 @@ import { CheapestProdComponent } from './cheapest-prod/cheapest-prod.component';
       {
         path: 'buy/single-place',
         component:OnePlaceComponent
+      },
+      {
+        path: 'items/categories',
+        component: CategoryComponent
+      },
+      {
+        path: 'user/rep/:id',
+        component: RepPageComponent
       }
     ])
   ],

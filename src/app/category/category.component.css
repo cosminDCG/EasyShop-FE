@@ -1,0 +1,81 @@
+.category-body{
+    background-color: white;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: 2px 0px 8px #888888;
+}
+
+.cat-pagination{
+    margin-top: 8%;
+    margin-bottom: 2%;
+    margin-left: 40%;
+}
+
+.row{
+    padding: 0%;
+}
+
+.cat-div{
+    width: 100%;
+    height: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    padding: 0%;
+    border-right: 1px solid #888888;   
+    border-bottom: 1px solid #888888; 
+}
+
+.category-text{
+    position: absolute;
+    bottom: 0;
+    height: 25%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.category-text strong{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-style: italic;
+    color: white;
+    margin-left: 3%;
+}
+
+.overlay{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: .5s ease;
+}
+
+.overlay strong{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    margin-top: 100px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-style: italic;
+    color: white;
+    display: inline-block;
+    width: 80%;
+    margin-left: 8%;
+    margin-right: 8%;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.cat-div:hover .overlay{
+    opacity: 1;
+}
+
+.cat-div:hover .category-text{
+    transition: .3s ease;
+    opacity: 0;
+}

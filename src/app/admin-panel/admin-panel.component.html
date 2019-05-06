@@ -40,7 +40,7 @@
         <td class="text-center" data-th="Role">
           <div class="dropdown">
               <a class="dropdown-toggle nav-link border border-warning rounded" id="easy-role" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <fa name="bars"></fa> {{ capitalize(usr.role) }}
+                  <fa name="bars"></fa> {{ global.capitalize(usr.role) }}
               </a>
               <div class="dropdown-menu" aria-labelledby="easy-role">
                   <a (click) = "selectRole('admin', i)" class="dropdown-item">Admin</a>

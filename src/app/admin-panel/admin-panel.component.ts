@@ -65,10 +65,6 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
-  capitalize(str){
-    return str.charAt(0).toUpperCase() + str.slice(1)
-  }
-
   selectRole(role, index){
     this.users[index].role = role;
   }

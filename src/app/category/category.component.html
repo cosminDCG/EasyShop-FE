@@ -1,0 +1,16 @@
+<app-menu></app-menu>
+
+<div class="row cat-pagination">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<div class="row category-body">
+  <div *ngFor="let category of categories | paginate: { itemsPerPage: 12, currentPage: p }; let i = index" [routerLink]="['/dashboard', category]" [style.backgroundImage]="'url('+ folder + catPhoto(category)  +')'" class="col-md-3 cat-div">
+    <div class="category-text">
+      <strong>{{ category }}</strong>
+    </div>
+    <div class="overlay text-center">
+      <strong>{{ category }}</strong>
+    </div>
+  </div>
+</div>

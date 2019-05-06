@@ -73,4 +73,8 @@ export class GlobalService {
     this.currentProduct = item;
     this.router.navigate(['/item', item.id]);
   }
+
+  capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 }

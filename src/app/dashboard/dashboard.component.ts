@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import {PopoverModule} from "ngx-smart-popover";
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import { Options, ChangeContext } from 'ng5-slider';
 
 import { DashboardService } from '../services/dashboard-service/dashboard.service';
@@ -36,7 +36,6 @@ export class DashboardComponent implements OnInit {
 
   public firstPhoto: any;
   public src: any;
-  private seeProd = 0;
 
   value: number = 0;
   highValue: number = 15000;
@@ -64,9 +63,8 @@ export class DashboardComponent implements OnInit {
     
     this.dashboardService.allItems().subscribe((res:any)=>{
       this.items = res;
-      this.firstPhoto = this.items[0].photo;
-      this.src = this.firstPhoto;
       this.itemAux = this.items;
+      this.selectCategory(this.global.capitalize(this.router.url.split("/")[2]));
     }, (err) =>{
       console.log('Error');
     });
@@ -96,6 +94,8 @@ export class DashboardComponent implements OnInit {
   }
 
   selectCategory(category){
+    if(this.items == null)
+      return;
     if(category === 'None'){
       this.items = this.itemAux;
       this.itemAux = null;
@@ -108,7 +108,6 @@ export class DashboardComponent implements OnInit {
     this.categoryFilter = category;
     this.itemAux = this.items;
     this.items = this.items.filter(item => item.category === category);
-    this.seeProd = 1;
   }
 
   addToWishlist(item){
@@ -182,25 +181,6 @@ export class DashboardComponent implements OnInit {
       console.log(this.items);
       return this.items;
     }
-  }
-
-  mouseEnter(){
-    var index = 1;
-      
-    this.src = this.items[index].photo;             
-
-      
-  }
-
-  mouseLeave(){
-    this.src = this.items[0].photo;
-  }
-
-  catPhoto(category){
-    if (this.items == null)
-      return;
-    var aux = this.items.filter(item => item.category === category) 
-    return aux[0].photo;
   }
 
 }

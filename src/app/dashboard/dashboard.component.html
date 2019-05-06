@@ -4,30 +4,12 @@
     <button *ngIf = "showAdminButton" class="btn btn-info ml-auto admin-button" (click) = 'goToAdminPanel()'>Admin Panel</button>
 </div>
 
-<div *ngIf="seeProd" class="row dash-pagination">
+<div class="row dash-pagination">
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
-<div *ngIf="!seeProd" class="row dash-pagination">
-    <pagination-controls (pageChange)="catP = $event"></pagination-controls>
-</div>
 
-
-<div *ngIf="!seeProd" class="row dash-body">
-    <div *ngFor="let category of categories | paginate: { itemsPerPage: 12, currentPage: catP }; let i = index" class="col-md-3 float-right item-card rounded-circle">
-        <div (click) = "selectCategory(category)" class="category-card" style="width: 18rem;">
-            <img src="..\..\assets\dashboard\{{catPhoto(category)}}"  class="card-img-top category-img">
-            <div class="card-body cat-body text-center">
-                <h5 class="card-title cat-title">{{category}}</h5>
-            </div>
-            <div class="overlay">
-                <div class="text">See items</div>
-              </div>
-        </div>
-    </div>
-</div>
-
-<div *ngIf="seeProd" class="row dash-body">
+<div class="row dash-body">
     <div class="btn-group filter-cont">
         <div class="dropdown">
         
@@ -36,8 +18,7 @@
                 {{categoryFilter}}
             </a>
             <div class="dropdown-menu" aria-labelledby="easyMenu">
-                <a (click) = "selectCategory('None')" class="dropdown-item">None</a>
-                <a *ngFor="let category of categories" (click) = "selectCategory(category)" class="dropdown-item">{{category}}</a>
+                <a *ngFor="let category of categories" (click) = "selectCategory(category)" [routerLink]="['/dashboard', category]" class="dropdown-item">{{ category }}</a>
             </div>
         </div>
 

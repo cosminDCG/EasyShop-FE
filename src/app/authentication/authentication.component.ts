@@ -96,7 +96,7 @@ export class AuthenticationComponent implements OnInit {
     this.authService.login(user).subscribe((res:any)=>{
       this.global.currentUser = res;
       console.log(this.global.currentUser);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/items/categories']);
     }, (err) => {
       console.log('Error');
     });
