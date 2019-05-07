@@ -124,6 +124,15 @@ export class CheapestProdComponent implements OnInit {
     });
   }
 
+  addAllToCart(){
+    this.choices.map(item => item.quantity = 1);
+    this.cartService.addMultipleToCart(this.choices, this.global.currentUser.id).subscribe((res:any)=>{
+      this.global.cartItemsNo += res;
+    }, (err)=>{
+
+    });
+  }
+
   mapReady($event: any){
     this.placeService = new google.maps.places.PlacesService($event);
   }

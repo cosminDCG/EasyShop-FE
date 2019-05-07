@@ -109,9 +109,7 @@ export class UserPageComponent implements OnInit {
   saveChanges() {
     this.editMode = false;
     var modifiedUser = this.user;
-    console.log(modifiedUser);
     this.profileService.updateUser(modifiedUser).subscribe((res:any)=>{
-      console.log('Success');
     }, (err) =>{
       console.log('Error');
     });
@@ -192,6 +190,11 @@ export class UserPageComponent implements OnInit {
 
   leaveChangePass(){
     this.changePassMode = 0;
+  }
+
+  goToChat(){
+    this.global.chatUser = this.user;
+    this.router.navigate(['/inbox/user/' + this.global.currentUser.id]);
   }
 
 }

@@ -8,9 +8,13 @@ export class GlobalService {
 
   currentUser: any;
   currentProduct: any;
+
+  chatUser: any;
   redirectUserProfile: any;
+
   cartItemsNo: any;
   wishItemsNo: any;
+
   searchString = '';
   
   constructor(private router: Router) { }

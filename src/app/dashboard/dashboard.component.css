@@ -1,6 +1,8 @@
 .dash-antet{
-    margin-top: 2%;
+    margin-top: 3.5%;
     margin-bottom: 2%;
+    background-color: rgba(211, 175, 55, 0.753);
+    height: 50px;
 }
 
 .dash-pagination{
@@ -24,8 +26,23 @@
 }
 
 .admin-button{
-    margin-top: 3%;
+    margin-top: 8%;
     margin-right: 3%;
+    margin-left: 5%;
+    padding: 0%;
+    display: inline-block;
+}
+
+.admin-button:hover{
+    color: white;
+}
+
+.button-container{
+    height: 100%;
+    width: 145px;
+    border-left: 1px solid #888888;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .item-card{
@@ -113,6 +130,10 @@
     height: 650px;
 }
 
+.card:hover{
+    box-shadow: 0.5px 0.5px 3px 3px rgba(211, 175, 55, 0.753);;
+}
+
 .category-card{
     height: 300px;
     border: 1px solid grey;
@@ -169,3 +190,5 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
+
+  

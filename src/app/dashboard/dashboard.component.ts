@@ -119,6 +119,11 @@ export class DashboardComponent implements OnInit {
     }
 
     this.wishlistService.insertWishItem(wishItem).subscribe((res:any)=>{
+      if(res === false){
+        this.desiredPrice = "";
+        this.toastrService.warning("", "Item already in Wishlist!");
+        return;
+      }
       this.desiredPrice = "";
       this.global.wishItemsNo++;
       this.toastrService.success("", "Added to Wishlist");

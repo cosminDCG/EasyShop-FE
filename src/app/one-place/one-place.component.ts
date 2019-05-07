@@ -114,7 +114,7 @@ export class OnePlaceComponent implements OnInit {
   addAllToCart(){
     this.resultItems.map(item => item.quantity = 1);
     this.cartService.addMultipleToCart(this.resultItems, this.global.currentUser.id).subscribe((res:any)=>{
-      this.global.cartItemsNo += this.resultItems.length;
+      this.global.cartItemsNo += res;
     }, (err)=>{
 
     });

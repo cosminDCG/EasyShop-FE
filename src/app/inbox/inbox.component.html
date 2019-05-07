@@ -9,7 +9,18 @@
         </div>
 
         <div class="col-md-9">
-            <div class="row-md-4">
+            <div class="row-md-3">
+                <div class="col-md-2 float-left">
+                    <img class="rounded-circle user-photo float-right" src="..\..\assets\{{ chatUser.photo }}">
+                </div>
+                
+                <div class="col-md-10 float-right">
+                    <h3><strong>{{ chatUser.firstName }} {{ chatUser.lastName }}</strong></h3>
+                    <h5 class="text-muted"><strong><i class="fas fa-map-marker-alt"></i> {{ chatUser.city }}</strong></h5>
+                </div>
+            </div>
+            
+            <div class="row-md-8 chat-body">
 
             </div>
         </div>
