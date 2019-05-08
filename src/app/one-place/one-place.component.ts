@@ -93,6 +93,10 @@ export class OnePlaceComponent implements OnInit {
     this.itemService.getCheapestSinglePlace(this.targetItems).subscribe((res:any)=>{
       this.resultItems = res;
       this.notFound = [];
+      if(res.length === 0){
+        this.notFound = this.targetItems;
+        return;
+      }
       for(let i = 0; i < this.resultItems.length; i++){
         if(this.resultItems[i].id == 0){
           this.notFound.push(this.targetItems[i]);

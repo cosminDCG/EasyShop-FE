@@ -1,4 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+
 import { GlobalService } from '../services/global-service/global.service';
 
 @Component({
@@ -9,8 +12,17 @@ import { GlobalService } from '../services/global-service/global.service';
 export class InboxComponent implements OnInit {
 
   public chatUser: any;
+  public messages = [];
 
-  constructor(private global: GlobalService) { }
+  public messageText = '';
+
+  
+  public received = '';
+
+
+  constructor(private global: GlobalService) {
+    
+   }
 
   ngOnInit() {
     this.chatUser = this.global.chatUser;
@@ -29,5 +41,18 @@ export class InboxComponent implements OnInit {
     localStorage.setItem('crUser', JSON.stringify(this.global.currentUser));
     localStorage.setItem('crChat', JSON.stringify(this.global.chatUser));
   }
+
+  
+
+  getMessage(){
+    this.messages.push($(".currentMessage").val());
+    console.log(this.messages);
+  }
+
+  sendMessage(){
+    this.global.stompClient.send("/app/send/message" , {}, JSON.stringify(this.messageText));
+    this.messageText = '';
+  }
+
 
 }

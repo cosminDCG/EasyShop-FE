@@ -23,23 +23,52 @@ h5{
     height: 80px;
     cursor: pointer;
     margin-top: 12%;
+    margin-bottom: 5%;
 }
 
-.col-md-3{
+.col-md-4{
     padding-right: 0%;
     border-right: 1px solid #888888;
 }
 
-.col-md-9{
+.col-md-8{
     padding-left: 0%;
+}
+
+.col-md-10{
+    margin-top: 2%;
 }
 
 .row-md-3{
     overflow: hidden;
     border-bottom: 1px solid #888888; 
-    margin-bottom: 2%;
 }
 
 .chat-body{
-    height: 600px;
+    height: 450px;
+    border-bottom: 1px solid #888888;
+    overflow-y: scroll;
+}
+
+.message-text textarea{
+    width: 75%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    margin-left: 2%;
+    border: 1px solid rgba(211, 175, 55, 0.753) !important;
+}
+
+.btn { 
+    border-radius: 0; 
+}
+
+.btn-full-width{
+    background-color: rgba(211, 175, 55, 0.753);
+    margin-left: 2%;
+    margin-bottom: 3%;
+    margin-right: 3%;
+}
+
+.btn-full-width:hover{
+    color: white;
 }

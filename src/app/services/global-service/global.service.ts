@@ -16,7 +16,10 @@ export class GlobalService {
   wishItemsNo: any;
 
   searchString = '';
-  
+
+  serverUrl = 'http://localhost:8090/socket';
+  stompClient;
+  messages: any[] = [];
   constructor(private router: Router) { }
 
   toCompareFormat(price){

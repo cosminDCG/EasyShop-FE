@@ -2,13 +2,13 @@
 
 <div class="inbox-body">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="row-md-2 text-center messages-header">
                 <h5><strong>Messages</strong></h5>
             </div>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div class="row-md-3">
                 <div class="col-md-2 float-left">
                     <img class="rounded-circle user-photo float-right" src="..\..\assets\{{ chatUser.photo }}">
@@ -21,7 +21,14 @@
             </div>
             
             <div class="row-md-8 chat-body">
+                <p *ngFor="let message of global.messages; let i = index">{{ message }}</p>
+            </div>
 
+            <div class="row-md-1 message-text">
+                <textarea (keyup.enter)="sendMessage()" [(ngModel)]="messageText" class="form-control" rows="3"></textarea>
+                <button (click)="sendMessage()" class="btn btn-md btn-brand btn-full-width">
+                    <i class="fas fa-paper-plane"></i> Send
+                </button>
             </div>
         </div>
     </div>

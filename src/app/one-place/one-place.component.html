@@ -38,8 +38,8 @@
             <h4><strong>Recommended items and shop:</strong></h4>
             <span>
                 <h5 class="text-secondary">
-                    <strong>The cheapest shop based on your list is: {{ resultItems[0].shop }}</strong>
-                    <img data-toggle="modal" (click)="getShopCoordonates(resultItems[0].shop)"  data-target="#mapModal" src = "..\..\assets\map.png" alt="..." class="img-responsive single-img map-icon"/>
+                    <strong *ngIf=" resultItems.length != 0">The cheapest shop based on your list is: {{ resultItems[0].shop }}</strong>
+                    <img *ngIf=" resultItems.length != 0" data-toggle="modal" (click)="getShopCoordonates(resultItems[0].shop)"  data-target="#mapModal" src = "..\..\assets\map.png" alt="..." class="img-responsive single-img map-icon"/>
                 </h5>
                 <span style="display: block;">
                     <h5 class="text-secondary">
