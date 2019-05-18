@@ -16,6 +16,8 @@ export class CategoryComponent implements OnInit {
   public folder = "../../assets/dashboard/item";
   public p:Number = 1;
 
+  public showAdminButton = false;
+
   constructor(private global: GlobalService,
               private dashboardService: DashboardService,
               private router: Router) { }
@@ -40,10 +42,18 @@ export class CategoryComponent implements OnInit {
     }, (err) =>{
       console.log('Error');
     });
+
+    if(this.global.currentUser.role == "admin"){
+      this.showAdminButton = true;
+    }
   }
 
   @HostListener('window:beforeunload') saveUser() {
     localStorage.setItem('crUser', JSON.stringify(this.global.currentUser));
+  }
+
+  goToAdminPanel() {
+    this.router.navigate(['/user/admin']);
   }
 
   catPhoto(category){

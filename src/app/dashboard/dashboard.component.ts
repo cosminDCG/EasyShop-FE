@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular
 import {PopoverModule} from "ngx-smart-popover";
 import { Router } from "@angular/router";
 import { Options, ChangeContext } from 'ng5-slider';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 import { DashboardService } from '../services/dashboard-service/dashboard.service';
 import { GlobalService } from '../services/global-service/global.service';
@@ -18,7 +19,7 @@ import * as $AB from 'jquery';
 export class DashboardComponent implements OnInit {
 
   public showAdminButton = false;
-  public items: any;
+  
   public itemAux: any;
   public itemAuxPrice: any;
   public user: any={};
@@ -49,7 +50,8 @@ export class DashboardComponent implements OnInit {
               private dashboardService:DashboardService,
               private wishlistService:WishlistService,
               private cartService:CartService,
-              private toastrService :ToastrService) { }
+              private toastrService :ToastrService,
+              private ngxService: NgxUiLoaderService) { }
 
   ngOnInit() {
     this.global.redirectUserProfile = null;
@@ -58,12 +60,11 @@ export class DashboardComponent implements OnInit {
       var aux = localStorage.getItem('crUser');
       this.user = JSON.parse(aux);
       this.global.currentUser = this.user;
-      console.log(this.user);
     }
     
     this.dashboardService.allItems().subscribe((res:any)=>{
-      this.items = res;
-      this.itemAux = this.items;
+      this.global.items = res;
+      this.itemAux = this.global.items;
       this.selectCategory(this.global.capitalize(this.router.url.split("/")[2]));
     }, (err) =>{
       console.log('Error');
@@ -93,21 +94,25 @@ export class DashboardComponent implements OnInit {
     (<any>$(pop)).popover('toggle');
   }
 
-  selectCategory(category){
-    if(this.items == null)
+  async selectCategory(category){
+    if(this.global.items == null)
       return;
     if(category === 'None'){
-      this.items = this.itemAux;
+      this.global.items = this.itemAux;
       this.itemAux = null;
       this.categoryFilter = 'Category';
       return;
     }
     if(this.itemAux != null){
-      this.items = this.itemAux;
+      this.global.items = this.itemAux;
     }
+    
     this.categoryFilter = category;
-    this.itemAux = this.items;
-    this.items = this.items.filter(item => item.category === category);
+    this.itemAux = this.global.items;
+    this.global.items = this.global.items.filter(item => item.category === category);
+    this.global.stringFilterAux = this.global.items;  
+    
+    
   }
 
   addToWishlist(item){
@@ -134,25 +139,25 @@ export class DashboardComponent implements OnInit {
 
   selectPrice(price){
     if(price === "None"){
-      this.items.sort((item1, item2) => item1.name > item2.name);
+      this.global.items.sort((item1, item2) => item1.name > item2.name);
       this.priceFilter = "None";
     }else 
     if(price === "Low to High"){
-      this.itemAuxPrice = this.items;
-      this.items.sort((item1, item2) => this.global.toCompareFormat(item1.price) - this.global.toCompareFormat(item2.price));
+      this.itemAuxPrice = this.global.items;
+      this.global.items.sort((item1, item2) => this.global.toCompareFormat(item1.price) - this.global.toCompareFormat(item2.price));
       this.priceFilter = "Low to High";
     } else if(price === "High to Low"){
-      this.itemAuxPrice = this.items;
-      this.items.sort((item1, item2) => this.global.toCompareFormat(item2.price) - this.global.toCompareFormat(item1.price));
+      this.itemAuxPrice = this.global.items;
+      this.global.items.sort((item1, item2) => this.global.toCompareFormat(item2.price) - this.global.toCompareFormat(item1.price));
       this.priceFilter = "High to Low";
     } 
   }
 
   onPriceChange(changeContext: ChangeContext){
     if(this.itemAuxPrice != null)
-      this.items = this.itemAuxPrice;
-      else this.itemAuxPrice = this.items;
-    this.items = this.items.filter(item => this.global.toCompareFormat(item.price) >= changeContext.value && this.global.toCompareFormat(item.price) <= changeContext.highValue);
+      this.global.items = this.itemAuxPrice;
+      else this.itemAuxPrice = this.global.items;
+    this.global.items = this.global.items.filter(item => this.global.toCompareFormat(item.price) >= changeContext.value && this.global.toCompareFormat(item.price) <= changeContext.highValue);
   }
 
   addToCart(itemId){
@@ -177,14 +182,14 @@ export class DashboardComponent implements OnInit {
 
   searchItems(){
     if(this.searchAux == null){
-      this.searchAux = this.items;
+      this.searchAux = this.global.items;
     }
     else{
-      this.items = this.searchAux;
-      this.items = this.items.filter(item => item.name.includes(this.global.searchString));
+      this.global.items = this.searchAux;
+      this.global.items = this.global.items.filter(item => item.name.includes(this.global.searchString));
       console.log(this.global.searchString);
-      console.log(this.items);
-      return this.items;
+      console.log(this.global.items);
+      return this.global.items;
     }
   }
 

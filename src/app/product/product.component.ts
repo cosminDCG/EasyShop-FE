@@ -237,4 +237,10 @@ export class ProductComponent implements OnInit {
       console.log('Error');
     })
   }
+
+  verifyNumber(value){
+    if(value == undefined || value === null)
+      return 0;
+    else return value.toFixed(2);
+  }
 }

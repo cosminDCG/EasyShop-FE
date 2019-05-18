@@ -3,6 +3,7 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
 import { GlobalService } from '../services/global-service/global.service';
+import { InboxService } from '../services/inbox-service/inbox.service';
 
 @Component({
   selector: 'app-inbox',
@@ -20,13 +21,18 @@ export class InboxComponent implements OnInit {
   public received = '';
 
 
-  constructor(private global: GlobalService) {
+  constructor(private global: GlobalService,
+              private inboxService: InboxService) {
     
    }
 
   ngOnInit() {
     this.chatUser = this.global.chatUser;
     console.log(this.chatUser);
+
+    this.inboxService.getConversation(this.global.currentUser.id, this.chatUser.id).subscribe((res:any)=>{
+      this.global.messages = res;
+    })
 
     if(localStorage.getItem('crUser') && this.global.currentUser == null) {
       var aux = localStorage.getItem('crUser'); 
@@ -42,15 +48,14 @@ export class InboxComponent implements OnInit {
     localStorage.setItem('crChat', JSON.stringify(this.global.chatUser));
   }
 
-  
-
-  getMessage(){
-    this.messages.push($(".currentMessage").val());
-    console.log(this.messages);
-  }
 
   sendMessage(){
-    this.global.stompClient.send("/app/send/message" , {}, JSON.stringify(this.messageText));
+    var message = {
+      fromUser : this.global.currentUser.id,
+      toUser : this.chatUser.id,
+      text : this.messageText
+    }
+    this.global.stompClient.send("/app/send/message" , {}, JSON.stringify(message));
     this.messageText = '';
   }
 

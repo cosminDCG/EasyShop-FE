@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
@@ -11,6 +11,10 @@ import { AgmCoreModule } from '@agm/core';
 import { Ng5SliderModule } from 'ng5-slider';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { NgxUiLoaderModule } from  'ngx-ui-loader';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -56,6 +60,10 @@ import { CategoryComponent } from './category/category.component';
     Ng5SliderModule,
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    NgxUiLoaderModule,
+    MatInputModule,
     NgbModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD_UJkkF0mtrGAY2NJN6oMa2KjpYIvUMVI'
@@ -68,6 +76,7 @@ import { CategoryComponent } from './category/category.component';
       preventDuplicates: true,
     }),
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {
         path: 'authentication',

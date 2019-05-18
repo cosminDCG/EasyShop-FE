@@ -41,7 +41,9 @@
         </div>
     </div><br>
 
-    <div *ngFor="let item of items | paginate: { itemsPerPage: 12, currentPage: p }; let i = index" class="col-md-3 float-right item-card">
+    <ngx-ui-loader logoUrl="..\..\assets\es-logo.png" logoSize="180" blur="10" fgsColor="rgba(211, 175, 55, 0.753)" bgsColor="rgba(211, 175, 55, 0.753)" text="Loading..."></ngx-ui-loader>
+
+    <div *ngFor="let item of global.items | paginate: { itemsPerPage: 12, currentPage: p }; let i = index" class="col-md-3 float-right item-card">
         <div class="card" style="width: 18rem;">
             <img (click)="global.seeItemDetails(item)" class="card-img-top dash-img" src="..\..\assets\dashboard\{{item.photo}}" alt="Card image cap">
             <div (click)="global.seeItemDetails(item)" class="card-body">

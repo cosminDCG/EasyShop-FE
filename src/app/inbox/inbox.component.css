@@ -26,6 +26,15 @@ h5{
     margin-bottom: 5%;
 }
 
+.chat-photo{
+    padding: 0;
+    line-height: 50px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
 .col-md-4{
     padding-right: 0%;
     border-right: 1px solid #888888;
@@ -71,4 +80,17 @@ h5{
 
 .btn-full-width:hover{
     color: white;
+}
+
+.message-line{
+    display: inline-block; 
+    width: 100%;
+}
+
+.your-message{
+    margin-left: 5%;
+}
+
+.chat-user-message{
+    margin-right: 5%;
 }

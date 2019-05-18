@@ -174,7 +174,7 @@ export class CartComponent implements OnInit {
   
         });
       }
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/items/categories']);
     },(err)=>{
 
     });

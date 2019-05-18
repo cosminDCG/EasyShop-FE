@@ -17,6 +17,11 @@ export class GlobalService {
 
   searchString = '';
 
+  items: any;
+  stringFilterAux: any;
+
+  options: string[];
+
   serverUrl = 'http://localhost:8090/socket';
   stompClient;
   messages: any[] = [];

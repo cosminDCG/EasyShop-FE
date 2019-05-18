@@ -4,7 +4,7 @@
     </div>
 
     <ul class="navbar-nav nav-dist-left">
-        <li [ngClass]="{'active' : url === '/dashboard'}" class="nav-item nav-border">
+        <li [ngClass]="{'active' : url.includes('/dashboard') || url.includes('/categories')}" class="nav-item nav-border">
             <a class="nav-link" [routerLink]="['/items/categories']">
                 <fa name="th-list"></fa> Dashboard
             </a>
@@ -30,8 +30,8 @@
         <li *ngIf = 'activateSearch' class="nav-item align-search">
             
             <span class="input-group-append">
-                <input (change)="searchItem()" [(ngModel)]="searachCriteria" type="text" class="form-control py-2 easy-search" placeholder="Search">
-                <button class="btn btn-secondary easy-search-button" type="button">
+                <input (change)="searchItem()" [(ngModel)]="searchCriteria" type="text" class="form-control py-2 easy-search" placeholder="Search">
+                <button (click)="searchItem()" class="btn btn-secondary easy-search-button" type="button">
                     <fa name="search"></fa>
                 </button>
             </span>

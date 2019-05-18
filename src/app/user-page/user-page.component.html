@@ -14,8 +14,8 @@
           <ul class="list-group activity-group">
               <li class="list-group-item text-muted text-center">Activity <i class="fas fa-chart-line"></i></li>
               <li class="list-group-item text-right"><span class="pull-left"><strong>Orders</strong></span> <strong>{{ nrOfOrders }}</strong></li>
-              <li class="list-group-item text-right"><span class="pull-left"><strong>Reviews</strong></span> <strong>{{ nrOfReviews }}</strong></li>
-              <li class="list-group-item text-right"><span class="pull-left"><strong>Comments</strong></span> <strong>{{ nrOfComments }}</strong></li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong>Reviews</strong></span> <strong>{{ user.revNo }}</strong></li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong>Comments</strong></span> <strong>{{ user.commNo }}</strong></li>
               <li *ngIf="global.currentUser.id !== user.id" (click)="goToChat()" class="list-group-item text-center message-button">
                   <span class="text-center"><strong><i class="fas fa-envelope"></i> SEND MESSAGE</strong></span>
               </li>

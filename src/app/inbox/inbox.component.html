@@ -21,7 +21,15 @@
             </div>
             
             <div class="row-md-8 chat-body">
-                <p *ngFor="let message of global.messages; let i = index">{{ message }}</p>
+                <div class="message-line" *ngFor="let message of global.messages; let i = index">
+                    <img *ngIf="message.fromUser === global.currentUser.id" class="your-message rounded-circle chat-photo" src="..\..\assets\{{ global.currentUser.photo }}">
+                    <strong *ngIf="message.fromUser === global.currentUser.id" >{{ message.text }}</strong>
+
+                    <img *ngIf="message.fromUser !== global.currentUser.id" class="chat-user-message rounded-circle chat-photo float-right" src="..\..\assets\{{ chatUser.photo }}">
+                    <strong *ngIf="message.fromUser !== global.currentUser.id" class="float-right" >{{ message.text }}</strong>
+                </div>
+                
+                
             </div>
 
             <div class="row-md-1 message-text">
