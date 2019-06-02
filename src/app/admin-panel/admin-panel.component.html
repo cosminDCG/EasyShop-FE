@@ -12,8 +12,54 @@
       <h6><strong>Shop Statistics</strong></h6>
     </div>
     <div (click)="ordersTab()" class="col-md-3 float-left">
-      <h6><strong>All Orders</strong></h6>
+      <h6><strong>Payments</strong></h6>
     </div>
+  </div>
+</div>
+
+<div *ngIf="toChart" class="users-container">
+  <div class="col-md-2">
+    aaa
+  </div>
+  <div class="float-left">
+    aaa
+  </div>
+</div>
+
+<div *ngIf="toOrders" class="users-container order-content">
+  <nav class="payment-nav">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-orders-tab" data-toggle="tab" href="#nav-orders" role="tab" aria-controls="nav-orders" aria-selected="true">All Orders</a>
+      <a class="nav-item nav-link" id="nav-bill-tab" data-toggle="tab" href="#nav-bill" role="tab" aria-controls="nav-bill" aria-selected="false">Shop Bills</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-orders" role="tabpanel" aria-labelledby="nav-orders-tab">
+      <table class="table table-hover table-condensed order-table">
+        <thead>
+          <tr>
+            <th class="text-center" style="width:5%">No.</th>
+            <th class="text-center" style="width:10">Order</th>
+            <th class="text-center" style="width:20%">Customer</th>
+            <th class="text-center" style="width:25%">Address</th>
+            <th class="text-center" style="width:10%">Price</th>
+            <th class="text-center" style="width:20%">Date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let order of allOrders; let i = index" (click)="showOrderDetails(order)" data-toggle="modal" data-target="#orderModal">
+            <td class="text-center" data-th="No"><strong>{{ i+1 }}.</strong></td>
+            <td class="text-center" data-th="Order"><strong>#{{ orderNumber(order.id) }}</strong></td>
+            <td class="text-center" data-th="Customer"><strong>{{ order.deliveryPerson }}</strong></td>
+            <td class="text-center" data-th="Address"><strong>{{ order.deliveryAddress }}</strong></td>
+            <td class="text-center" data-th="Price"><strong>{{ order.price }} Lei</strong></td>
+            <td class="text-center" data-th="Date"><strong>{{ order.data }}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="nav-bill" role="tabpanel" aria-labelledby="nav-bill-tab">...</div>
   </div>
 </div>
 
@@ -34,7 +80,7 @@
 
     <tbody>
       <tr *ngFor="let usr of users; let i = index">
-        <td class="text-center" data-th="No"><strong>{{ i+1 }}</strong></td>
+        <td class="text-center" data-th="No"><strong>{{ i+1 }}.</strong></td>
         <td class="text-center" data-th="Name"><strong>{{ usr.firstName }} {{ usr.lastName }}</strong></td>
         <td class="text-center" data-th="Email"><strong>{{ usr.email }}</strong></td>
         <td class="text-center" data-th="Role">
@@ -45,6 +91,7 @@
               <div class="dropdown-menu" aria-labelledby="easy-role">
                   <a (click) = "selectRole('admin', i)" class="dropdown-item">Admin</a>
                   <a (click) = "selectRole('user', i)" class="dropdown-item">User</a>
+                  <a *ngFor="let shop of allShops" (click) = "selectShopRep(i, 'rep', shop)" class="dropdown-item">Rep for {{ shop }}</a>
               </div>
           </div>
         </td>
@@ -81,12 +128,81 @@
 </div>
 
 <div *ngIf="toScrap" class="col-md-10 admin-scrap">
-  <div class="row-md-2">
-      <h3>Insert a link for scraping</h3>
-  </div>
   
   <div class="row-md-6 insert">
-    <input [(ngModel)] = 'link' type="text" class="form-control input-scrap">
-    <button class="btn btn-warning" (click)="startScrap($event)">Scrap</button>
+    <h3>Insert a link for scraping</h3>
+    <hr>
+    <input [(ngModel)] = 'link' (ngModelChange)="checkForRep()" type="text" class="form-control input-scrap">
+    
+    <h3>Choose a shop rep:</h3> <span *ngIf="scrapUserCheck" class="text-danger"><i class="fas fa-exclamation-circle"></i> This shop already has a rep!</span>
+    <hr>
+    <div class="dropdown choose-user">
+        
+      <a class="dropdown-toggle nav-link border border-warning rounded text-center" id="easyMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i>
+          {{ chooseUser }}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="easyMenu">
+          <a *ngFor="let user of users" (click) = "scrapUserCheck ? $event.stopPropagation() : selectUser(user)" class="dropdown-item">{{ user.firstName }} {{user.lastName}} - {{user.email}}</a>
+      </div>
+
+      <button class="btn btn-warning scrap-btn" (click)="startScrap($event)">Scrap</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="mapModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="mapModalTitle"><strong>Order: #{{ orderNumber(currentOrder.id) }}</strong></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body map-modal">
+          <table class="table table-hover table-condensed">
+              <thead>
+                  <th style="width:50%">Item</th>
+                  <th style="width:10%">Qty</th>
+                  <th style="width:20%">Price</th>
+                  <th style="width:20%">Subtotal</th>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of currentOrder.items; let i = index">
+                      <td data-th="Item">
+                          <div class="row-md-6">
+                              <h5><strong>{{ global.formatItemName(item.name) }}</strong></h5>
+                          </div>
+                          <div class="row-md-6">
+                              <strong class="text-muted">Shop: {{ item.shop }} | Category: {{ item.category }}</strong>
+                          </div>
+                      </td>
+                      <td data-th="Qty">
+                          <span class="row final-qty">
+                              <i class="fas fa-times"></i>
+                              <strong>{{ item.quantity }}</strong>
+                          </span>
+                      </td>
+                      <td data-th="Price">
+                          <div class="row text-center">
+                              <strong>{{ item.price }}</strong>
+                          </div>
+                      </td>
+                      <td data-th="Subtotal">
+                          <div class="row">
+                              <strong>{{ (global.toCompareFormat(item.price)*item.quantity).toFixed(2) }} Lei</strong>
+                          </div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div class="modal-footer">
+          <h4 class="text-danger payed-price"><strong>Payed: {{ currentOrder.price }} Lei</strong></h4>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>

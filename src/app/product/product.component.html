@@ -60,7 +60,7 @@
           <span class="monospaced">In Stock</span>
         </div>
         <div class="col-md-4 col-md-offset-1 text-center">
-          <a class="monospaced" href="#">Add to Shopping List</a>
+          <a class="monospaced" >Add to Shopping List</a>
         </div>
       </div>
 
@@ -119,7 +119,7 @@
                               <h6 *ngFor="let i of [1,2,3,4,5]" [ngStyle]="{'color':i <= review.review ? 'rgba(244, 208, 63, 1)' : 'black' }"><fa class="icon-foo" name="star"></fa></h6>
                               <small class="text-muted">- {{ review.data }}</small>
                               <fa *ngIf="review.userId == global.currentUser.id" class="float-right rev-icon" (click)="deleteReview(review.id)" name="trash"></fa>
-                              <fa *ngIf="review.userId == global.currentUser.id" class="float-right rev-icon" name="comments"></fa>
+                              <fa *ngIf="review.userId != global.currentUser.id" class="float-right rev-icon" (click)="goToChat(review.userId)" name="comments"></fa>
                             </span>
                         </div>
                         <div class="content">
@@ -138,7 +138,7 @@
                                       <strong class="reviewer-name" (click)="goToUserProfile(reply.userId)">{{ reply.firstName }} {{ reply.lastName }}</strong>
                                       <small class="text-muted">- {{ reply.data }}</small>
                                       <fa *ngIf="reply.userId == global.currentUser.id" class="float-right rev-icon" (click)="deleteReply(reply.id, i, j)" name="trash"></fa>
-                                      <fa *ngIf="reply.userId == global.currentUser.id" class="float-right rev-icon" name="comments"></fa>
+                                      <fa *ngIf="reply.userId != global.currentUser.id" class="float-right rev-icon" (click)="goToChat(reply.userId)" name="comments"></fa>
                                     </span>
                                   </div>
                                   <div class="content">

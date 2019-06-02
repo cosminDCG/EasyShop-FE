@@ -1,9 +1,11 @@
 <app-menu></app-menu>
-<div *ngIf = "showAdminButton" class="row dash-antet">
-  <div class="ml-auto button-container">
+<div class="row dash-antet">
+  <div *ngIf = "showAdminButton" class="ml-auto button-container">
       <strong (click)="goToAdminPanel()" class="admin-button">Admin Panel</strong>
   </div>
-  
+  <div *ngIf = "showRepButton"  class="ml-auto button-container">
+    <strong (click)="goToRepPanel()" class="admin-button">Rep Panel</strong>
+  </div>
 </div>
 
 <div class="row cat-pagination">

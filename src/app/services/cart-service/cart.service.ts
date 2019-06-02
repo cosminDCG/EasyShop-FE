@@ -40,4 +40,8 @@ export class CartService {
     return this.http.post('http://localhost:8090/promo/use', promo);
   }
 
+  allOrders(){
+    return this.http.get('http://localhost:8090/order/all');
+  }
+
 }

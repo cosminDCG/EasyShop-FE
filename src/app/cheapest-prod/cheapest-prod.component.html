@@ -37,7 +37,7 @@
         <div *ngIf="choices" class="list-container result-container">
             <h4><strong>Recommended items and shops:</strong></h4>
             <h5 class="text-secondary">
-                <strong>We couldn't find this items in the shop: </strong>
+                <strong *ngIf="notFound.length !== 0">We couldn't find this items in the shop: </strong>
                 <span class="text-danger" *ngFor="let item of notFound; let i = index"><strong>{{ item }}<span *ngIf="i!==(notFound.length - 1)">, </span> </strong> </span>
             </h5>
             <table class="table table-hover table-condensed">
@@ -72,7 +72,20 @@
                     </tr>
                 </tbody>
             </table>
-            
+            <div class="total-container">
+                <button (click)="getClosestShops()" class="btn btn-md btn-brand btn-warning way-button">Show shortest way</button>
+                <h3 class="text-danger float-right"><strong>Total Price is: {{ totalSum() }} Lei</strong></h3>
+            </div>
+        </div>
+
+        <div *ngIf="wayToShop" class="list-container">
+            <h4><strong>Shortest path to the shops from your location:<img data-toggle="modal" (click)="setShop()"  data-target="#mapModal" src = "..\..\assets\map.png" alt="..." class="img-responsive way-img"/></strong></h4>
+            <div class="way-container">
+                <span class="way-container" *ngFor="let shop of wayToShop; let i = index">
+                    <strong class="float-left">{{shop.label.text}}</strong>
+                    <strong *ngIf="i !== (wayToShop.length-1)" class="float-left"><i class="fas fa-long-arrow-alt-right"></i></strong>
+                </span>
+            </div>
         </div>
     </div>
 </div>

@@ -19,6 +19,10 @@ export class CheapestProdComponent implements OnInit {
 
   public choices: any;
 
+  public wayToShop: any[];
+  public shopNames: any[];
+  public closestShops: any[];
+
   private autocomplete: any;
   public placeService: any;
   public shops : any[] =[];
@@ -84,13 +88,15 @@ export class CheapestProdComponent implements OnInit {
   getCheapestChoices(){
     this.itemService.getCheapestChoices(this.targetItems).subscribe((res:any)=>{
       this.choices = res;
+      
       this.notFound = [];
+      this.shopNames = [];
       for(let i = 0; i < this.choices.length; i++){
+        this.shopNames.push(this.choices[i].shop)
         if(this.choices[i].id == 0){
           this.notFound.push(this.targetItems[i]);
         }
       }
-
       for(let i = 0; i < this.choices.length; i++){
         if(this.choices[i].id == 0){
           this.choices.splice(i, 1);
@@ -101,6 +107,7 @@ export class CheapestProdComponent implements OnInit {
     }, (err)=>{
 
     });
+
   }
 
   removeItem(index){
@@ -181,6 +188,66 @@ export class CheapestProdComponent implements OnInit {
   selectAllShops(){
     this.showClosest = 0;
     this.shops = this.auxShops;
+  }
+
+  totalSum(){
+    var total = 0;
+    for(let i=0; i < this.choices.length; i++)
+      total += this.global.toCompareFormat(this.choices[i].price);
+    return total;
+  }
+
+  getClosestShops(){
+    this.closestShops = [];
+    this.shopNames = [];
+    var aux = [];
+
+    for(let i = 0; i < this.choices.length; i++){
+      this.shopNames[i]=this.choices[i].shop;
+    }
+
+    for(let i = 0; i < this.shopNames.length; i++){
+      var term = this.shopNames[i] + " " + this.global.currentUser.city;
+      this.autocomplete.getPlacePredictions({ input: term }, data => {
+      
+        if (data) {
+          var sh :any[] = [];
+          var that = this;
+          for(let j = 0; j < data.length; j++){
+            this.placeService.getDetails({
+              placeId: data[j].place_id
+              }, function (result, status) {
+                var shopToAdd = {
+                  lat: result.geometry.location.lat(),
+                  lng: result.geometry.location.lng(),
+                  label: {
+                    text: that.shopNames[i],
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "16px"
+                  }
+                }
+               sh.push(shopToAdd);
+               if(j == data.length - 1){
+                sh.sort((shop1, shop2)=> that.global.distance(that.currentPosition, shop1) - that.global.distance(that.currentPosition, shop2));
+                console.log("sh este:", sh);
+                that.closestShops.push(sh[0]);
+                console.log("magazinul este:", sh[0]);
+                that.wayToShop = that.closestShops.sort((shop1, shop2)=> that.global.distance(that.currentPosition, shop1) - that.global.distance(that.currentPosition, shop2));
+               }
+              });
+              
+          }
+          this.zoom = 12;
+        }
+        
+      });
+      
+    }
+  }
+
+  setShop(){
+    this.shops = this.wayToShop;
   }
 
 }

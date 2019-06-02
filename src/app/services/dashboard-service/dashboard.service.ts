@@ -15,4 +15,8 @@ export class DashboardService {
   allCategories() {
     return this.http.get('http://localhost:8090/item/categories');
   }
+
+  allShops() {
+    return this.http.get('http://localhost:8090/item/shops')
+  }
 }

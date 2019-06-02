@@ -10,7 +10,7 @@
     box-shadow: 2px 0px 8px #888888;
     background-color: rgba(211, 175, 55, 0.753);
     margin-left: 10%;
-    margin-top: 5%;
+    margin-top: 8%;
     margin-right: 10%;
 }
 
@@ -60,6 +60,7 @@ button{
     margin-left: 10%;
     margin-top: 2%;
     margin-right: 7%;
+    overflow: hidden;
 }
 
 thead{
@@ -83,4 +84,54 @@ a{
     color: green !important;
 }
 
+.choose-user{
+    width: 28.5%;
+}
 
+.scrap-btn{
+    margin-top: 3%;
+}
+
+.dropdown-menu{
+    max-height: 250px;
+    overflow-y: scroll
+}
+
+.payment-nav{
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+.order-table{
+    margin-top: 2%;
+}
+
+.order-content{
+    margin-bottom: 3%;
+}
+
+.order-content td{
+    cursor: pointer;
+}
+
+.modal-header, .modal-footer{
+    background-color: rgba(211, 175, 55, 0.753);
+}
+
+.payed-price{
+    margin-right: 60% !important;
+}
+
+.final-qty{
+    margin-left: 2%;
+}
+
+.final-qty strong{
+    margin-top: 3%;
+    font-size: 150%;
+}
+
+.final-qty .fas{
+    font-size: 150%;
+    margin-top: 12%;
+}

@@ -148,3 +148,33 @@ agm-map {
 .prod-info{
     cursor: pointer;
 }
+
+.total-container{
+    background-color: rgba(211, 175, 55, 0.753);
+    height: 100%;
+    overflow: hidden;
+}
+
+.total-container h3{
+    margin: 1%;
+}
+
+.way-container{
+    margin-left: 3%;
+    font-size: 150%;
+}
+
+.way-container strong{
+    margin-right: 3%;
+}
+
+.way-img{
+    width: 5%;
+    margin-left: 2%;
+}
+
+.way-button{
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-bottom: 1%;
+}

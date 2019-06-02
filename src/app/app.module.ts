@@ -15,6 +15,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -62,6 +63,7 @@ import { CategoryComponent } from './category/category.component';
     AngularFontAwesomeModule,
     MatAutocompleteModule,
     MatFormFieldModule,
+    NgxPayPalModule,
     NgxUiLoaderModule,
     MatInputModule,
     NgbModule,

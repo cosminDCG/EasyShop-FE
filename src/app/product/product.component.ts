@@ -243,4 +243,15 @@ export class ProductComponent implements OnInit {
       return 0;
     else return value.toFixed(2);
   }
+
+  goToChat(id){
+    this.userService.getUserById(id).subscribe((res:any)=>{
+      this.global.chatUser = res;
+      this.router.navigate(['/inbox/user/' + this.global.currentUser.id]);
+    }, (err)=>{
+
+    });
+    
+    
+  }
 }

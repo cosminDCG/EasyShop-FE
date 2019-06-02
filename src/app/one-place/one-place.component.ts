@@ -191,4 +191,11 @@ export class OnePlaceComponent implements OnInit {
     this.shops = this.auxShops;
   }
 
+  totalSum(){
+    var total = 0;
+    for(let i=0; i < this.resultItems.length; i++)
+      total += this.global.toCompareFormat(this.resultItems[i].price);
+    return total;
+  }
+
 }

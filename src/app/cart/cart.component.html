@@ -1,3 +1,4 @@
+
 <app-menu></app-menu>
 
 <div *ngIf="!toCheckout" class="cart-container">
@@ -190,7 +191,7 @@
         <button [ngStyle]="{'margin-top':toAddress === 1 ? '3%' : '0' }" *ngIf="toCheckout || toAddress" (click)="backToCart()" class="btn btn-lg btn-brand btn-full-width float-left">
             Back
         </button>
-        <button *ngIf="!toCheckout" (click)="goToCheckout()" class="btn btn-lg btn-brand btn-full-width float-right">
+        <button *ngIf="!toCheckout" [disabled]="items.length === 0" (click)="goToCheckout()" class="btn btn-lg btn-brand btn-full-width float-right">
             Go To Checkout
         </button>
         <button *ngIf="toCheckout && !toAddress" (click)="goToAddress()" class="btn btn-lg btn-brand btn-full-width float-right">
@@ -199,9 +200,11 @@
         <!-- <button [ngStyle]="{'margin-top':toAddress === 1 ? '3%' : '0' }" *ngIf="toAddress" (click)="goToPayment()" class="btn btn-lg btn-brand btn-full-width float-right">
             Go to Payment
         </button> -->
-        <button [ngStyle]="{'margin-top':toAddress === 1 ? '3%' : '0' }" *ngIf="toAddress" (click)="pay()" class="btn btn-lg btn-brand btn-full-width float-right">
+        <button [ngStyle]="{'margin-top':toAddress === 1 ? '3%' : '0' }" *ngIf="toAddress&&cashPay===true" (click)="pay()" class="btn btn-lg btn-brand btn-full-width float-right">
             Pay
         </button>
+
+        <ngx-paypal [ngStyle]="{'margin-top':toAddress === 1 ? '3%' : '0' }" *ngIf="toAddress&&cashPay===false" class="paypal float-right" [config]="payPalConfig"></ngx-paypal>
     </div>
     
 </div>

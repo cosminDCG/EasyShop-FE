@@ -43,7 +43,7 @@
                 </h5>
                 <span style="display: block;">
                     <h5 class="text-secondary">
-                        <strong>We couldn't find this items in the shop: </strong>
+                        <strong *ngIf="notFound.length !== 0">We couldn't find this items in the shop: </strong>
                         <span class="text-danger" *ngFor="let item of notFound; let i = index"><strong>{{ item }}<span *ngIf="i!==(notFound.length - 1)">, </span> </strong> </span>
                     </h5>
                     
@@ -80,7 +80,9 @@
                     </tr>
                 </tbody>
             </table>
-            
+            <div class="total-container">
+                <h3 class="text-danger float-right"><strong>Total Price is: {{ totalSum() }} Lei</strong></h3>
+            </div>
         </div>
     </div>
 </div>

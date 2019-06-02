@@ -1,5 +1,6 @@
 .easy-logo{
-  width: 110px;
+  width: 130px;
+  height: 60px;;
 }
 
 .nav-dist-left{
@@ -69,3 +70,4 @@ background-color: #c67605;
 .drop-menu{
   cursor: pointer;
 }
+

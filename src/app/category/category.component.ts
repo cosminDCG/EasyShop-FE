@@ -17,6 +17,7 @@ export class CategoryComponent implements OnInit {
   public p:Number = 1;
 
   public showAdminButton = false;
+  public showRepButton = false;
 
   constructor(private global: GlobalService,
               private dashboardService: DashboardService,
@@ -45,6 +46,10 @@ export class CategoryComponent implements OnInit {
 
     if(this.global.currentUser.role == "admin"){
       this.showAdminButton = true;
+    }
+
+    if(this.global.currentUser.role == "rep"){
+      this.showRepButton = true;
     }
   }
 
