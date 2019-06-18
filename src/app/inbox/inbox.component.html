@@ -4,7 +4,14 @@
     <div class="row">
         <div class="col-md-4">
             <div class="row-md-2 text-center messages-header">
-                <h5><strong>Messages</strong></h5>
+                <h3><strong>Messages</strong></h3>
+            </div>
+            <div *ngFor="let message of chatHistory; let i = index"  class="row-md-2 history">
+                <div (click)="changeChatUser(message)">
+                    <img class="your-message float-left rounded-circle chat-photo" src="..\..\assets\{{ message.user.photo }}">
+                    <strong style="margin-left: 2%;">{{ message.user.firstName }} {{ message.user.lastName }}</strong><br>
+                    <strong style="margin-left: 2%;" class="text-muted">{{ message.lastMessage }}</strong>
+                </div><br>
             </div>
         </div>
 

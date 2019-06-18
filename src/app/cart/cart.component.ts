@@ -110,7 +110,6 @@ export class CartComponent implements OnInit {
         onClientAuthorization: (data) => {
             this.pay();
             this.router.navigate(['/items/categories']);
-            // location.reload();
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
             
         },
@@ -155,7 +154,9 @@ export class CartComponent implements OnInit {
 
   deleteFromCart(cartId){
     this.cartService.deleteFromCart(cartId).subscribe((res:any)=>{
+
       this.items = this.items.filter(item => item.cartId !== cartId);
+
       this.global.cartItemsNo--;
       this.toastrService.error("","Removed from Cart");
     },(err)=>{

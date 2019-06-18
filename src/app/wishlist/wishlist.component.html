@@ -44,11 +44,12 @@
           </button>
         </div>
         <div class="modal-body map-modal">
+            <h5><strong>Distance in km: {{ distance.toFixed(2) }} </strong></h5>
             <a *ngIf="!showClosest" class="btn btn-warning btn-circle text-uppercase" (click) = "selectClosestShop()">Show closest shop</a>
             <a *ngIf="showClosest" class="btn btn-warning btn-circle text-uppercase" (click) = "selectAllShops()">Show all shops</a>
             <agm-map id="map" [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapReady)="mapReady($event)">
                 <agm-marker [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [label] = "label" [iconUrl] = 'icon'></agm-marker>
-                <agm-marker *ngFor="let shop of shops; let i = index" [latitude]="shop.lat" [longitude]="shop.lng" [label] = "shop.label" [iconUrl]='shopIcon'></agm-marker>
+                <agm-marker *ngFor="let shop of shops; let i = index" (markerClick)="distanceToShop(shop)" [latitude]="shop.lat" [longitude]="shop.lng" [label] = "shop.label" [iconUrl]='shopIcon'></agm-marker>
             </agm-map>
         </div>
         <div class="modal-footer">

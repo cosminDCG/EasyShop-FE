@@ -27,9 +27,11 @@ export class DashboardComponent implements OnInit {
   public catP: Number = 1;
 
   public categories:any;
+  public shops: any;
   
   public categoryFilter = "Category";
-  public priceFilter = "Price"
+  public priceFilter = "Price";
+  public shopFilter =  "Shop";
   public desiredPrice ="";
   public rating = 0.0;
 
@@ -75,6 +77,10 @@ export class DashboardComponent implements OnInit {
     }, (err) =>{
       console.log('Error');
     });
+
+    this.dashboardService.allShops().subscribe((res:any)=>{
+      this.shops = res;
+    })
     if(this.global.currentUser.role == "admin"){
       this.showAdminButton = true;
     }

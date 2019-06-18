@@ -25,6 +25,10 @@ export class GlobalService {
   serverUrl = 'http://localhost:8090/socket';
   stompClient;
   messages: any[] = [];
+
+  monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
   constructor(private router: Router) { }
 
   toCompareFormat(price){
@@ -51,6 +55,23 @@ export class GlobalService {
     + currentdate.getHours() + ":"  
     + currentdate.getMinutes() + ":" 
     + currentdate.getSeconds();
+  }
+
+  getCurrentDate(){
+    var currentdate = new Date();
+    return currentdate.getDate() + "-"
+    + (currentdate.getMonth()+1)  + "-" 
+    + currentdate.getFullYear() 
+  }
+
+  getCurrentMonth(){
+    var currentDate = new Date();
+    return currentDate.getMonth() + 1;
+  }
+
+  getCurrentYear(){
+    var currentDate = new Date();
+    return currentDate.getFullYear();
   }
 
   deg2rad(degrees){
@@ -88,5 +109,10 @@ export class GlobalService {
 
   capitalize(str){
     return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  getMonthName(data){
+    var date = new Date(data);
+    return this.monthNames[date.getMonth()];
   }
 }

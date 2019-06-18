@@ -1,1 +1,181 @@
 <app-menu></app-menu>
+
+<div class="col-md-10 rep-menu">
+    <div class="row">
+        <div (click)="chartTab()" class="col-md-6 float-left">
+            <h6><strong>Statistics</strong></h6> 
+        </div>
+        <div (click)="orderTab()" class="col-md-6 float-left">
+            <h6><strong>Payments</strong> </h6>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="toChart" class="users-container">
+    <div class="col-md-2 float-left stat-menu">
+        <div (click)="shopOrdersPerWeekInit()" class="row-md-3 text-center user-opt">
+            <h6><strong>Stats last week</strong></h6>
+        </div>
+        <div (click)="shopOrdersPerMonthInit()" class="row-md-3 text-center user-opt">
+            <h6><strong>Stats last month</strong></h6>
+        </div>
+        <div (click)="shopOrdersPerYearInit()" class="row-md-3 text-center user-opt">
+            <h6><strong>Stats last year</strong></h6>
+        </div>
+        <div class="row-md-3 text-center user-opt">
+            <h6><strong>Stats overall</strong></h6>
+        </div>
+    </div>
+    
+    <div class="float-right text-center" style="width: 70%">
+        <h3><strong>{{chartTitle}}</strong></h3>
+        <h5 class="text-muted"><strong>Total items sold: {{soldItemsNo}}</strong></h5>
+        <h5 class="text-muted"><strong>Total orders: {{ordersNo}}</strong></h5>
+        <canvas
+            *ngIf="changeChart == 0"
+            baseChart
+            [chartType]="chartType"
+            [data]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [legend]="true"
+            [options]="options"
+            (chartClick)="onChartClick($event)">
+        </canvas>
+        <canvas
+            *ngIf="changeChart == 1"
+            baseChart
+            [chartType]="chartType"
+            [datasets]="chartDataSet"
+            [labels]="chartLabels"
+            [options]="chartOptionsSet"
+            [legend]="true"
+            [options]="options"
+            (chartClick)="onChartClick($event)">
+        </canvas>
+    </div>
+</div>
+
+<div *ngIf="toOrder" class="users-container order-content">
+    <nav class="payment-nav">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-orders-tab" data-toggle="tab" href="#nav-orders" role="tab" aria-controls="nav-orders" aria-selected="true">All Orders</a>
+            <a class="nav-item nav-link" id="nav-bill-tab" data-toggle="tab" href="#nav-bill" role="tab" aria-controls="nav-bill" aria-selected="false">Shop Bills</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-orders" role="tabpanel" aria-labelledby="nav-orders-tab">
+            <table class="table table-hover table-condensed order-table">
+                <thead>
+                    <tr>
+                    <th class="text-center" style="width:5%">No.</th>
+                    <th class="text-center" style="width:10">Order</th>
+                    <th class="text-center" style="width:20%">Customer</th>
+                    <th class="text-center" style="width:25%">Address</th>
+                    <th class="text-center" style="width:10%">Price</th>
+                    <th class="text-center" style="width:20%">Date</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    <tr *ngFor="let order of shopOrders; let i = index" (click)="showOrderDetails(order)" data-toggle="modal" data-target="#orderModal">
+                    <td class="text-center" data-th="No"><strong>{{ i+1 }}.</strong></td>
+                    <td class="text-center" data-th="Order"><strong>#{{ orderNumber(order.id) }}</strong></td>
+                    <td class="text-center" data-th="Customer"><strong>{{ order.deliveryPerson }}</strong></td>
+                    <td class="text-center" data-th="Address"><strong>{{ order.deliveryAddress }}</strong></td>
+                    <td class="text-center" data-th="Price"><strong>{{ order.price.toFixed(2) }} Lei</strong></td>
+                    <td class="text-center" data-th="Date"><strong>{{ order.data }}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-bill" role="tabpanel" aria-labelledby="nav-bill-tab">
+            <table class="table table-hover table-condensed order-table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width:5%">No.</th>
+                        <th class="text-center" style="width:10%">Shop</th>
+                        <th class="text-center" style="width:15%">Emitted Date</th>
+                        <th class="text-center" style="width:10%">Price</th>
+                        <th class="text-center" style="width:5%">State</th>
+                        <th class="text-center" style="width:20%">Payed By</th>
+                        <th class="text-center" style="width:15%">Pay Date</th>
+                        <th class="text-center" style="width:20%"> Check to Pay</th>
+                    </tr>
+                </thead>
+        
+                <tbody *ngFor="let bill of shopBills; let i = index">
+                    <td class="text-center" data-th="No"><strong>{{ i+1 }}.</strong></td>
+                    <td class="text-center" data-th="Shop"><strong>{{ bill.shop }}</strong></td>
+                    <td class="text-center" data-th="Emitted Date"><strong>{{ bill.emittedDate }}</strong></td>
+                    <td class="text-center" data-th="Price"><strong>{{ bill.billValue }} Lei</strong></td>
+                    <td *ngIf="bill.payed === 0" class="text-center text-danger" data-th="State"><strong>Unpayed</strong></td>
+                    <td *ngIf="bill.payed === 1" class="text-center text-success" data-th="State"><strong>Payed</strong></td>
+                    <td *ngIf="bill.payedBy === null" class="text-center" data-th="Payed By"><strong>-</strong></td>
+                    <td *ngIf="bill.payedBy !== null" class="text-center" data-th="Payed By"><strong>{{ bill.payedBy }}</strong></td>
+                    <td *ngIf="bill.payDate === null" class="text-center" data-th="Pay Date"><strong>-</strong></td>
+                    <td *ngIf="bill.payDate !== null" class="text-center" data-th="Pay Date"><strong>{{ bill.payDate }}</strong></td>
+                    <td  class="text-center"><input [disabled]="bill.payed === 1" (click)="chooseBill(bill, i)" type="radio" name="radio"></td>
+                </tbody>
+            </table>
+            <hr>
+            <h4 class="text-center text-muted"><strong>Payment(only card admitted)</strong></h4>
+            <ngx-paypal class="paypal text-center" [config]="payPalConfig"></ngx-paypal>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="mapModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mapModalTitle"><strong>Order: #{{ orderNumber(currentOrder.id) }}</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body map-modal">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <th style="width:50%">Item</th>
+                        <th style="width:10%">Qty</th>
+                        <th style="width:20%">Price</th>
+                        <th style="width:20%">Subtotal</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of currentOrder.items; let i = index">
+                            <td data-th="Item">
+                                <div class="row-md-6">
+                                    <h5><strong>{{ global.formatItemName(item.name) }}</strong></h5>
+                                </div>
+                                <div class="row-md-6">
+                                    <strong class="text-muted">Shop: {{ item.shop }} | Category: {{ item.category }}</strong>
+                                </div>
+                            </td>
+                            <td data-th="Qty">
+                                <span class="row final-qty">
+                                    <i class="fas fa-times"></i>
+                                    <strong>{{ item.quantity }}</strong>
+                                </span>
+                            </td>
+                            <td data-th="Price">
+                                <div class="row text-center">
+                                    <strong>{{ item.price }}</strong>
+                                </div>
+                            </td>
+                            <td data-th="Subtotal">
+                                <div class="row">
+                                    <strong>{{ (global.toCompareFormat(item.price)*item.quantity).toFixed(2) }} Lei</strong>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <h4 class="text-danger payed-price"><strong>Payed: {{ currentOrder.price }} Lei</strong></h4>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

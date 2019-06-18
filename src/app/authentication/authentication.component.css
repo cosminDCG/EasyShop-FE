@@ -87,11 +87,47 @@
 }
 
 .login-group{
-    margin-top: 10px;
+    margin-top: 30px;
     margin-left: 70px;
     margin-right: 70px;
 }
 
 span{
     color: red;
+}
+
+.btn-lg{
+    border-radius: 0%;
+}
+
+label{
+    font-size: 102%;
+}
+
+.form-check-input{
+    margin-left: 3%;
+
+}
+
+.form-check-label{
+    margin-left: 6%;
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(1.5);
+  margin-top: 1.5%;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+    color: white;
 }

@@ -61,6 +61,10 @@ export class CategoryComponent implements OnInit {
     this.router.navigate(['/user/admin']);
   }
 
+  goToRepPanel() {
+    this.router.navigate(['/user/rep']);
+  }
+
   catPhoto(category){
     if (this.items == null)
       return;

@@ -20,66 +20,70 @@
       <form *ngIf='!signedIn' method="POST" class="auth-group" (ngSubmit)="onSignUp()">
         <div class='form-row' style="margin-bottom:10px;">
           <div class='col'>
-              <label for="firstName">First Name</label>
+              <strong><label for="firstName">First Name</label></strong>
               <input type="text" [(ngModel)]="firstName" name="fn" id='firstName' class="form-control" placeholder="First Name..." required>
           </div>
           <div class='col'>
-              <label for="lastName">Last Name</label>
+              <strong><label for="lastName">Last Name</label></strong>
               <input type="text" [(ngModel)]="lastName" name="ln" id='lastName' class="form-control" placeholder="Last Name..." required>
           </div>
         </div>
 
         <div class='form-group'>
-            <label for="email">Email</label> 
+            <strong><label for="email">Email</label></strong> 
             <span [ngStyle]="{'display':hideWarningEmail === true ? 'none' : 'inline' }">&#10060; Please Enter a valid email</span>
             <span [ngStyle]="{'display':hideWarningTakenEmail === true ? 'none' : 'inline' }">&#10060; Email already used!</span>
             <input type="text" [(ngModel)]="email" name="email" class="form-control" id="email" placeholder="Email..." required>
         </div>
         <div class='form-group'>
-            <label for="address">Address</label>
+            <strong><label for="address">Address</label></strong>
             <input type="text"[(ngModel)]="address" name="address" class="form-control" id="address" placeholder="Address(street, number, floor)..." required>
         </div>
 
         <div class='form-row' style="margin-bottom:10px;">
             <div class='col'>
-                <label for="city">City</label>
+                <strong><label for="city">City</label></strong>
                 <input type="text" [(ngModel)]="city" name="city" id='city' class="form-control" placeholder="City..." required>
             </div>
             <div class='col'>
-                <label for="phoneNumber">Phone Number</label>
+                <strong><label for="phoneNumber">Phone Number</label></strong>
                 <input type="text" [(ngModel)]="phoneNumber" name="pn" id='phoneNumber' class="form-control" placeholder="Phone Number..." required>
             </div>
         </div>
 
         <div class='form-row' style="margin-bottom:10px;">
             <div class='col'>
-                <label for="password">Password</label>
+                <strong><label for="password">Password</label></strong>
                 <input type="password" [(ngModel)]="password" name="pass" id='password' class="form-control" placeholder="Password..." required>
             </div>
             <div class='col'>
-                <label for="repeatPassword">Repeat Password</label> 
+                <strong><label for="repeatPassword">Repeat Password</label></strong> 
                 <span [ngStyle]="{'display':hideWarningPass === true ? 'none' : 'inline' }">&#10060; Wrong Password</span>
                 <input type="password" [(ngModel)]="repeatPassword" name="repass" id='repeatPassword' class="form-control" placeholder="Repeat Password..." required>
             </div>
         </div>
+        <div class="form-group">
+          <input class="form-check-input" type="checkbox" id="gridCheck1">
+          <label class="form-check-label" for="gridCheck1"><a href=""><b>Agree with Terms & Conditions</b></a></label>
+        </div>
         <div class="col text-center">
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-lg btn-info">Register</button>
         </div>
       </form>
 
       <form *ngIf='signedIn' class="login-group" (ngSubmit) = "onLogin()">
         <div class="form-group">
-            <label for="logEmail">Email</label>
+            <strong><label for="logEmail">Email</label></strong>
             <input type="text" [(ngModel)]="logEmail" name="le" class="form-control" id="logEmail" placeholder="Email..." required>
         </div>
 
         <div class="form-group">
-            <label for="logPassword">Password</label>
+            <strong><label for="logPassword">Password</label></strong>
             <input type="password" [(ngModel)]="logPassword" name="lp" class="form-control" id="logPassword" placeholder="Password..." required>
         </div>
 
         <div class="col text-center">
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-lg btn-info">Login</button>
         </div>
       </form>
     </div>

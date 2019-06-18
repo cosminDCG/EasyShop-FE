@@ -250,4 +250,8 @@ export class CheapestProdComponent implements OnInit {
     this.shops = this.wayToShop;
   }
 
+  removeResult(index){
+    this.choices.splice(index,1);
+  }
+
 }

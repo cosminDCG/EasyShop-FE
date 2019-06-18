@@ -4,6 +4,8 @@
     margin-top: 2%;
     margin-right: 10%;
     margin-left: 10%;
+    overflow: hidden;
+    min-height: 500px;
 }
 
 .admin-menu{
@@ -39,6 +41,7 @@ h6{
 .insert{
     margin-top: 2%;
     margin-left: 2%;
+    overflow: hidden;
 }
 
 .input-scrap{
@@ -61,6 +64,7 @@ button{
     margin-top: 2%;
     margin-right: 7%;
     overflow: hidden;
+    margin-bottom: 3%;
 }
 
 thead{
@@ -94,7 +98,7 @@ a{
 
 .dropdown-menu{
     max-height: 250px;
-    overflow-y: scroll
+    overflow-y: scroll;
 }
 
 .payment-nav{
@@ -135,3 +139,39 @@ a{
     font-size: 150%;
     margin-top: 12%;
 }
+
+.fa-times-circle{
+    color: red;
+    margin-left: 2%;
+    font-size: 120%;
+}
+
+.col-md-2{
+    height: 720px !important;
+    border-right: 1px solid grey;
+    padding: 0%;
+    background-color: rgba(211, 175, 55, 0.753);
+}
+
+.stat-menu .row-md-3{
+    height: 15%;
+    border-bottom: 1px solid grey;
+    cursor: pointer;
+}
+
+.row-md-3 h6{
+    margin-left: 15%;
+    height: 100%;
+    display : flex;
+    align-items : center;
+    margin-top: 0%;
+}
+
+.stat-menu .row-md-3:hover{
+    background-color: #ffc107;
+}
+
+canvas{
+    margin-top: 3%;
+}
+

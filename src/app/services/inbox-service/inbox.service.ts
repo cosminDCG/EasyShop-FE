@@ -11,4 +11,8 @@ export class InboxService {
   getConversation(from_user, to_user){
     return this.http.get('http://localhost:8090/conversation?from_user=' + from_user + '&to_user=' + to_user);
   }
+
+  getChatHistory(user_id){
+    return this.http.get('http://localhost:8090/chat/history?id=' + user_id);
+  }
 }

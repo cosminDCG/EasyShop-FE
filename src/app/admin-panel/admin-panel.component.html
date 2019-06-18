@@ -18,12 +18,39 @@
 </div>
 
 <div *ngIf="toChart" class="users-container">
-  <div class="col-md-2">
-    aaa
+  <div class="col-md-2 float-left stat-menu">
+    <div (click)="shopOrdersPerWeekInit()" class="row-md-3 text-center user-opt">
+        <h6><strong>Stats last week</strong></h6>
+    </div>
+    <div (click)="shopOrdersPerMonthInit()" class="row-md-3 text-center user-opt">
+        <h6><strong>Stats last month</strong></h6>
+    </div>
+    <div (click)="shopOrdersPerYearInit()" class="row-md-3 text-center user-opt">
+        <h6><strong>Stats last year</strong></h6>
+    </div>
+    <div class="row-md-3 text-center user-opt">
+        <h6><strong>Stats overall</strong></h6>
+    </div>
+    <div class="row-md-3 text-center user-opt">
+      <h6><strong>Compare 2 shops</strong></h6>
+    </div>
   </div>
-  <div class="float-left">
-    aaa
+  <div class="float-right text-center" style="width: 83%">
+    <h5 class="float-left"><strong><input [checked]="true" type="radio" name="stat-rad"> Stats by orders</strong></h5>
+    <h5 class="float-left" style="margin-left: 3%;"><strong><input type="radio" name="stat-rad"> Stats by price</strong></h5>
+    <hr style="margin-top: 3%;">
+    <h3><strong>{{chartTitle}}</strong></h3>
+    <canvas
+      baseChart
+      [chartType]="chartType"
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="true"
+      (chartClick)="onChartClick($event)">
+    </canvas>
   </div>
+  
 </div>
 
 <div *ngIf="toOrders" class="users-container order-content">
@@ -59,7 +86,34 @@
         </tbody>
       </table>
     </div>
-    <div class="tab-pane fade" id="nav-bill" role="tabpanel" aria-labelledby="nav-bill-tab">...</div>
+    <div class="tab-pane fade" id="nav-bill" role="tabpanel" aria-labelledby="nav-bill-tab">
+      <table class="table table-hover table-condensed order-table">
+        <thead>
+          <tr>
+            <th class="text-center" style="width:5%">No.</th>
+            <th class="text-center" style="width:10%">Shop</th>
+            <th class="text-center" style="width:15%">Emitted Date</th>
+            <th class="text-center" style="width:10%">Price</th>
+            <th class="text-center" style="width:5%">State</th>
+            <th class="text-center" style="width:20%">Payed By</th>
+            <th class="text-center" style="width:15%">Pay Date</th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let bill of allBills; let i = index">
+          <td class="text-center" data-th="No"><strong>{{ i+1 }}.</strong></td>
+          <td class="text-center" data-th="Shop"><strong>{{ bill.shop }} <i *ngIf="bill.payed === 0" class="far fa-times-circle"></i></strong></td>
+          <td class="text-center" data-th="Emitted Date"><strong>{{ bill.emittedDate }}</strong></td>
+          <td class="text-center" data-th="Price"><strong>{{ bill.billValue }} Lei</strong></td>
+          <td *ngIf="bill.payed === 0" class="text-center text-danger" data-th="State"><strong>Unpayed</strong></td>
+          <td *ngIf="bill.payed === 1" class="text-center text-success" data-th="State"><strong>Payed</strong></td>
+          <td *ngIf="bill.payedBy === null" class="text-center" data-th="Payed By"><strong>-</strong></td>
+          <td *ngIf="bill.payedBy !== null" class="text-center" data-th="Payed By"><strong>{{ bill.payedBy }}</strong></td>
+          <td *ngIf="bill.payDate === null" class="text-center" data-th="Pay Date"><strong>-</strong></td>
+          <td *ngIf="bill.payDate !== null" class="text-center" data-th="Pay Date"><strong>{{ bill.payDate }}</strong></td>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -136,7 +190,7 @@
     
     <h3>Choose a shop rep:</h3> <span *ngIf="scrapUserCheck" class="text-danger"><i class="fas fa-exclamation-circle"></i> This shop already has a rep!</span>
     <hr>
-    <div class="dropdown choose-user">
+    <div style="overflow: hidden;" class="dropdown choose-user">
         
       <a class="dropdown-toggle nav-link border border-warning rounded text-center" id="easyMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user"></i>
@@ -146,7 +200,7 @@
           <a *ngFor="let user of users" (click) = "scrapUserCheck ? $event.stopPropagation() : selectUser(user)" class="dropdown-item">{{ user.firstName }} {{user.lastName}} - {{user.email}}</a>
       </div>
 
-      <button class="btn btn-warning scrap-btn" (click)="startScrap($event)">Scrap</button>
+      <button style="margin-bottom: 2%;" class="btn btn-warning scrap-btn" (click)="startScrap($event)">Scrap</button>
     </div>
   </div>
 </div>

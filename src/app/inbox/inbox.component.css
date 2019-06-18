@@ -9,6 +9,14 @@
 
 .messages-header{
     background-color: rgba(211, 175, 55, 0.753);
+    height: 14%;
+    border-bottom: 1px solid #474646;
+    overflow: hidden;
+    
+}
+
+.messages-header h3{
+    margin-top: 7%;
 }
 
 h5{
@@ -37,7 +45,7 @@ h5{
 
 .col-md-4{
     padding-right: 0%;
-    border-right: 1px solid #888888;
+    box-shadow: 5px 0 5px -5px #474646;
 }
 
 .col-md-8{
@@ -50,7 +58,7 @@ h5{
 
 .row-md-3{
     overflow: hidden;
-    border-bottom: 1px solid #888888; 
+    box-shadow: 0 5px 5px -5px #474646;
 }
 
 .chat-body{
@@ -93,4 +101,13 @@ h5{
 
 .chat-user-message{
     margin-right: 5%;
+}
+
+.history{
+    border-bottom: 1px solid #888888;
+    height: 10.6%;
+    cursor: pointer;
+}
+.history:hover{
+    background-color: #dbdada;
 }

@@ -12,6 +12,8 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { DashboardService } from '../services/dashboard-service/dashboard.service';
 import { CartService } from '../services/cart-service/cart.service';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+import { BillService } from '../services/bill-service/bill.service';
+import { ChartService } from '../services/chart-service/chart.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -47,6 +49,17 @@ export class AdminPanelComponent implements OnInit {
     items: []
   };
 
+  public chartData : any[];
+
+  public chartLabels : any[];
+
+  public allBills: any[];
+
+  public chartTitle = '';
+  public chartType = '';
+  public ordersNo = 0;
+  public soldItemsNo = 0;
+
   constructor(private adminService: AdminService, 
               private loadingBar: LoadingBarService, 
               private global: GlobalService,
@@ -54,7 +67,9 @@ export class AdminPanelComponent implements OnInit {
               private banService: BanService,
               private promoService: PromoService,
               private dashService: DashboardService,
-              private cartService: CartService) { }
+              private cartService: CartService,
+              private billService: BillService,
+              private chartService: ChartService) { }
 
   ngOnInit() {
     this.user = this.global.currentUser;
@@ -70,6 +85,14 @@ export class AdminPanelComponent implements OnInit {
     this.cartService.allOrders().subscribe((res:any)=>{
       this.allOrders = res;
     });
+
+    this.billService.allBills().subscribe((res:any)=>{
+      this.allBills = res;
+    }, (err)=>{
+
+    });
+
+    this.shopOrdersPerWeekInit(); 
 
     if(localStorage.getItem('crUser') && this.global.currentUser == null) {
       var aux = localStorage.getItem('crUser');
@@ -240,5 +263,98 @@ export class AdminPanelComponent implements OnInit {
   showOrderDetails(order){
     this.currentOrder = order;
     console.log(this.currentOrder);
+  }
+
+  shopOrdersPerWeekInit(){
+    this.chartTitle = "Easy Shop statistics from last week";
+    this.chartType = 'bar';
+    var shops = []
+    this.chartService.getEasyOrdersPerWeek().subscribe((res:any)=>{
+      this.chartData = [];
+      this.chartLabels = [];
+      for(let i = 0; i < res.length; i++){
+        this.chartLabels.push(res[i].date);
+        this.soldItemsNo += res[i].quantity;
+        shops.push(res[i].shop);
+        this.ordersNo += res[i].stats;
+      }
+      this.chartLabels = this.chartLabels.filter((item, index) => this.chartLabels.indexOf(item) === index);
+      shops = shops.filter((item, index) => shops.indexOf(item) === index);
+
+      for(let i = 0; i < shops.length; i++){
+        var aux = {
+          data: new Array(this.chartLabels.length).fill(0),
+          label: shops[i]
+        }
+        for(let j = 0; j < res.length; j++){
+          if(res[j].shop === shops[i]){
+            aux.data[this.chartLabels.indexOf(res[j].date)] = res[j].stats;
+          }
+        }
+        this.chartData.push(aux);
+      }
+    })
+  }
+
+  shopOrdersPerMonthInit(){
+    this.chartTitle = "Easy Shop statistics from last month";
+    this.chartType = 'horizontalBar';
+    var shops = [];
+    this.chartService.getEasyOrdersPerMonth().subscribe((res:any)=>{
+      this.chartData = [];
+      this.chartLabels = [];
+      for(let i = 0; i < res.length; i++){
+        this.chartLabels.push(res[i].date);
+        this.soldItemsNo += res[i].quantity;
+        shops.push(res[i].shop);
+        this.ordersNo += res[i].stats;
+      }
+      this.chartLabels = this.chartLabels.filter((item, index) => this.chartLabels.indexOf(item) === index);
+      shops = shops.filter((item, index) => shops.indexOf(item) === index);
+
+      for(let i = 0; i < shops.length; i++){
+        var aux = {
+          data: new Array(this.chartLabels.length).fill(0),
+          label: shops[i]
+        }
+        for(let j = 0; j < res.length; j++){
+          if(res[j].shop === shops[i]){
+            aux.data[this.chartLabels.indexOf(res[j].date)] = res[j].stats;
+          }
+        }
+        this.chartData.push(aux);
+      }
+    })
+  }
+
+  shopOrdersPerYearInit(){
+    this.chartTitle = "Easy Shop statistics from last year";
+    this.chartType = 'line';
+    var shops = [];
+    this.chartService.getEasyOrdersPerYear().subscribe((res:any)=>{
+      this.chartData = [];
+      this.chartLabels = [];
+      for(let i = 0; i < res.length; i++){
+        this.chartLabels.push(this.global.getMonthName(res[i].date));
+        this.soldItemsNo += res[i].quantity;
+        shops.push(res[i].shop);
+        this.ordersNo += res[i].stats;
+      }
+      this.chartLabels = this.chartLabels.filter((item, index) => this.chartLabels.indexOf(item) === index);
+      shops = shops.filter((item, index) => shops.indexOf(item) === index);
+
+      for(let i = 0; i < shops.length; i++){
+        var aux = {
+          data: new Array(this.chartLabels.length).fill(0),
+          label: shops[i]
+        }
+        for(let j = 0; j < res.length; j++){
+          if(res[j].shop === shops[i]){
+            aux.data[this.chartLabels.indexOf(this.global.getMonthName(res[j].date))] = res[j].stats;
+          }
+        }
+        this.chartData.push(aux);
+      }
+    })
   }
 }

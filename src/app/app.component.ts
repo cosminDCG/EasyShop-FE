@@ -27,11 +27,10 @@ export class AppComponent implements AfterViewInit {
   this.global.stompClient.connect({}, function(frame) {
     that.global.stompClient.subscribe("/chat", (message) => {
       
-      if(message.body) {
-        that.global.messages.push(JSON.parse(message.body));
-      }
-    });
-  });
-  
-}
+        if(message.body) {
+          that.global.messages.push(JSON.parse(message.body));
+        }
+      });
+    }); 
+  }
 }

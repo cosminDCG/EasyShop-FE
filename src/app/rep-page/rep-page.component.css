@@ -1,0 +1,123 @@
+.rep-menu{
+    box-shadow: 2px 0px 8px #888888;
+    background-color: rgba(211, 175, 55, 0.753);
+    margin-left: 10%;
+    margin-top: 8%;
+    margin-right: 10%;
+}
+
+.row{
+    height: 70px;
+}
+
+.col-md-6{
+    cursor: pointer;
+    text-align: center;
+    border-right: 1px solid grey;
+}
+
+.col-md-6:last-of-type{
+    border-right: 0px;
+}
+
+h6{
+    margin-top: 4%;
+}
+
+.col-md-6:hover{
+    background-color: #ffc107;
+}
+
+.users-container{
+    margin-top: 5%;
+    box-shadow: 2px 0px 8px #888888;
+    background-color: white;
+    margin-left: 10%;
+    margin-top: 2%;
+    margin-right: 7%;
+    overflow: hidden;
+    margin-bottom: 3%;
+}
+
+.order-content{
+    margin-bottom: 3%;
+}
+
+.order-content td{
+    cursor: pointer;
+}
+
+.payment-nav{
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+thead{
+    background-color: #ffc107;
+    box-shadow: 0 3px 3px 0 ;
+}
+
+.order-table{
+    margin-top: 2%;
+}
+
+.modal-header, .modal-footer{
+    background-color: rgba(211, 175, 55, 0.753);
+}
+
+.payed-price{
+    margin-right: 60% !important;
+}
+
+.final-qty{
+    margin-left: 2%;
+}
+
+.final-qty strong{
+    margin-top: 3%;
+    font-size: 150%;
+}
+
+.final-qty .fas{
+    font-size: 150%;
+    margin-top: 12%;
+}
+
+input[type='radio'] { transform: scale(1.25); }
+
+ngx-paypal{
+    margin-right: 2%;
+}
+
+.col-md-2{
+    height: 650px !important;
+    border-right: 1px solid grey;
+    padding: 0%;
+    background-color: rgba(211, 175, 55, 0.753);
+}
+
+.stat-menu .row-md-3{
+    height: 15%;
+    border-bottom: 1px solid grey;
+    cursor: pointer;
+}
+
+.row-md-3 h6{
+    margin-left: 15%;
+    height: 100%;
+    display : flex;
+    align-items : center;
+    margin-top: 0%;
+}
+
+.stat-menu .row-md-3:hover{
+    background-color: #ffc107;
+}
+
+canvas{
+    margin-top: 3%;
+}
+
+.numeric-stats{
+    
+}

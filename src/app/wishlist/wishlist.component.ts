@@ -22,6 +22,7 @@ export class WishlistComponent implements OnInit {
   private autocomplete: any;
   public placeService: any;
   public zoom = 17;
+
   public label = {
     text: "You",
     color: "black",
@@ -44,6 +45,7 @@ export class WishlistComponent implements OnInit {
   
   public shops : any[] =[];
   public auxShops: any[] = [];
+  public distance = 0;
 
   constructor(private wishlistService:WishlistService,
               private global:GlobalService,
@@ -163,6 +165,10 @@ export class WishlistComponent implements OnInit {
   selectAllShops(){
     this.showClosest = 0;
     this.shops = this.auxShops;
+  }
+
+  distanceToShop(shop){
+    this.distance = this.global.distance(this.currentPosition, shop)/1000;
   }
 
  

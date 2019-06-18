@@ -28,6 +28,9 @@
             <div *ngIf="(global.currentUser.id === user.id) && (global.currentUser.role === 'admin')" [routerLink]="['/user/admin']" class="row-md-3 text-center user-opt">
                 <h6><strong>Admin Panel</strong></h6>
             </div>
+            <div *ngIf="(global.currentUser.id === user.id) && (global.currentUser.role === 'rep')" [routerLink]="['/user/rep']" class="row-md-3 text-center user-opt">
+                <h6><strong>Rep Panel</strong></h6>
+            </div>
             <div class="row-md-3 text-center user-opt">
                 <h6 *ngIf='(global.currentUser.id === user.id) && !editMode' (click)='enableEditMode()'><strong>Edit Profile</strong></h6>
                 <h6 *ngIf='editMode' (click)='saveChanges()'><strong>Save Changes</strong></h6>

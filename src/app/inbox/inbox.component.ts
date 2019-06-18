@@ -16,6 +16,7 @@ export class InboxComponent implements OnInit {
   public messages = [];
 
   public messageText = '';
+  public chatHistory: any[];
 
   
   public received = '';
@@ -27,20 +28,30 @@ export class InboxComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.chatUser = this.global.chatUser;
-    console.log(this.chatUser);
-
-    this.inboxService.getConversation(this.global.currentUser.id, this.chatUser.id).subscribe((res:any)=>{
-      this.global.messages = res;
-    })
-
     if(localStorage.getItem('crUser') && this.global.currentUser == null) {
       var aux = localStorage.getItem('crUser'); 
       this.global.currentUser = JSON.parse(aux);
       var auxChat = localStorage.getItem('crChat');
-      this.global.chatUser = JSON.parse(auxChat);
-      this.chatUser = this.global.chatUser;
+      if(this.global.chatUser == null && aux !== null){
+        this.global.chatUser = JSON.parse(auxChat);
+        this.chatUser = this.global.chatUser;
+      }
+      
     }
+
+    this.inboxService.getChatHistory(this.global.currentUser.id).subscribe((res:any)=>{
+      this.chatHistory = res;
+      console.log(this.chatHistory);
+      if(this.global.chatUser == undefined){
+        this.global.chatUser = this.chatHistory[this.chatHistory.length - 1].user;
+        this.chatUser = this.global.chatUser;
+      }
+    })
+
+    this.inboxService.getConversation(this.global.currentUser.id, this.chatUser.id).subscribe((res:any)=>{
+      this.global.messages = res;
+    })
+    
   }
 
   @HostListener('window:beforeunload') saveUser() {
@@ -57,6 +68,12 @@ export class InboxComponent implements OnInit {
     }
     this.global.stompClient.send("/app/send/message" , {}, JSON.stringify(message));
     this.messageText = '';
+  }
+
+  changeChatUser(message){
+    this.global.chatUser = message.user;
+    this.chatUser = message.user;
+    this.global.messages = message.conversation;
   }
 
 

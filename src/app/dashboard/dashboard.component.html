@@ -36,6 +36,16 @@
             </div>
         </div>
 
+        <div class="dropdown float-right">
+            <a class="dropdown-toggle nav-link border border-warning rounded" id="easy-sh" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <fa name="bars"></fa>
+                {{shopFilter}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="easy-sh">
+                <a *ngFor="let shop of shops" (click) = "selectCategory(category)" class="dropdown-item">{{ shop }}</a>
+            </div>
+        </div>
+
         <div class="range-container">
             <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options" (userChangeEnd)="onPriceChange($event)"></ng5-slider>
         </div>

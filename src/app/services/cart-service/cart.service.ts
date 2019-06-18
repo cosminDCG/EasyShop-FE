@@ -44,4 +44,8 @@ export class CartService {
     return this.http.get('http://localhost:8090/order/all');
   }
 
+  allOrdersFromShop(shop){
+    return this.http.get('http://localhost:8090/order/all/shop?shop=' + shop);
+  }
+
 }

@@ -16,7 +16,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { FusionChartsModule } from 'angular-fusioncharts';
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import { ChartsModule } from 'ng2-charts-x';
 
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme)
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,8 +68,10 @@ import { CategoryComponent } from './category/category.component';
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
     MatAutocompleteModule,
+    ChartsModule,
     MatFormFieldModule,
     NgxPayPalModule,
+    FusionChartsModule,
     NgxUiLoaderModule,
     MatInputModule,
     NgbModule,
@@ -129,7 +137,7 @@ import { CategoryComponent } from './category/category.component';
         component: CategoryComponent
       },
       {
-        path: 'user/rep/:id',
+        path: 'user/rep',
         component: RepPageComponent
       }
     ])
