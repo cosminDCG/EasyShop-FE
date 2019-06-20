@@ -76,6 +76,10 @@ thead{
     width: 110px;
 }
 
+.cht .dropdown{
+    width: auto;
+}
+
 a{
     cursor: pointer;
 }
@@ -147,7 +151,7 @@ a{
 }
 
 .col-md-2{
-    height: 720px !important;
+    height: 800px !important;
     border-right: 1px solid grey;
     padding: 0%;
     background-color: rgba(211, 175, 55, 0.753);

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { GlobalService } from '../services/global-service/global.service';
 import { DashboardService } from '../services/dashboard-service/dashboard.service';
+import { BlockService } from '../services/block-service/block.service';
 
 @Component({
   selector: 'app-category',
@@ -12,16 +13,19 @@ import { DashboardService } from '../services/dashboard-service/dashboard.servic
 export class CategoryComponent implements OnInit {
 
   public items: any;
-  public categories: any;
+  public categories: any[];
   public folder = "../../assets/dashboard/item";
   public p:Number = 1;
 
   public showAdminButton = false;
   public showRepButton = false;
 
+  public blockedShop = [];
+
   constructor(private global: GlobalService,
               private dashboardService: DashboardService,
-              private router: Router) { }
+              private router: Router,
+              private blockService: BlockService) { }
 
   ngOnInit() {
 
@@ -30,8 +34,12 @@ export class CategoryComponent implements OnInit {
       this.global.currentUser = JSON.parse(aux);
     }
 
+    this.blockService.getBlockedShops().subscribe((res:any)=>{
+      this.blockedShop = res;
+    })
+
     this.dashboardService.allItems().subscribe((res:any)=>{
-      this.items = res;
+      this.items = res.filter(item => this.blockedShop.includes(item.shop) === false);
       console.log(this.items);
     }, (err) =>{
       console.log('Error');
@@ -39,10 +47,11 @@ export class CategoryComponent implements OnInit {
 
     this.dashboardService.allCategories().subscribe((res:any)=>{
       this.categories = res;
-      console.log(this.categories);
     }, (err) =>{
       console.log('Error');
     });
+
+    
 
     if(this.global.currentUser.role == "admin"){
       this.showAdminButton = true;
@@ -57,6 +66,16 @@ export class CategoryComponent implements OnInit {
     localStorage.setItem('crUser', JSON.stringify(this.global.currentUser));
   }
 
+  checkCat(){
+    for(let i = 0; i < this.categories.length; i++){
+      var aux = this.items.filter(item => item.category === this.categories[i])
+      if(aux.length === 0){
+        var index = this.categories.indexOf(this.categories[i]);
+        this.categories.splice(index,1);
+      }
+    }
+  }
+
   goToAdminPanel() {
     this.router.navigate(['/user/admin']);
   }
@@ -69,6 +88,7 @@ export class CategoryComponent implements OnInit {
     if (this.items == null)
       return;
     var aux = this.items.filter(item => item.category === category) 
+    
     return aux[0].photo.split("item")[1];
   }
 

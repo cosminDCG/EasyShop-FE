@@ -10,6 +10,7 @@ import { WishlistService } from '../services/wishlist-service/wishlist.service';
 import { CartService } from '../services/cart-service/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import * as $AB from 'jquery';
+import { BlockService } from '../services/block-service/block.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,6 +41,8 @@ export class DashboardComponent implements OnInit {
   public firstPhoto: any;
   public src: any;
 
+  public blockedShop = [];
+
   value: number = 0;
   highValue: number = 15000;
   options: Options = {
@@ -53,11 +56,16 @@ export class DashboardComponent implements OnInit {
               private wishlistService:WishlistService,
               private cartService:CartService,
               private toastrService :ToastrService,
-              private ngxService: NgxUiLoaderService) { }
+              private blockService: BlockService) { }
 
   ngOnInit() {
     this.global.redirectUserProfile = null;
     this.user = this.global.currentUser;
+
+    this.blockService.getBlockedShops().subscribe((res:any)=>{
+      this.blockedShop = res;
+    })
+
     if(localStorage.getItem('crUser') && this.global.currentUser == null) {
       var aux = localStorage.getItem('crUser');
       this.user = JSON.parse(aux);
@@ -65,7 +73,7 @@ export class DashboardComponent implements OnInit {
     }
     
     this.dashboardService.allItems().subscribe((res:any)=>{
-      this.global.items = res;
+      this.global.items = res.filter(item => this.blockedShop.includes(item.shop) === false);
       this.itemAux = this.global.items;
       this.selectCategory(this.global.capitalize(this.router.url.split("/")[2]));
     }, (err) =>{
@@ -81,6 +89,8 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.allShops().subscribe((res:any)=>{
       this.shops = res;
     })
+
+    
     if(this.global.currentUser.role == "admin"){
       this.showAdminButton = true;
     }

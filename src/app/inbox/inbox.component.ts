@@ -45,12 +45,14 @@ export class InboxComponent implements OnInit {
       if(this.global.chatUser == undefined){
         this.global.chatUser = this.chatHistory[this.chatHistory.length - 1].user;
         this.chatUser = this.global.chatUser;
+        location.reload();
       }
     })
 
     this.inboxService.getConversation(this.global.currentUser.id, this.chatUser.id).subscribe((res:any)=>{
       this.global.messages = res;
     })
+
     
   }
 
