@@ -41,11 +41,7 @@ export class RepPageComponent implements OnInit {
   };
 
   public chartData :any[];
-  public chartDataSet =[{
-    data: [],
-    label: '',
-    fill: true
-  }]
+  public chartDataSet =[];
   public chartLabels: String[];
   public chartType: any;
   public options: any = {
@@ -55,12 +51,15 @@ export class RepPageComponent implements OnInit {
   public soldItemsNo: any;
   public ordersNo: any;
 
+  public byOrders = 1;
+  public toOverall = 0;
+
   public chartOptionsSet = {
     scales: {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          stepSize: 1
+          stepSize: 100
         }
       }]
     },
@@ -230,6 +229,36 @@ export class RepPageComponent implements OnInit {
     this.shopBills[this.billIndex] = this.currentBill;
   }
 
+  chartsByOrders(){
+    this.byOrders = 1;
+    if(this.chartType === 'doughnut'){
+      this.shopOrdersPerWeekInit();
+    }
+
+    if(this.chartType === 'pie'){
+      this.shopOrdersPerMonthInit();
+    }
+
+    if(this.chartType === 'line'){
+      this.shopOrdersPerYearInit();
+    }
+  }
+
+  chartsByPrice(){
+    this.byOrders = 0;
+    if(this.chartType === 'doughnut'){
+      this.shopPricePerWeekInit();
+    }
+
+    if(this.chartType === 'pie'){
+      this.shopPricePerMonthInit();
+    }
+
+    if(this.chartType === 'line'){
+      this.shopPricePerYearInit();
+    }
+  }
+
   shopOrdersPerWeekInit(){
     this.chartType = "doughnut";
     this.chartTitle = "Shop statistics from last week";
@@ -251,11 +280,53 @@ export class RepPageComponent implements OnInit {
     });
   }
 
+  shopPricePerWeekInit(){
+    this.chartType = "doughnut";
+    this.chartTitle = "Shop statistics from last week";
+    this.changeChart = 0;
+    this.chartService.getShopPricePerWeek(this.global.currentUser.shop).subscribe((res:any)=>{
+      this.chartLabels = [];
+      this.chartData = [];
+      this.soldItemsNo = 0;
+      this.ordersNo = 0;
+      for(let i = 0; i < res.length; i++){
+        this.chartLabels.push(res[i].date);
+        this.soldItemsNo += res[i].quantity;
+        this.chartData.push(res[i].stats);
+        this.ordersNo += res[i].stats;
+      }
+        
+    }, (err)=>{
+
+    });
+  }
+
   shopOrdersPerMonthInit(){
     this.chartType = "pie";
     this.chartTitle = "Shop statistics from last month";
     this.changeChart = 0;
     this.chartService.getShopOrdersPerMonth(this.global.currentUser.shop).subscribe((res:any)=>{
+      this.chartLabels = [];
+      this.chartData = [];
+      this.soldItemsNo = 0;
+      this.ordersNo = 0;
+      for(let i = 0; i < res.length; i++){
+        this.chartLabels.push(res[i].date);
+        this.soldItemsNo += res[i].quantity;
+        this.chartData.push(res[i].stats);
+        this.ordersNo += res[i].stats;
+      }
+        
+    }, (err)=>{
+
+    });
+  }
+
+  shopPricePerMonthInit(){
+    this.chartType = "pie";
+    this.chartTitle = "Shop statistics from last month";
+    this.changeChart = 0;
+    this.chartService.getShopPricePerMonth(this.global.currentUser.shop).subscribe((res:any)=>{
       this.chartLabels = [];
       this.chartData = [];
       this.soldItemsNo = 0;
@@ -295,6 +366,65 @@ export class RepPageComponent implements OnInit {
     }, (err)=>{
 
     });
+  }
+
+  shopPricePerYearInit(){
+    this.chartType = "line";
+    this.chartTitle = "Shop statistics from last year";
+    this.changeChart = 1;
+    this.chartService.getShopPricePerYear(this.global.currentUser.shop).subscribe((res:any)=>{
+      this.chartLabels = [];
+      this.chartDataSet = [{
+        data: [],
+        label: 'Orders',
+        fill: true
+      }];
+      this.soldItemsNo = 0;
+      this.ordersNo = 0;
+      for(let i = 0; i < res.length; i++){
+        this.chartLabels.push(this.global.getMonthName(res[i].date));
+        this.soldItemsNo += res[i].quantity;
+        this.chartDataSet[0].data.push(res[i].stats);
+        this.ordersNo += res[i].stats;
+      }
+        
+    }, (err)=>{
+
+    });
+  }
+
+  shopStatsOverall(){
+    this.chartTitle = "Shop overall statistics";
+    this.chartType = 'doughnut';
+    this.ordersNo = 0;
+    this.soldItemsNo = 0;
+    this.changeChart = 1;
+    this.toOverall = 1;
+    this.chartService.getShopStatsOverall(this.global.currentUser.shop).subscribe((res:any)=>{
+      this.chartDataSet = [];
+      this.chartLabels = ["Incomes", "Orders"];
+      var aux1 = {
+        data: []
+      }
+      var aux2 = {
+        data: []
+      }
+      for(let i = 0; i < res.length; i++){
+        this.soldItemsNo += res[i].quantity;
+        this.ordersNo += res[i].stats2;
+        
+        aux1.data.push(res[i].stats);
+        aux1.data.push(0);
+        aux2.data.push(0);
+        aux2.data.push(res[i].stats2);
+        
+      }
+      this.chartDataSet.push(aux1);
+      this.chartDataSet.push(aux2);
+
+    },(err)=>{
+
+    })
   }
 
 

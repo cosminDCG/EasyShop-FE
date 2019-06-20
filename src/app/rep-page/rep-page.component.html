@@ -13,24 +13,28 @@
 
 <div *ngIf="toChart" class="users-container">
     <div class="col-md-2 float-left stat-menu">
-        <div (click)="shopOrdersPerWeekInit()" class="row-md-3 text-center user-opt">
+        <div (click)="byOrders ? shopOrdersPerWeekInit() : shopPricePerWeekInit()" class="row-md-3 text-center user-opt">
             <h6><strong>Stats last week</strong></h6>
         </div>
-        <div (click)="shopOrdersPerMonthInit()" class="row-md-3 text-center user-opt">
+        <div (click)="byOrders ? shopOrdersPerMonthInit() : shopPricePerMonthInit()" class="row-md-3 text-center user-opt">
             <h6><strong>Stats last month</strong></h6>
         </div>
-        <div (click)="shopOrdersPerYearInit()" class="row-md-3 text-center user-opt">
+        <div (click)="byOrders ? shopOrdersPerYearInit() : shopPricePerYearInit()" class="row-md-3 text-center user-opt">
             <h6><strong>Stats last year</strong></h6>
         </div>
-        <div class="row-md-3 text-center user-opt">
+        <div (click)="shopStatsOverall()" class="row-md-3 text-center user-opt">
             <h6><strong>Stats overall</strong></h6>
         </div>
     </div>
     
-    <div class="float-right text-center" style="width: 70%">
+    <div class="float-right text-center" style="width: 83%">
+        <h5 *ngIf="!toOverall" class="float-left"><strong><input (click)="chartsByOrders()" [checked]="true" type="radio" name="stat-rad"> Stats by orders</strong></h5>
+        <h5 *ngIf="!toOverall" class="float-left" style="margin-left: 3%;"><strong><input (click)="chartsByPrice()" type="radio" name="stat-rad"> Stats by price</strong></h5>
+        <hr *ngIf="!toOverall" style="margin-top: 3%;">
         <h3><strong>{{chartTitle}}</strong></h3>
         <h5 class="text-muted"><strong>Total items sold: {{soldItemsNo}}</strong></h5>
-        <h5 class="text-muted"><strong>Total orders: {{ordersNo}}</strong></h5>
+        <h5 *ngIf="byOrders" class="text-muted"><strong>Total orders: {{ordersNo}}</strong></h5>
+        <h5 *ngIf="!byOrders" class="text-muted"><strong>Total earnings: {{ordersNo}} Lei</strong></h5>
         <canvas
             *ngIf="changeChart == 0"
             baseChart
