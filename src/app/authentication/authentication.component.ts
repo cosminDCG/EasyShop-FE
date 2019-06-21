@@ -16,7 +16,21 @@ export class AuthenticationComponent implements OnInit {
 
   public hideWarningPass = true;
   public hideWarningEmail = true;
-  public hideWarningTakenEmail =true;
+  public hideWarningTakenEmail = true;
+  public hideWarningFirstName = true;
+  public hideWarningLastName = true;
+  public hideWarningAddress = true;
+  public hideWarningCity = true;
+  public hideWarningPhoneNumber = true;
+  public hideWarningPassword = true;
+  public agreeTerms = false;
+  public hideAgreeTerms = true;
+
+  public hideWarningLogEmail = true;
+  public hideWarningLogPass = true;
+  public hideWarningLogError = true;
+
+  public hideWarningRecEmail = true;
 
   public email: string;
   public password: string;
@@ -29,6 +43,9 @@ export class AuthenticationComponent implements OnInit {
 
   public logEmail: string;
   public logPassword: string;
+
+  public recoveryEmail: string;
+  public forgotPass = 0;
 
   constructor(private authService:AuthenticationService, 
               private global:GlobalService, 
@@ -51,10 +68,31 @@ export class AuthenticationComponent implements OnInit {
     this.signedIn = true;
   }
 
+  agreeWithTerms(){
+    this.agreeTerms = !this.agreeTerms;
+  }
+
+  toForgotPass(){
+    this.forgotPass = 1;
+  }
+
+  backToLogin(){
+    this.forgotPass = 0;
+  }
+
+  recoverAccount(){
+    this.authService.recoverAccount(this.recoveryEmail).subscribe((res:any)=>{
+      this.forgotPass = 0;
+      this.hideWarningRecEmail = true;
+    },(err)=>{
+      this.hideWarningRecEmail = false;
+    });
+  }
+
   onSignUp(){
 
     var ok = 0;
-    if(this.password != this.repeatPassword){
+    if(this.password != this.repeatPassword || this.password.length < 8){
       this.hideWarningPass = false;
       ok = 1;
     } else{
@@ -66,6 +104,74 @@ export class AuthenticationComponent implements OnInit {
       ok = 1;
     } else{
       this.hideWarningEmail = true;
+    }
+
+    if(this.firstName === "" || this.firstName === undefined){
+      this.hideWarningFirstName = false;
+      ok = 1;
+    } else if(!(this.firstName.replace(/\s/g, '').length)){
+      this.hideWarningFirstName = false;
+      ok = 1;
+      
+    }else{
+      this.hideWarningFirstName = true;
+    }
+
+    if(this.lastName === "" || this.lastName === undefined){
+      this.hideWarningLastName = false;
+      ok = 1;
+    } else if(!(this.lastName.replace(/\s/g, '').length)){
+      this.hideWarningLastName = false;
+      ok = 1;
+    } else{
+      this.hideWarningLastName = true;
+    }
+
+    if(this.address === "" || this.address === undefined){
+      this.hideWarningAddress = false;
+      ok = 1;
+    } else if(!(this.address.replace(/\s/g, '').length)){
+      this.hideWarningAddress = false;
+      ok = 1;
+    } else{
+      this.hideWarningAddress = true;
+    }
+
+    if(this.agreeTerms === false){
+      this.hideAgreeTerms = false;
+      ok = 1;
+    }else{
+      this.hideAgreeTerms = true;
+    }
+
+    if(this.city === "" || this.city === undefined){
+      this.hideWarningCity = false;
+      ok = 1;
+    } else if(!(this.city.replace(/\s/g, '').length)){
+      this.hideWarningCity = false;
+      ok = 1;
+    } else{
+      this.hideWarningCity = true;
+    }
+
+    if(this.phoneNumber === "" || this.phoneNumber === undefined){
+      this.hideWarningPhoneNumber = false;
+      ok = 1;
+    } else if(!(this.phoneNumber.replace(/\s/g, '').length)){
+      this.hideWarningPhoneNumber = false;
+      ok = 1;
+    } else{
+      this.hideWarningPhoneNumber = true;
+    }
+
+    if(this.password === "" || this.password === undefined){
+      this.hideWarningPassword = false;
+      ok = 1;
+    } else if(!(this.password.replace(/\s/g, '').length)){
+      this.hideWarningPassword = false;
+      ok = 1;
+    } else{
+      this.hideWarningPassword = true;
     }
 
     if(ok == 1){
@@ -89,17 +195,44 @@ export class AuthenticationComponent implements OnInit {
   }
 
   onLogin() {
-    var user = {
-      email: this.logEmail,
-      password: this.logPassword
+    var ok = 0;
+    
+    if(this.logEmail === "" || this.logEmail === undefined){
+      this.hideWarningLogEmail = false;
+      ok = 1;
+    } else if(!(this.logEmail.replace(/\s/g, '').length)){
+      this.hideWarningLogEmail = false;
+      ok = 1;
+    } else{
+      this.hideWarningLogEmail = true;
     }
-    this.authService.login(user).subscribe((res:any)=>{
-      this.global.currentUser = res;
-      console.log(this.global.currentUser);
-      this.router.navigate(['/items/categories']);
-    }, (err) => {
-      console.log('Error');
-    });
+
+    if(this.logPassword === "" || this.logPassword === undefined){
+      this.hideWarningLogPass = false;
+      ok = 1;
+    } else if(!(this.logPassword.replace(/\s/g, '').length)){
+      this.hideWarningLogPass = false;
+      ok = 1;
+    } else{
+      this.hideWarningLogPass = true;
+    }
+
+    if(ok == 1){
+      return;
+    }else{
+      var user = {
+        email: this.logEmail,
+        password: this.logPassword
+      }
+
+      this.authService.login(user).subscribe((res:any)=>{
+        this.global.currentUser = res;
+        this.hideWarningLogError = true;
+        this.router.navigate(['/items/categories']);
+      }, (err) => {
+        this.hideWarningLogError = false;
+      });
+    }
   }
 
 }

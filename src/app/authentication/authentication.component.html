@@ -21,10 +21,12 @@
         <div class='form-row' style="margin-bottom:10px;">
           <div class='col'>
               <strong><label for="firstName">First Name</label></strong>
+              <span [ngStyle]="{'display':hideWarningFirstName === true ? 'none' : 'inline' }">&#10060; This field is mandatory!</span>
               <input type="text" [(ngModel)]="firstName" name="fn" id='firstName' class="form-control" placeholder="First Name..." required>
           </div>
           <div class='col'>
               <strong><label for="lastName">Last Name</label></strong>
+              <span [ngStyle]="{'display':hideWarningLastName === true ? 'none' : 'inline' }">&#10060; This field is mandatory!</span>
               <input type="text" [(ngModel)]="lastName" name="ln" id='lastName' class="form-control" placeholder="Last Name..." required>
           </div>
         </div>
@@ -37,16 +39,19 @@
         </div>
         <div class='form-group'>
             <strong><label for="address">Address</label></strong>
+            <span [ngStyle]="{'display':hideWarningAddress === true ? 'none' : 'inline' }">&#10060; This field is mandatory!</span>
             <input type="text"[(ngModel)]="address" name="address" class="form-control" id="address" placeholder="Address(street, number, floor)..." required>
         </div>
 
         <div class='form-row' style="margin-bottom:10px;">
             <div class='col'>
                 <strong><label for="city">City</label></strong>
+                <span [ngStyle]="{'display':hideWarningCity === true ? 'none' : 'inline' }">&#10060; This field is mandatory!</span>
                 <input type="text" [(ngModel)]="city" name="city" id='city' class="form-control" placeholder="City..." required>
             </div>
             <div class='col'>
                 <strong><label for="phoneNumber">Phone Number</label></strong>
+                <span [ngStyle]="{'display':hideWarningPhoneNumber === true ? 'none' : 'inline' }">&#10060; This field is mandatory!</span>
                 <input type="text" [(ngModel)]="phoneNumber" name="pn" id='phoneNumber' class="form-control" placeholder="Phone Number..." required>
             </div>
         </div>
@@ -54,6 +59,7 @@
         <div class='form-row' style="margin-bottom:10px;">
             <div class='col'>
                 <strong><label for="password">Password</label></strong>
+                <span [ngStyle]="{'display':hideWarningPassword === true ? 'none' : 'inline' }">&#10060; This field is mandatory!</span>
                 <input type="password" [(ngModel)]="password" name="pass" id='password' class="form-control" placeholder="Password..." required>
             </div>
             <div class='col'>
@@ -63,8 +69,9 @@
             </div>
         </div>
         <div class="form-group">
-          <input class="form-check-input" type="checkbox" id="gridCheck1">
-          <label class="form-check-label" for="gridCheck1"><a href=""><b>Agree with Terms & Conditions</b></a></label>
+          <input class="form-check-input" (click)="agreeWithTerms()" type="checkbox" [checked]="agreeTerms" id="gridCheck1">
+          <label class="form-check-label" for="gridCheck1"><a href="easy/terms"><b>Agree with Terms & Conditions</b></a></label>
+          <span [ngStyle]="{'display':hideAgreeTerms === true ? 'none' : 'inline' }">&#10060; You must agree with T&C!</span>
         </div>
         <div class="col text-center">
             <button type="submit" class="btn btn-lg btn-info">Register</button>
@@ -72,20 +79,40 @@
       </form>
 
       <form *ngIf='signedIn' class="login-group" (ngSubmit) = "onLogin()">
-        <div class="form-group">
+        <div *ngIf="forgotPass==0" class="form-group">
             <strong><label for="logEmail">Email</label></strong>
+            <span [ngStyle]="{'display':hideWarningLogEmail === true ? 'none' : 'inline' }">&#10060; This field is mandatory!</span>
             <input type="text" [(ngModel)]="logEmail" name="le" class="form-control" id="logEmail" placeholder="Email..." required>
         </div>
 
-        <div class="form-group">
+        <div *ngIf="forgotPass==0" class="form-group">
             <strong><label for="logPassword">Password</label></strong>
+            <span [ngStyle]="{'display':hideWarningLogPass === true ? 'none' : 'inline' }">&#10060; This field is mandatory!</span>
             <input type="password" [(ngModel)]="logPassword" name="lp" class="form-control" id="logPassword" placeholder="Password..." required>
+            <span [ngStyle]="{'display':hideWarningLogError === true ? 'none' : 'inline' }">&#10060; Wrong credentials!</span>
         </div>
 
-        <div class="col text-center">
+        <div *ngIf="forgotPass==1" class="form-group">
+          <strong><label for="logEmail">Enter recovery email</label></strong>
+          <span [ngStyle]="{'display':hideWarningRecEmail === true ? 'none' : 'inline' }">&#10060; Please provide a valid email!</span>
+          <input type="text" [(ngModel)]="recoveryEmail" name="le" class="form-control" id="logEmail" placeholder="Email..." required>
+        </div>
+
+        <div *ngIf="forgotPass==0" class="form-group">
+          <a style="cursor: pointer;" (click)="toForgotPass()"><strong><i class="fas fa-key"></i> Forgot your password?</strong></a>
+        </div>
+
+        <div *ngIf="forgotPass==1" class="form-group">
+          <a style="cursor: pointer;" (click)="backToLogin()"><strong><i class="fas fa-arrow-circle-left"></i> Back to Login</strong></a>
+        </div>
+
+        <div *ngIf="forgotPass==0" class="col text-center">
             <button type="submit" class="btn btn-lg btn-info">Login</button>
         </div>
       </form>
+      <div *ngIf="forgotPass==1" class="col text-center">
+        <button type="submit" (click)="recoverAccount()" class="btn btn-lg btn-info">Recover account</button>
+      </div>
     </div>
   </div>
 </div>

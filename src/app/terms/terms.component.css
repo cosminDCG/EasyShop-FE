@@ -1,0 +1,29 @@
+.terms-container{
+    box-shadow: 2px 0px 8px #888888;
+    background-color: white;
+    margin-left: 10%;
+    margin-top: 3%;
+    margin-right: 10%;
+    margin-bottom: 3%;
+    overflow: hidden;
+}
+
+.terms-content{
+    margin:2%;
+}
+
+.back{
+    background-color: rgba(211, 175, 55, 0.753);
+    height: 4%;
+    overflow: hidden;
+}
+
+.back h5{
+    margin-left: 2%;
+    margin-top: 1%;
+    cursor: pointer;
+}
+
+.back h5:hover{
+    color: white;
+}

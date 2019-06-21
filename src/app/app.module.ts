@@ -41,6 +41,7 @@ import { OnePlaceComponent } from './one-place/one-place.component';
 import { CheapestProdComponent } from './cheapest-prod/cheapest-prod.component';
 import { RepPageComponent } from './rep-page/rep-page.component';
 import { CategoryComponent } from './category/category.component';
+import { TermsComponent } from './terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { CategoryComponent } from './category/category.component';
     OnePlaceComponent,
     CheapestProdComponent,
     RepPageComponent,
-    CategoryComponent
+    CategoryComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
@@ -139,6 +141,10 @@ import { CategoryComponent } from './category/category.component';
       {
         path: 'user/rep',
         component: RepPageComponent
+      },
+      {
+        path: 'easy/terms',
+        component: TermsComponent
       }
     ])
   ],

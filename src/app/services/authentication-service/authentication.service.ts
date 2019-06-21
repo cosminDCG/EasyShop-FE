@@ -20,4 +20,8 @@ export class AuthenticationService {
     return this.http.get('http://localhost:8090/user/signout');
   }
 
+  recoverAccount(email) {
+    return this.http.post('http://localhost:8090/user/recover?email=' + email, null);
+  }
+
 }
