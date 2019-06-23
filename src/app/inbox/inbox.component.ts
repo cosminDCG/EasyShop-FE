@@ -41,11 +41,10 @@ export class InboxComponent implements OnInit {
 
     this.inboxService.getChatHistory(this.global.currentUser.id).subscribe((res:any)=>{
       this.chatHistory = res;
-      console.log(this.chatHistory);
-      if(this.global.chatUser == undefined){
+      if(this.chatUser == undefined){
         this.global.chatUser = this.chatHistory[this.chatHistory.length - 1].user;
         this.chatUser = this.global.chatUser;
-        location.reload();
+        // location.reload();
       }
     })
 

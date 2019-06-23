@@ -225,7 +225,7 @@ export class CartComponent implements OnInit {
       deliveryAddress : this.deliveryAddress,
       deliveryPerson : this.deliveryPerson,
       billingAddress : this.billingAddress,
-      billingPerson : this.billingAddress,
+      billingPerson : this.billingPerson,
       cashPay : this.cashPay
     }
     
