@@ -32,6 +32,7 @@
         <h5 *ngIf="!toOverall" class="float-left" style="margin-left: 3%;"><strong><input (click)="chartsByPrice()" type="radio" name="stat-rad"> Stats by price</strong></h5>
         <hr *ngIf="!toOverall" style="margin-top: 3%;">
         <h3><strong>{{chartTitle}}</strong></h3>
+        <h5 *ngIf="global.currentUser.isShopBlocked === 1" class="text-danger unpayed"><strong>Your shop is blocked due to unpayed bills!</strong></h5>
         <h5 class="text-muted"><strong>Total items sold: {{soldItemsNo}}</strong></h5>
         <h5 *ngIf="byOrders" class="text-muted"><strong>Total orders: {{ordersNo}}</strong></h5>
         <h5 *ngIf="!byOrders" class="text-muted"><strong>Total earnings: {{ordersNo}} Lei</strong></h5>
@@ -61,6 +62,7 @@
 </div>
 
 <div *ngIf="toOrder" class="users-container order-content">
+    <h5 *ngIf="global.currentUser.isShopBlocked === 1" class="text-danger unpayed"><strong>Your shop is blocked due to unpayed bills!</strong></h5>
     <nav class="payment-nav">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-orders-tab" data-toggle="tab" href="#nav-orders" role="tab" aria-controls="nav-orders" aria-selected="true">All Orders</a>

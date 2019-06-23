@@ -40,13 +40,14 @@ export class CategoryComponent implements OnInit {
 
     this.dashboardService.allItems().subscribe((res:any)=>{
       this.items = res.filter(item => this.blockedShop.includes(item.shop) === false);
-      console.log(this.items);
     }, (err) =>{
       console.log('Error');
     });
 
     this.dashboardService.allCategories().subscribe((res:any)=>{
       this.categories = res;
+      
+      console.log(this.categories);
     }, (err) =>{
       console.log('Error');
     });
@@ -88,8 +89,9 @@ export class CategoryComponent implements OnInit {
     if (this.items == null)
       return;
     var aux = this.items.filter(item => item.category === category) 
-    
-    return aux[0].photo.split("item")[1];
+    if(aux.length !== 0){
+      return aux[0].photo.split("item")[1];}
+      else return "none"
   }
 
 

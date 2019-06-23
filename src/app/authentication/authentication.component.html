@@ -99,19 +99,44 @@
         </div>
 
         <div *ngIf="forgotPass==0" class="form-group">
-          <a style="cursor: pointer;" (click)="toForgotPass()"><strong><i class="fas fa-key"></i> Forgot your password?</strong></a>
+          <a class="recovery" style="cursor: pointer;" (click)="toForgotPass()"><strong><i class="fas fa-key"></i> Forgot your password?</strong></a>
         </div>
 
         <div *ngIf="forgotPass==1" class="form-group">
-          <a style="cursor: pointer;" (click)="backToLogin()"><strong><i class="fas fa-arrow-circle-left"></i> Back to Login</strong></a>
+          <a class="recovery" style="cursor: pointer;" (click)="backToLogin()"><strong><i class="fas fa-arrow-circle-left"></i> Back to Login</strong></a>
         </div>
 
         <div *ngIf="forgotPass==0" class="col text-center">
             <button type="submit" class="btn btn-lg btn-info">Login</button>
+            <button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#deleteModal">Open Modal</button>
         </div>
       </form>
       <div *ngIf="forgotPass==1" class="col text-center">
         <button type="submit" (click)="recoverAccount()" class="btn btn-lg btn-info">Recover account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="mapModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header delete-modal text-center">
+        <h4 class="modal-title" id="mapModalTitle"><strong>Banned account!</strong></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="text-muted" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+          <span class="delete-message text-center">
+              <i class="fas fa-exclamation-triangle"></i><br>
+              <strong> You are banned until <br> <i>{{ global.currentUser.ban.endDate }}</i></strong><br>
+              <strong> More details are in an email that we have already sent to you!</strong>
+          </span>
+          
+      </div>
+      <div class="modal-footer delete-modal">
+          <button type="button" class="btn btn-primary ml-auto" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

@@ -51,7 +51,6 @@ export class MenuComponent implements OnInit {
 
     });
 
-
   }
 
   logout() {

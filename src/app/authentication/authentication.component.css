@@ -115,11 +115,11 @@ label{
 
 input[type=checkbox]
 {
-  /* Double-sized Checkboxes */
-  -ms-transform: scale(2); /* IE */
-  -moz-transform: scale(2); /* FF */
-  -webkit-transform: scale(2); /* Safari and Chrome */
-  -o-transform: scale(2); /* Opera */
+  
+  -ms-transform: scale(2); 
+  -moz-transform: scale(2); 
+  -webkit-transform: scale(2);
+  -o-transform: scale(2); 
   transform: scale(1.5);
   margin-top: 1.5%;
 }
@@ -129,5 +129,21 @@ a{
 }
 
 a:hover{
+    color: white;
+}
+
+.recovery:hover{
+    color: white !important;
+}
+
+.delete-message i{
+    font-size: 300%;
+}
+
+.delete-modal{
+    background-color: #dc3545 !important;
+}
+
+.modal-title{
     color: white;
 }

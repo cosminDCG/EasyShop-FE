@@ -30,10 +30,14 @@
         <li *ngIf = 'activateSearch' class="nav-item align-search">
             
             <span class="input-group-append">
-                <input (change)="searchItem()" [(ngModel)]="searchCriteria" type="text" class="form-control py-2 easy-search" placeholder="Search">
+                <input (change)="searchItem()" [(ngModel)]="searchCriteria" type="text" class="form-control py-2 easy-search" list="items" placeholder="Search">
                 <button (click)="searchItem()" class="btn btn-secondary easy-search-button" type="button">
                     <fa name="search"></fa>
                 </button>
+
+                <datalist id="items">
+                    <option *ngFor="let item of global.items" [value]="item.name"><img src="..\..\assets\dashboard\{{item.photo}}">{{item.description}}</option>
+                </datalist>
             </span>
         </li>
        

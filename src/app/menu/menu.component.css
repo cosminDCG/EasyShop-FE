@@ -71,3 +71,7 @@ background-color: #c67605;
   cursor: pointer;
 }
 
+input[list]{
+  max-height: 100px !important;
+}
+

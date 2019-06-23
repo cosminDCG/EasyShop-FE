@@ -96,9 +96,11 @@ export class UserPageComponent implements OnInit {
     formData.append('file', event.srcElement.files[0]);
     this.profileService.uploadProfilePicture(formData,this.user.id).subscribe((res:any)=>{
       
+      this.global.currentUser.photo = this.uploadLabel;
     }, (err) =>{
       console.log('Error');
     });
+    this.user.photo = this.uploadLabel;
   }
 
   enableEditMode() {

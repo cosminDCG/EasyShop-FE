@@ -47,6 +47,8 @@ export class AuthenticationComponent implements OnInit {
   public recoveryEmail: string;
   public forgotPass = 0;
 
+  public click = 0;
+
   constructor(private authService:AuthenticationService, 
               private global:GlobalService, 
               private router: Router) { }
@@ -66,6 +68,7 @@ export class AuthenticationComponent implements OnInit {
     this.signUpStyle = "col-md-6 sign-up";
     this.loginStyle = "col-md-6 login-clicked";
     this.signedIn = true;
+    this.forgotPass = 0;
   }
 
   agreeWithTerms(){
@@ -226,9 +229,20 @@ export class AuthenticationComponent implements OnInit {
       }
 
       this.authService.login(user).subscribe((res:any)=>{
+        if(this.click !== 0){
+          this.click = 0;
+          return;
+        }
+          
         this.global.currentUser = res;
         this.hideWarningLogError = true;
-        this.router.navigate(['/items/categories']);
+        if(this.global.currentUser.ban.id !== 0){
+          document.getElementById("openModalButton").click();
+          this.click ++;
+          return;
+        }else{
+          this.router.navigate(['/items/categories']);
+        }
       }, (err) => {
         this.hideWarningLogError = false;
       });
